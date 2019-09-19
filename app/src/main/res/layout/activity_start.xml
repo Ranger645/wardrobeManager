@@ -6,13 +6,173 @@
     android:layout_height="match_parent"
     tools:context=".StartActivity">
 
+
+    <Button
+        android:id="@+id/shuffleShirtButton"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:text="@string/shuffle_shorts"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/shirtImage"
+        app:layout_constraintTop_toTopOf="@+id/shirtImage"
+        tools:layout_editor_absoluteY="90dp" />
+
     <TextView
+        android:id="@+id/appTile"
+        android:layout_width="350dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="center_horizontal"
+        android:text="@string/wardrobe_manager"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/shuffleShirtButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/shuffleShortsButton"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:text="@string/shuffle_shorts"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/shortsImage"
+        app:layout_constraintTop_toTopOf="@+id/shortsImage"
+        tools:layout_editor_absoluteY="225dp" />
+
+    <Button
+        android:id="@+id/shuffleShoesButton"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:text="@string/shuffle_shoes"
+        android:textColor="#000000"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/shoesImage"
+        app:layout_constraintTop_toTopOf="@+id/shoesImage" />
+
+    <ImageView
+        android:id="@+id/shirtImage"
+        android:layout_width="270dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="#FF0000"
+        android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toTopOf="@+id/shortsImage"
+        app:layout_constraintEnd_toStartOf="@+id/shuffleShirtButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appTile" />
+
+    <ImageView
+        android:id="@+id/shortsImage"
+        android:layout_width="270dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="#0022FF"
+        android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toTopOf="@+id/shoesImage"
+        app:layout_constraintEnd_toStartOf="@+id/shuffleShortsButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shirtImage" />
+
+    <ImageView
+        android:id="@+id/shoesImage"
+        android:layout_width="270dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="#FFFB27"
+        android:contentDescription="@string/todo"
+        app:layout_constraintBottom_toTopOf="@+id/button5"
+        app:layout_constraintEnd_toStartOf="@+id/shuffleShoesButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shortsImage" />
+
+    <Button
+        android:id="@+id/closetButton"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/closet"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/laundryButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button5" />
+
+    <Button
+        android:id="@+id/laundryButton"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/laundry"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/expandWardrobeButton"
+        app:layout_constraintStart_toEndOf="@+id/closetButton" />
+
+    <Button
+        android:id="@+id/expandWardrobeButton"
+        android:layout_width="100dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/expand_wardrobe"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/wardrobeSettingsButton"
+        app:layout_constraintStart_toEndOf="@+id/laundryButton" />
+
+    <Button
+        android:id="@+id/wardrobeSettingsButton"
+        android:layout_width="90dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/wardrobe_settings"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/expandWardrobeButton" />
+
+    <Button
+        android:id="@+id/button5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="92dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="40dp"
+        android:text="@string/generate_outfit"
+        app:layout_constraintBottom_toTopOf="@+id/closetButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/shoesImage" />
+
 
 </android.support.constraint.ConstraintLayout>
