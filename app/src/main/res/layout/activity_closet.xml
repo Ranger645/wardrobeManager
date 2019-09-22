@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ClosetActivity">
+
+    <Button
+        android:id="@+id/closetBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/back"
+        app:layout_constraintEnd_toStartOf="@+id/closetTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/closetTitle"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/closet"
+        android:textAlignment="center"
+        android:textSize="40sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/closetBackButton"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/closetShoesHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/shoes"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/closetShortsHeader"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/closetBackButton" />
+
+    <TextView
+        android:id="@+id/closetShortsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/shorts"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/closetShirtsHeader"
+        app:layout_constraintStart_toStartOf="@+id/closetShoesHeader"
+        app:layout_constraintTop_toBottomOf="@+id/closetShoesHeader" />
+
+    <TextView
+        android:id="@+id/closetShirtsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="@string/shirts"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toTopOf="@+id/closetPantsHeader"
+        app:layout_constraintStart_toStartOf="@+id/closetShortsHeader"
+        app:layout_constraintTop_toBottomOf="@+id/closetShortsHeader" />
+
+    <TextView
+        android:id="@+id/closetPantsHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/pants"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/closetShirtsHeader"
+        app:layout_constraintTop_toBottomOf="@+id/closetShirtsHeader" />
+</android.support.constraint.ConstraintLayout>

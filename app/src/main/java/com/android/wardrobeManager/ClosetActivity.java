@@ -6,27 +6,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class StartActivity extends AppCompatActivity {
+public class ClosetActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_start);
+        setContentView(R.layout.activity_closet);
 
-        configureClosetButton();
+        configureBackButton();
 
     }
 
-    private void configureClosetButton() {
-        Button closetButton = (Button) findViewById(R.id.closetButton);
+    private void configureBackButton() {
+        Button closetButton = (Button) findViewById(R.id.closetBackButton);
 
         closetButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(StartActivity.this, ClosetActivity.class));
+                startActivity(new Intent(ClosetActivity.this, StartActivity.class));
             }
         });
     }
-
 
 }

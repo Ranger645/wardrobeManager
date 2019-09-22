@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Wardrobe Manager</string>
+    <string name="wardrobe_manager">Wardrobe Manager</string>
+    <string name="back">Back</string>
+    <string name="shoes">Shoes</string>
+    <string name="shorts">Shorts</string>
+    <string name="shirts">Shirts</string>
+    <string name="pants">Pants</string>
+    <string name="generate_outfit">Generate Outfit</string>
+    <string name="laundry">Laundry</string>
+    <string name="expand_wardrobe">Expand wardrobe</string>
+    <string name="shuffle">Shuffle</string>
+    <string name="outfit_settings">Outfit Settings</string>
+    <string name="closet">Closet</string>
+    <string name="todo">TODO</string>
 </resources>
