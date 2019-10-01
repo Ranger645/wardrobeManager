@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
+    android:background="#F0F0F0"
     tools:context=".StartActivity">
 
     <TextView
@@ -26,6 +26,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
+        android:onClick="goToCloset"
         android:text="@string/closet"
         android:textSize="35px"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -53,6 +54,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginEnd="5dp"
         android:layout_marginBottom="10dp"
+        android:onClick="goToExpandCloset"
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
         android:text="@string/expand_wardrobe"
@@ -143,6 +145,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:text="@string/shuffle"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView2"
         app:layout_constraintTop_toTopOf="@+id/imageView2" />
@@ -154,6 +157,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:text="@string/shuffle"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView3"
         app:layout_constraintTop_toTopOf="@+id/imageView3" />
@@ -165,6 +169,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:text="@string/shuffle"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageView4"
         app:layout_constraintTop_toTopOf="@+id/imageView4" />

@@ -20,6 +20,10 @@ public class ClosetActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_closet);
+        findViewById(R.id.shirtScrollView).setVisibility(View.GONE);
+        findViewById(R.id.shoesScrollView).setVisibility(View.GONE);
+        findViewById(R.id.shortsScrollView).setVisibility(View.GONE);
+
 
     }
 
@@ -41,6 +45,10 @@ public class ClosetActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    public void goToExpandCloset(View view) {
+        startActivity(new Intent(ClosetActivity.this, ExpandClosetActivity.class));
     }
 
     public void toggleShoesVisibility(View view) {
