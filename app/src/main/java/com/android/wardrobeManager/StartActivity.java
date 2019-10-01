@@ -13,21 +13,15 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        configureClosetButton();
 
     }
 
-    private void configureClosetButton() {
-        Button closetButton = (Button) findViewById(R.id.closetButton);
-
-        closetButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(StartActivity.this, ClosetActivity.class));
-            }
-        });
+    public void goToCloset(View view) {
+        startActivity(new Intent(StartActivity.this, ClosetActivity.class));
     }
 
-    //Comment
+    public void goToExpandCloset(View view) {
+        startActivity(new Intent(StartActivity.this, ExpandClosetActivity.class));
+    }
 
 }
