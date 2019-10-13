@@ -94,6 +94,19 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
+                    <Button
+                        android:id="@+id/addShirtButton"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="50dp"
+                        android:layout_weight="1"
+                        android:onClick="goToExpandCloset"
+                        android:text="+"
+                        android:textSize="20sp" />
+
                     <ImageView
                         android:id="@+id/shirt1"
                         android:layout_width="150dp"
@@ -197,6 +210,19 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
+                    <Button
+                        android:id="@+id/addShoesButton"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="50dp"
+                        android:layout_weight="1"
+                        android:onClick="goToExpandCloset"
+                        android:text="+"
+                        android:textSize="20sp" />
+
                     <ImageView
                         android:id="@+id/shoes1"
                         android:layout_width="150dp"
@@ -292,6 +318,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/addShortsButton"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="50dp"
+                        android:layout_weight="1"
+                        android:onClick="goToExpandCloset"
+                        android:text="+"
+                        android:textSize="20sp" />
 
                     <ImageView
                         android:id="@+id/shorts1"
