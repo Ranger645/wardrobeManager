@@ -45,7 +45,7 @@
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
         android:text="@string/laundry"
-        android:textSize="19sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/expandWardrobeButton"
         app:layout_constraintStart_toEndOf="@+id/closetButton"
@@ -64,7 +64,7 @@
         android:paddingRight="0dp"
         android:paddingBottom="0dp"
         android:text="@string/expand_wardrobe"
-        android:textSize="16sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/outfitSettingsButton"
         app:layout_constraintStart_toEndOf="@+id/laundryButton"
@@ -81,7 +81,7 @@
         android:paddingEnd="0dp"
         android:text="@string/outfit_settings"
         android:textAlignment="center"
-        android:textSize="17sp"
+        android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/expandWardrobeButton"
@@ -141,8 +141,8 @@
         android:text="@string/generate_outfit"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/closetButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
     <Button

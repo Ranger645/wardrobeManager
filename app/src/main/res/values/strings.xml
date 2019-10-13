@@ -22,4 +22,14 @@
     <string name="closet_toggle_off">v</string>
     <string name="closet_toggle_on">></string>
     <string name="plus_sign">+</string>
+    <string-array name="clothing_types">
+        <item name="Shirt">Shirt</item>
+        <item name="Shoes">Shoes</item>
+        <item name="Shorts">Shorts</item>
+    </string-array>
+    <string-array name="color_picker_types">
+        <item name="RGB">RGB</item>
+        <item name="HSB">HSB</item>
+        <item name="HEX">HEX</item>
+    </string-array>
 </resources>
