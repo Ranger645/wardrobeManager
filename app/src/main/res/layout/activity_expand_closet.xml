@@ -62,7 +62,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginEnd="10dp"
-        android:text="@string/add_to_ncloset"
+        android:text="@string/add_to_closet"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintEnd_toEndOf="parent"
