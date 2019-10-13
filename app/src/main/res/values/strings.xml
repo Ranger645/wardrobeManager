@@ -13,11 +13,13 @@
     <string name="outfit_settings">Outfit\nSettings</string>
     <string name="closet">Closet</string>
     <string name="todo">TODO</string>
-    <string name="v">v</string>
     <string name="additional_matches">+additional_matches</string>
     <string name="expand_closet">Expand Closet</string>
     <string name="set_clothing">Set Clothing</string>
     <string name="add_to_ncloset">Add To Closet</string>
     <string name="closet_match_combinations">Closet Match Combinations</string>
     <string name="_10_more">10 more</string>
+    <string name="closet_toggle_off">v</string>
+    <string name="closet_toggle_on">></string>
+    <string name="plus_sign">+</string>
 </resources>

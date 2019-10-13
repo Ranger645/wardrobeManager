@@ -9,10 +9,12 @@ import android.widget.TextView;
 public class ClosetActivity extends AppCompatActivity {
 
 
-    boolean shirtsScrollVisible = false;
-    boolean shoesScrollVisible = false;
-    boolean shortsScrollVisible = false;
+    boolean shirtScrollVisible = false;
+    boolean shoeScrollVisible = false;
+    boolean shortScrollVisible = false;
 
+    String buttonToggleOn;
+    String buttonToggleOff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,8 @@ public class ClosetActivity extends AppCompatActivity {
         findViewById(R.id.shoesScrollView).setVisibility(View.GONE);
         findViewById(R.id.shortsScrollView).setVisibility(View.GONE);
 
+        buttonToggleOn = getResources().getString(R.string.closet_toggle_on);
+        buttonToggleOff = getResources().getString(R.string.closet_toggle_off);
 
     }
 
@@ -31,15 +35,15 @@ public class ClosetActivity extends AppCompatActivity {
 
     public void toggleShirtVisibility(View view) {
 
-        if (shirtsScrollVisible) {
-            shirtsScrollVisible = false;
+        if (shirtScrollVisible) {
+            shirtScrollVisible = false;
             findViewById(R.id.shirtScrollView).setVisibility(View.GONE);
-            ((TextView)findViewById(R.id.shirtsToggleView)).setText(">");
+            ((TextView)findViewById(R.id.shirtsToggleView)).setText(buttonToggleOff);
         }
         else {
-            shirtsScrollVisible = true;
+            shirtScrollVisible = true;
             findViewById(R.id.shirtScrollView).setVisibility(View.VISIBLE);
-            ((TextView)findViewById(R.id.shirtsToggleView)).setText("v");
+            ((TextView)findViewById(R.id.shirtsToggleView)).setText(buttonToggleOn);
         }
 
 
@@ -51,15 +55,15 @@ public class ClosetActivity extends AppCompatActivity {
 
     public void toggleShoesVisibility(View view) {
 
-        if (shoesScrollVisible) {
-            shoesScrollVisible = false;
+        if (shoeScrollVisible) {
+            shoeScrollVisible = false;
             findViewById(R.id.shoesScrollView).setVisibility(View.GONE);
-            ((TextView)findViewById(R.id.shoesToggleView)).setText(">");
+            ((TextView)findViewById(R.id.shoesToggleView)).setText(buttonToggleOff);
         }
         else {
-            shoesScrollVisible = true;
+            shoeScrollVisible = true;
             findViewById(R.id.shoesScrollView).setVisibility(View.VISIBLE);
-            ((TextView)findViewById(R.id.shoesToggleView)).setText("v");
+            ((TextView)findViewById(R.id.shoesToggleView)).setText(buttonToggleOn);
         }
 
 
@@ -67,15 +71,15 @@ public class ClosetActivity extends AppCompatActivity {
 
     public void toggleShortsVisibility(View view) {
 
-        if (shortsScrollVisible) {
-            shortsScrollVisible = false;
+        if (shortScrollVisible) {
+            shortScrollVisible = false;
             findViewById(R.id.shortsScrollView).setVisibility(View.GONE);
-            ((TextView)findViewById(R.id.shortsToggleView)).setText(">");
+            ((TextView)findViewById(R.id.shortsToggleView)).setText(buttonToggleOff);
         }
         else {
-            shortsScrollVisible = true;
+            shortScrollVisible = true;
             findViewById(R.id.shortsScrollView).setVisibility(View.VISIBLE);
-            ((TextView)findViewById(R.id.shortsToggleView)).setText("v");
+            ((TextView)findViewById(R.id.shortsToggleView)).setText(buttonToggleOn);
         }
 
 

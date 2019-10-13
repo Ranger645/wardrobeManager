@@ -11,12 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="60dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:onClick="goToPreviousActivity"
         android:text="@string/back"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView"
@@ -28,7 +28,7 @@
         android:text="@string/expand_closet"
         android:textSize="40sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
@@ -36,14 +36,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:onClick="goToNewClothingItemActivity"
         android:text="@string/set_clothing"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -74,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginEnd="10dp"
         android:text="@string/closet_match_combinations"
         android:textSize="20sp"
@@ -83,13 +83,12 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
         android:layout_width="0dp"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
@@ -109,15 +108,15 @@
                     android:id="@+id/shirt1"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/shirt"
-                    android:contentDescription="@string/todo" />
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/shirt" />
 
                 <ImageView
                     android:id="@+id/shorts1"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/shorts"
-                    android:contentDescription="@string/todo" />
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/shorts" />
 
             </LinearLayout>
 
@@ -132,15 +131,15 @@
                     android:id="@+id/shirt2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/shirt"
-                    android:contentDescription="@string/todo" />
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/shirt" />
 
                 <ImageView
                     android:id="@+id/shorts2"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/shorts"
-                    android:contentDescription="@string/todo" />
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/shorts" />
             </LinearLayout>
 
             <LinearLayout
@@ -154,15 +153,15 @@
                     android:id="@+id/shirt3"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/shirt"
-                    android:contentDescription="@string/todo" />
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/shirt" />
 
                 <ImageView
                     android:id="@+id/shorts3"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/shorts"
-                    android:contentDescription="@string/todo" />
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/shorts" />
             </LinearLayout>
 
             <LinearLayout
@@ -176,21 +175,25 @@
                     android:id="@+id/shirt4"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/shirt"
-                    android:contentDescription="@string/todo" />
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/shirt" />
 
                 <ImageView
                     android:id="@+id/shorts4"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    app:srcCompat="@drawable/shorts"
-                    android:contentDescription="@string/todo" />
+                    android:contentDescription="@string/todo"
+                    app:srcCompat="@drawable/shorts" />
             </LinearLayout>
 
             <TextView
                 android:id="@string/additional_matches"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="40dp"
                 android:layout_weight="1"
                 android:text="@string/_10_more" />
 
