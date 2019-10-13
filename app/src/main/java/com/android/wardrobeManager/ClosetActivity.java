@@ -13,15 +13,16 @@ public class ClosetActivity extends AppCompatActivity {
     boolean shoeScrollVisible = false;
     boolean shortScrollVisible = false;
 
-    String buttonToggleOn = getResources().getString(R.string.closet_toggle_on);
-    String buttonToggleOff = getResources().getString(R.string.closet_toggle_off);
-
-
+    String buttonToggleOn;
+    String buttonToggleOff;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_closet);
+
+        buttonToggleOn = getResources().getString(R.string.closet_toggle_on);
+        buttonToggleOff = getResources().getString(R.string.closet_toggle_off);
 
         findViewById(R.id.shirtScrollView).setVisibility(View.GONE);
         findViewById(R.id.shoesScrollView).setVisibility(View.GONE);

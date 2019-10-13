@@ -362,7 +362,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="10dp"
                 android:onClick="toggleShirtVisibility"
-                android:text="@string/v"
+                android:text="@string/closet_toggle_off"
                 app:layout_constraintBottom_toBottomOf="@+id/shirtsHeader"
                 app:layout_constraintStart_toEndOf="@+id/shirtsHeader"
                 app:layout_constraintTop_toBottomOf="@+id/closetTitle" />
@@ -374,7 +374,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:onClick="toggleShoesVisibility"
-                android:text="@string/v"
+                android:text="@string/closet_toggle_off"
                 app:layout_constraintBottom_toBottomOf="@+id/shoesHeader"
                 app:layout_constraintStart_toEndOf="@+id/shoesHeader"
                 app:layout_constraintTop_toBottomOf="@+id/shirtScrollView" />
@@ -386,7 +386,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="5dp"
                 android:onClick="toggleShortsVisibility"
-                android:text="@string/v"
+                android:text="@string/closet_toggle_off"
                 app:layout_constraintBottom_toBottomOf="@+id/shortsHeader"
                 app:layout_constraintStart_toEndOf="@+id/shortsHeader"
                 app:layout_constraintTop_toBottomOf="@+id/shoesScrollView" />
