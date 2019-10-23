@@ -64,7 +64,7 @@
             <TextView
                 android:id="@+id/shirtsHeader"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
@@ -181,7 +181,7 @@
             <TextView
                 android:id="@+id/shoesHeader"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
@@ -292,7 +292,7 @@
             <TextView
                 android:id="@+id/shortsHeader"
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
@@ -400,11 +400,12 @@
                 android:layout_width="40dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
                 android:onClick="toggleShirtVisibility"
-                android:text="@string/closet_clothing_type_hide"
+                android:text="@string/closet_clothing_type_show"
                 app:layout_constraintBottom_toBottomOf="@+id/shirtsHeader"
                 app:layout_constraintStart_toEndOf="@+id/shirtsHeader"
-                app:layout_constraintTop_toTopOf="@+id/shirtsHeader" />
+                app:layout_constraintTop_toBottomOf="@+id/closetTitle" />
 
             <Button
                 android:id="@+id/shoesToggleView"
@@ -412,7 +413,7 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="5dp"
                 android:onClick="toggleShoesVisibility"
-                android:text="@string/closet_clothing_type_hide"
+                android:text="@string/closet_clothing_type_show"
                 app:layout_constraintBottom_toBottomOf="@+id/shoesHeader"
                 app:layout_constraintStart_toEndOf="@+id/shoesHeader"
                 app:layout_constraintTop_toTopOf="@+id/shoesHeader" />
@@ -422,11 +423,12 @@
                 android:layout_width="40dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
                 android:onClick="toggleShortsVisibility"
-                android:text="@string/closet_clothing_type_hide"
+                android:text="@string/closet_clothing_type_show"
                 app:layout_constraintBottom_toBottomOf="@+id/shortsHeader"
                 app:layout_constraintStart_toEndOf="@+id/shortsHeader"
-                app:layout_constraintTop_toTopOf="@+id/shortsHeader" />
+                app:layout_constraintTop_toBottomOf="@+id/shoesScrollView" />
 
 
         </android.support.constraint.ConstraintLayout>
