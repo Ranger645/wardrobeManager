@@ -20,13 +20,12 @@ public class ClosetActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_closet);
-
-        closetClothingTypeShow = getResources().getString(R.string.closet_clothing_type_show);
-        closetClothingTypeHide = getResources().getString(R.string.closet_clothing_type_hide);
-
         findViewById(R.id.shirtScrollView).setVisibility(View.GONE);
         findViewById(R.id.shoesScrollView).setVisibility(View.GONE);
         findViewById(R.id.shortsScrollView).setVisibility(View.GONE);
+
+        closetClothingTypeShow = getResources().getString(R.string.closet_clothing_type_show);
+        closetClothingTypeHide = getResources().getString(R.string.closet_clothing_type_hide);
 
     }
 
@@ -63,7 +62,6 @@ public class ClosetActivity extends AppCompatActivity {
             findViewById(R.id.shoesScrollView).setVisibility(View.VISIBLE);
             ((TextView)findViewById(R.id.shoesToggleView)).setText(closetClothingTypeHide);
         }
-
 
 
     }
