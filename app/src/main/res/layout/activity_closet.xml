@@ -412,7 +412,6 @@
                 android:layout_width="40dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
                 android:onClick="toggleShoesVisibility"
                 android:text="@string/closet_clothing_type_show"
                 app:layout_constraintBottom_toBottomOf="@+id/shoesHeader"
