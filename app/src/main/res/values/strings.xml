@@ -13,4 +13,6 @@
     <string name="outfit_settings">Outfit\nSettings</string>
     <string name="closet">Closet</string>
     <string name="todo">TODO</string>
+    <string name="closet_clothing_type_hide">></string>
+    <string name="closet_clothing_type_show">v</string>
 </resources>
