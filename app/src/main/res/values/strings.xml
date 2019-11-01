@@ -19,6 +19,12 @@
     <string name="add_to_closet">Add To Closet</string>
     <string name="closet_match_combinations">Closet Match Combinations</string>
     <string name="_10_more">10 more</string>
-    <string name="closet_clothing_type_hide">></string>
-    <string name="closet_clothing_type_show">v</string>
+    <string name="plus_sign">+</string>
+    <string name="closet_clothing_type_show">></string>
+    <string name="closet_clothing_type_hide">v</string>
+    <string-array name="clothing_types">
+        <item>Shirt</item>
+        <item>Shoes</item>
+        <item>Shorts</item>
+    </string-array>
 </resources>
