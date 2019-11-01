@@ -25,6 +25,7 @@
             android:layout_marginBottom="10dp"
             android:onClick="backToMainScreen"
             android:text="@string/back"
+            android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -93,6 +94,19 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/addShirtButton"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="50dp"
+                        android:layout_weight="1"
+                        android:onClick="goToExpandCloset"
+                        android:text="@string/plus_sign"
+                        android:textSize="20sp" />
 
                     <ImageView
                         android:id="@+id/shirt1"
@@ -197,6 +211,19 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
+                    <Button
+                        android:id="@+id/addShoesButton"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="50dp"
+                        android:layout_weight="1"
+                        android:onClick="goToExpandCloset"
+                        android:text="@string/plus_sign"
+                        android:textSize="20sp" />
+
                     <ImageView
                         android:id="@+id/shoes1"
                         android:layout_width="150dp"
@@ -293,6 +320,19 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
 
+                    <Button
+                        android:id="@+id/addShortsButton"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginBottom="50dp"
+                        android:layout_weight="1"
+                        android:onClick="goToExpandCloset"
+                        android:text="@string/plus_sign"
+                        android:textSize="20sp" />
+
                     <ImageView
                         android:id="@+id/shorts1"
                         android:layout_width="150dp"
@@ -372,12 +412,11 @@
                 android:layout_width="40dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
                 android:onClick="toggleShoesVisibility"
                 android:text="@string/closet_clothing_type_show"
                 app:layout_constraintBottom_toBottomOf="@+id/shoesHeader"
                 app:layout_constraintStart_toEndOf="@+id/shoesHeader"
-                app:layout_constraintTop_toBottomOf="@+id/shirtScrollView" />
+                app:layout_constraintTop_toTopOf="@+id/shoesHeader" />
 
             <Button
                 android:id="@+id/shortsToggleView"
@@ -395,6 +434,4 @@
         </android.support.constraint.ConstraintLayout>
 
     </ScrollView>
-
-
 </android.support.constraint.ConstraintLayout>
