@@ -6,244 +6,254 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/newClothingItemBackButton"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
-        android:onClick="goToPreviousActivity"
-        android:text="@android:string/cancel"
-        android:textSize="20sp"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:background="#C9C9C9"
-        android:orientation="horizontal"
-        android:weightSum="5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/colorPreview">
+        app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/redColorButton"
-            android:layout_width="75dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/red"
-            android:onClick="updateColor"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:text="Red" />
+            android:id="@+id/setClothingItemButton"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:text="Set clothing item"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
-            android:id="@+id/orangeColorButton"
-            android:layout_width="75dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/orange"
-            android:onClick="updateColor"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:text="Orange" />
+            android:id="@+id/newClothingItemBackButton"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:onClick="goToPreviousActivity"
+            android:text="@android:string/cancel"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </android.support.constraint.ConstraintLayout>
 
-        <Button
-            android:id="@+id/yellowColorButton"
-            android:layout_width="75dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/yellow"
-            android:onClick="updateColor"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:text="Yellow" />
-
-        <Button
-            android:id="@+id/greenColorButton"
-            android:layout_width="75dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/green"
-            android:onClick="updateColor"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:text="Green" />
-
-        <Button
-            android:id="@+id/blueColorButton"
-            android:layout_width="75dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/blue"
-            android:onClick="updateColor"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:text="Blue" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearLayout4"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:background="#C9C9C9"
-        android:orientation="horizontal"
-        android:weightSum="5"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
-
-        <Button
-            android:id="@+id/purpleColorButton"
-            android:layout_width="75dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/purple"
-            android:onClick="updateColor"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:text="Purple" />
-
-        <Button
-            android:id="@+id/pinkColorButton"
-            android:layout_width="75dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/pink"
-            android:onClick="updateColor"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:text="Pink" />
-
-        <Button
-            android:id="@+id/brownColorButton"
-            android:layout_width="75dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/brown"
-            android:onClick="updateColor"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:text="Brown" />
-
-        <Button
-            android:id="@+id/whiteColorButton"
-            android:layout_width="75dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/white"
-            android:onClick="updateColor"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:text="White" />
-
-        <Button
-            android:id="@+id/blackColorButton"
-            android:layout_width="75dp"
-            android:layout_height="40dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/black"
-            android:onClick="updateColor"
-            android:paddingStart="0dp"
-            android:paddingEnd="0dp"
-            android:text="Black"
-            android:textColor="#FFFFFF" />
-
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/newClothingItemTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:text="New Clothing Item"
-        android:textSize="40sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/clothingTypeHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:text="Clothing Type"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/newClothingItemTitle" />
-
-    <Spinner
-        android:id="@+id/clothingTypeSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:entries="@array/clothing_types"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clothingTypeHeader" />
-
-    <TextView
-        android:id="@+id/clothingColorHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:text="Clothing Color"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clothingTypeSpinner" />
-
-    <Button
-        android:id="@+id/colorPreview"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:backgroundTint="@color/red"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clothingColorHeader" />
-
-    <Button
-        android:id="@+id/setClothingItemButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:text="Set clothing item"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
-
-    <ImageView
-        android:id="@+id/newClothingItemImagePreview"
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="#00FF0000"
-        app:layout_constraintBottom_toTopOf="@+id/newClothingItemBackButton"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setClothingItemButton"
-        app:srcCompat="@drawable/gray_shirt" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+            android:id="@+id/newClothingItemTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:text="New Clothing Item"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/clothingTypeHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:text="Clothing Type"
+            android:textSize="20sp" />
+
+            <Spinner
+                android:id="@+id/clothingTypeSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:entries="@array/clothing_types" />
+
+            <TextView
+                android:id="@+id/clothingColorHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="Clothing Color"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/colorPreview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:backgroundTint="@color/red" />
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="#C9C9C9"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <Button
+                    android:id="@+id/redColorButton"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/red"
+                    android:onClick="colorSelected"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="Red" />
+
+                <Button
+                    android:id="@+id/orangeColorButton"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/orange"
+                    android:onClick="colorSelected"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="Orange" />
+
+                <Button
+                    android:id="@+id/yellowColorButton"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/yellow"
+                    android:onClick="colorSelected"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="Yellow" />
+
+                <Button
+                    android:id="@+id/greenColorButton"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/green"
+                    android:onClick="colorSelected"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="Green" />
+
+                <Button
+                    android:id="@+id/blueColorButton"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/blue"
+                    android:onClick="colorSelected"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="Blue" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="#C9C9C9"
+                android:orientation="horizontal"
+                android:weightSum="5">
+
+                <Button
+                    android:id="@+id/purpleColorButton"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/purple"
+                    android:onClick="colorSelected"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="Purple" />
+
+                <Button
+                    android:id="@+id/pinkColorButton"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/pink"
+                    android:onClick="colorSelected"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="Pink" />
+
+                <Button
+                    android:id="@+id/brownColorButton"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/brown"
+                    android:onClick="colorSelected"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="Brown" />
+
+                <Button
+                    android:id="@+id/whiteColorButton"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/white"
+                    android:onClick="colorSelected"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="White" />
+
+                <Button
+                    android:id="@+id/blackColorButton"
+                    android:layout_width="75dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/black"
+                    android:onClick="colorSelected"
+                    android:paddingStart="0dp"
+                    android:paddingEnd="0dp"
+                    android:text="Black"
+                    android:textColor="#FFFFFF" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/imagePreview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="20dp"
+                android:text="Image Preview"
+                android:textSize="20sp" />
+
+            <ImageView
+                android:id="@+id/newClothingItemImagePreview"
+                android:layout_width="300dp"
+                android:layout_height="300dp"
+                android:layout_gravity="center"
+                android:background="#00FF0000"
+                app:srcCompat="@drawable/gray_shirt" />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
 
 </android.support.constraint.ConstraintLayout>

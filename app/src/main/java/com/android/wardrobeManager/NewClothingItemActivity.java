@@ -5,33 +5,84 @@ import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.Spinner;
 
 public class NewClothingItemActivity extends AppCompatActivity {
 
-    ClothingItem newClothingItem = null;
+    Spinner itemTypeSpinner = null;
+    int color;
+    ColorStateList colorStateList = null;
+    String clothingType = "";
+    ImageView imagePreview = null;
+    View colorPreview = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_clothing_item);
 
-        int defaultColor = getResources().getColor(R.color.red);
+        color = getResources().getColor(R.color.red);
 
-        newClothingItem = new ClothingItem(defaultColor, "shirt");
-        ((ImageView)findViewById(R.id.newClothingItemImagePreview)).setColorFilter(defaultColor, PorterDuff.Mode.OVERLAY);
+        imagePreview = findViewById(R.id.newClothingItemImagePreview);
+        imagePreview.setColorFilter(color, PorterDuff.Mode.OVERLAY);
+
+        int[][] states = new int[][] {
+                new int[] { android.R.attr.state_enabled}, // enabled
+                new int[] {-android.R.attr.state_enabled}, // disabled
+                new int[] {-android.R.attr.state_checked}, // unchecked
+                new int[] { android.R.attr.state_pressed}  // pressed
+        };
+
+        int[] colors = new int[] {color, color, color, color};
+
+        colorStateList = new ColorStateList(states, colors);
+
+        colorPreview = findViewById(R.id.colorPreview);
+        colorPreview.setBackgroundTintList(colorStateList);
+
+        itemTypeSpinner = findViewById(R.id.clothingTypeSpinner);
+        itemTypeSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String selectedSpinnerText = itemTypeSpinner.getSelectedItem().toString();
+                itemSelected(selectedSpinnerText);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
+        });
 
     }
 
-    public void updateColor(View view) {
+    public void colorSelected(View view) {
+        colorStateList = findViewById(view.getId()).getBackgroundTintList();
+        color = colorStateList.getDefaultColor();
+        updateColor();
+    }
 
-        ColorStateList updateColor = findViewById(view.getId()).getBackgroundTintList();
-        findViewById(R.id.colorPreview).setBackgroundTintList(updateColor);
+    public void itemSelected(String clothingType) {
+        this.clothingType = clothingType;
 
-        int color = updateColor.getDefaultColor();
-        ((ImageView)findViewById(R.id.newClothingItemImagePreview)).setColorFilter(color, PorterDuff.Mode.OVERLAY);
+        switch (clothingType) {
+            case "Shirt":
+                imagePreview.setImageResource(R.drawable.gray_shirt);
+                break;
+            case "Shoes":
+                imagePreview.setImageResource(R.drawable.gray_shoes);
+                break;
+            case "Shorts":
+                imagePreview.setImageResource(R.drawable.gray_shorts);
+                break;
+        }
+        updateColor();
+    }
 
+    public void updateColor() {
 
+        colorPreview.setBackgroundTintList(colorStateList);
+        imagePreview.setColorFilter(color, PorterDuff.Mode.OVERLAY);
 
     }
 
@@ -39,4 +90,6 @@ public class NewClothingItemActivity extends AppCompatActivity {
         finish();
     }
 
+
 }
+
