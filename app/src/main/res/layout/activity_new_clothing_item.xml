@@ -36,7 +36,8 @@
             android:layout_width="75dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:backgroundTint="#FF3C00"
+            android:backgroundTint="@color/red"
+            android:onClick="updateColor"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:text="Red" />
@@ -46,7 +47,8 @@
             android:layout_width="75dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:backgroundTint="#FFA500"
+            android:backgroundTint="@color/orange"
+            android:onClick="updateColor"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:text="Orange" />
@@ -56,7 +58,8 @@
             android:layout_width="75dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:backgroundTint="#FFFF00"
+            android:backgroundTint="@color/yellow"
+            android:onClick="updateColor"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:text="Yellow" />
@@ -66,7 +69,8 @@
             android:layout_width="75dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:backgroundTint="#A5FF00"
+            android:backgroundTint="@color/green"
+            android:onClick="updateColor"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:text="Green" />
@@ -76,7 +80,8 @@
             android:layout_width="75dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:backgroundTint="#00A5FF"
+            android:backgroundTint="@color/blue"
+            android:onClick="updateColor"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:text="Blue" />
@@ -101,7 +106,8 @@
             android:layout_width="75dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:backgroundTint="#C800FF"
+            android:backgroundTint="@color/purple"
+            android:onClick="updateColor"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:text="Purple" />
@@ -111,7 +117,8 @@
             android:layout_width="75dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:backgroundTint="#FF96F1"
+            android:backgroundTint="@color/pink"
+            android:onClick="updateColor"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:text="Pink" />
@@ -121,7 +128,8 @@
             android:layout_width="75dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:backgroundTint="#785000"
+            android:backgroundTint="@color/brown"
+            android:onClick="updateColor"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:text="Brown" />
@@ -131,7 +139,8 @@
             android:layout_width="75dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:backgroundTint="#FFFFFF"
+            android:backgroundTint="@color/white"
+            android:onClick="updateColor"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:text="White" />
@@ -141,7 +150,8 @@
             android:layout_width="75dp"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:backgroundTint="#000000"
+            android:backgroundTint="@color/black"
+            android:onClick="updateColor"
             android:paddingStart="0dp"
             android:paddingEnd="0dp"
             android:text="Black"
@@ -203,13 +213,13 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:backgroundTint="#FF0000"
+        android:backgroundTint="@color/red"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/clothingColorHeader" />
 
     <Button
-        android:id="@+id/button11"
+        android:id="@+id/setClothingItemButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
@@ -220,5 +230,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4" />
+
+    <ImageView
+        android:id="@+id/newClothingItemImagePreview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="#00FF0000"
+        app:layout_constraintBottom_toTopOf="@+id/newClothingItemBackButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setClothingItemButton"
+        app:srcCompat="@drawable/gray_shirt" />
 
 </android.support.constraint.ConstraintLayout>
