@@ -1,30 +1,33 @@
 package com.android.wardrobeManager;
 
-public class ClothingItem {
+public abstract class ClothingItem {
 
-    int color;
-    String clothingType;
+    private int color;
+    private static int idCount = 0;
+    private int ClothingItemId;
 
-    public ClothingItem(int color, String clothingType) {
+    public ClothingItem(int color) {
         this.color = color;
-        this.clothingType = clothingType;
+        this.ClothingItemId = idCount;
+        idCount++;
     }
 
-    public void SetColor(int color) {
+    public void setColor(int color) {
         this.color = color;
     }
 
-    public void SetClothingType(String clothingType) {
-        this.clothingType = clothingType;
-    }
-
-    public int GetColor() {
+    public int getColor() {
         return color;
     }
 
-    public String GetClothingType() {
-        return clothingType;
+    public static int getIdCount() {
+        return idCount;
     }
 
+    public int getId() {
+        return ClothingItemId;
+    }
+
+    public abstract Class getClothingType();
 
 }

@@ -15,6 +15,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_weight="1"
+        android:onClick="shuffleShoes"
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
         android:text="@string/shuffle"
@@ -32,6 +33,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_weight="1"
+        android:onClick="shuffleShorts"
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
         android:text="@string/shuffle"
@@ -48,6 +50,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_weight="1"
+        android:onClick="shuffleShirt"
         android:paddingStart="0dp"
         android:paddingEnd="0dp"
         android:text="@string/shuffle"
@@ -72,71 +75,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/title">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/shirtImage"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="5">
+            android:contentDescription="@string/todo"
+            android:textAlignment="center"
+            app:srcCompat="@drawable/gray_shirt" />
 
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="4"
-                android:contentDescription="@string/todo"
-                android:textAlignment="center"
-                app:srcCompat="@drawable/shirt" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/shortsImage"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="5">
+            android:contentDescription="@string/todo"
+            android:textAlignment="center"
+            app:srcCompat="@drawable/gray_shorts" />
 
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="4"
-                android:contentDescription="@string/todo"
-                android:textAlignment="center"
-                app:srcCompat="@drawable/shorts" />
-
-        </LinearLayout>
-
-        <LinearLayout
+        <ImageView
+            android:id="@+id/shoesImage"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_weight="1"
-            android:orientation="horizontal"
-            android:weightSum="5">
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_weight="4"
-                android:contentDescription="@string/todo"
-                android:textAlignment="center"
-                app:srcCompat="@drawable/shoes" />
-
-        </LinearLayout>
+            android:contentDescription="@string/todo"
+            android:textAlignment="center"
+            app:srcCompat="@drawable/gray_shoes" />
 
     </LinearLayout>
 
