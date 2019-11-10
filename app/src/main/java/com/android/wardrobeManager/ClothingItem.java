@@ -1,15 +1,23 @@
 package com.android.wardrobeManager;
 
-public abstract class ClothingItem {
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    private int color;
+public abstract class ClothingItem implements Parcelable {
+
+    protected int color;
     private static int idCount = 0;
-    private int ClothingItemId;
+    protected int clothingItemId;
 
     public ClothingItem(int color) {
         this.color = color;
-        this.ClothingItemId = idCount;
+        this.clothingItemId = idCount;
         idCount++;
+    }
+
+    public ClothingItem(Parcel source) {
+        color = source.readInt();
+        clothingItemId = source.readInt();
     }
 
     public void setColor(int color) {
@@ -25,9 +33,11 @@ public abstract class ClothingItem {
     }
 
     public int getId() {
-        return ClothingItemId;
+        return clothingItemId;
     }
 
     public abstract Class getClothingType();
+
+
 
 }

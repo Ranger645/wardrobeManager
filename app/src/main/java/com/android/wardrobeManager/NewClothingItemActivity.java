@@ -1,6 +1,7 @@
 package com.android.wardrobeManager;
 
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,14 +10,21 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
+import com.android.wardrobeManager.clothing_classes.Shirt;
+import com.android.wardrobeManager.clothing_classes.Shoes;
+import com.android.wardrobeManager.clothing_classes.Shorts;
+
+import java.util.ArrayList;
+
 public class NewClothingItemActivity extends AppCompatActivity {
 
-    Spinner itemTypeSpinner = null;
-    int color;
-    ColorStateList colorStateList = null;
-    String clothingType = "";
-    ImageView imagePreview = null;
-    View colorPreview = null;
+    private Spinner itemTypeSpinner = null;
+    private int color;
+    private ColorStateList colorStateList = null;
+    private String clothingType = "";
+    private ImageView imagePreview = null;
+    private View colorPreview = null;
+    private ArrayList<ClothingItem> closetClothes = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +62,8 @@ public class NewClothingItemActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
+        closetClothes = getIntent().getParcelableExtra("closetClothes");
+
     }
 
     public void colorSelected(View view) {
@@ -90,6 +100,22 @@ public class NewClothingItemActivity extends AppCompatActivity {
         finish();
     }
 
+    public void setClothingItem(View view) {
+
+        switch (clothingType) {
+            case "Shirt":
+                closetClothes.add(new Shirt(color));
+                break;
+            case "Shoes":
+                closetClothes.add(new Shoes(color));
+                break;
+            case "Shorts":
+                closetClothes.add(new Shorts(color));
+                break;
+        }
+
+        goToPreviousActivity(view);
+    }
 
 }
 

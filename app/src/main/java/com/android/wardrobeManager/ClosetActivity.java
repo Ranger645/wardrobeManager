@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.android.wardrobeManager.clothing_classes.Shirt;
+
+import java.util.ArrayList;
+
 public class ClosetActivity extends AppCompatActivity {
 
 
@@ -23,6 +27,8 @@ public class ClosetActivity extends AppCompatActivity {
     private TextView shirtToggle = null;
     private TextView shoeToggle = null;
     private TextView shortToggle = null;
+
+    private ArrayList<ClothingItem> closetClothes = new ArrayList<ClothingItem>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +50,20 @@ public class ClosetActivity extends AppCompatActivity {
         closetClothingTypeShow = getResources().getString(R.string.closet_clothing_type_show);
         closetClothingTypeHide = getResources().getString(R.string.closet_clothing_type_hide);
 
+        if (getIntent().getParcelableArrayListExtra("closetClothes") != null) {
+            closetClothes = getIntent().getParcelableArrayListExtra("closetClothes");
+        }
+
+
+        closetClothes.add(new Shirt(getResources().getColor(R.color.orange)));
 
 
     }
 
     public void backToMainScreen(View view) {
-        startActivity(new Intent(ClosetActivity.this, StartActivity.class));
+        Intent intent = new Intent(ClosetActivity.this, StartActivity.class);
+        intent.putExtra("closetClothes", closetClothes);
+        startActivity(intent);
     }
 
     public void toggleShirtVisibility(View view) {
@@ -65,7 +79,10 @@ public class ClosetActivity extends AppCompatActivity {
     }
 
     public void goToExpandCloset(View view) {
-        startActivity(new Intent(ClosetActivity.this, ExpandClosetActivity.class));
+
+        Intent intent = new Intent(ClosetActivity.this, ExpandClosetActivity.class);
+        intent.putExtra("closetClothes", closetClothes);
+        startActivity(intent);
     }
 
     public void toggleShoesVisibility(View view) {

@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class StartActivity extends AppCompatActivity {
 
-    ArrayList<ClothingItem> closetClothes;
+    public ArrayList<ClothingItem> closetClothes;
     Shirt displayShirt;
     Shorts displayShorts;
     Shoes displayShoes;
@@ -29,27 +29,38 @@ public class StartActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        closetClothes = new ArrayList<>();
         initializingClosetClothes();
-        displayShirt = randomClosetShirt();
-        displayShorts = randomClosetShorts();
-        displayShoes = randomClosetShoes();
+
+        if (getIntent().getParcelableArrayListExtra("closetClothes") != null) {
+            closetClothes = getIntent().getParcelableArrayListExtra("closetClothes");
+        }
+
+        displayShirt = (Shirt) randomClosetItem(Shirt.class);
+        displayShorts = (Shorts) randomClosetItem(Shorts.class);
+        displayShoes = (Shoes) randomClosetItem(Shoes.class);
 
         shirtImage = findViewById(R.id.shirtImage);
         shortsImage = findViewById(R.id.shortsImage);
         shoesImage = findViewById(R.id.shoesImage);
-
+        updateColors();
     }
 
     public void goToCloset(View view) {
-        startActivity(new Intent(StartActivity.this, ClosetActivity.class));
+
+        Intent intent = new Intent(StartActivity.this, ClosetActivity.class);
+        intent.putExtra("closetClothes", closetClothes);
+        startActivity(intent);
     }
 
     public void goToExpandCloset(View view) {
-        startActivity(new Intent(StartActivity.this, ExpandClosetActivity.class));
+        Intent intent = new Intent(StartActivity.this, ExpandClosetActivity.class);
+        intent.putExtra("closetClothes", closetClothes);
+        startActivity(intent);
     }
 
     private void initializingClosetClothes() {
+
+        closetClothes = new ArrayList<>();
         closetClothes.add(new Shirt(getResources().getColor(R.color.red)));
         closetClothes.add(new Shirt(getResources().getColor(R.color.green)));
         closetClothes.add(new Shoes(getResources().getColor(R.color.black)));
@@ -64,74 +75,57 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void shuffleShirt(View view) {
-        displayShirt = randomClosetShirt();
+        displayShirt = (Shirt) randomClosetItem(Shirt.class);
         updateColors();
-    }
-
-    public Shirt randomClosetShirt() {
-        ArrayList<Shirt> shirts = new ArrayList<Shirt>();
-
-        for (int i = 0; i < closetClothes.size(); i++) {
-            if (closetClothes.get(i) instanceof Shirt) {
-                shirts.add((Shirt) closetClothes.get(i));
-            }
-        }
-
-        if (shirts.size() > 0) {
-            return shirts.get((int) (Math.random() * shirts.size()));
-        }
-
-        return null;
     }
 
     public void shuffleShorts(View view) {
-        displayShorts = randomClosetShorts();
+        displayShorts = (Shorts) randomClosetItem(Shorts.class);
         updateColors();
-    }
-
-    public Shorts randomClosetShorts() {
-        ArrayList<Shorts> shorts = new ArrayList<Shorts>();
-
-        for (int i = 0; i < closetClothes.size(); i++) {
-            if (closetClothes.get(i) instanceof Shorts) {
-                shorts.add((Shorts) closetClothes.get(i));
-            }
-        }
-
-        if (shorts.size() > 0) {
-            return shorts.get((int) (Math.random() * shorts.size()));
-        }
-
-        return null;
     }
 
     public void shuffleShoes(View view) {
-        displayShoes = randomClosetShoes();
+        displayShoes = (Shoes) randomClosetItem(Shoes.class);
         updateColors();
     }
 
-    public Shoes randomClosetShoes() {
-        ArrayList<Shoes> shoes = new ArrayList<Shoes>();
+    public void shuffleOutfit(View view) {
+        displayShirt = (Shirt) randomClosetItem(Shirt.class);
+        displayShorts = (Shorts) randomClosetItem(Shorts.class);
+        displayShoes = (Shoes) randomClosetItem(Shoes.class);
+        updateColors();
+    }
+
+    public ClothingItem randomClosetItem(Class clothingType) {
+        ArrayList<ClothingItem> items = new ArrayList<>();
 
         for (int i = 0; i < closetClothes.size(); i++) {
-            if (closetClothes.get(i) instanceof Shoes) {
-                shoes.add((Shoes) closetClothes.get(i));
+            if (closetClothes.get(i).getClass().equals(clothingType)) {
+                items.add(closetClothes.get(i));
             }
         }
 
-        if (shoes.size() > 0) {
-            return shoes.get((int) (Math.random() * shoes.size()));
+        if (items.size() > 0) {
+            return items.get((int) (Math.random() * items.size()));
         }
 
         return null;
-    }
 
+    }
 
     public void updateColors() {
 
-        shirtImage.setColorFilter(displayShirt.getColor(), PorterDuff.Mode.OVERLAY);
-        shortsImage.setColorFilter(displayShorts.getColor(), PorterDuff.Mode.OVERLAY);
-        shoesImage.setColorFilter(displayShoes.getColor(), PorterDuff.Mode.OVERLAY);
+        if (displayShirt != null) {
+            shirtImage.setColorFilter(displayShirt.getColor(), PorterDuff.Mode.OVERLAY);
+        }
+        if (displayShorts != null) {
+            shortsImage.setColorFilter(displayShorts.getColor(), PorterDuff.Mode.OVERLAY);
+        }
+        if (displayShoes != null) {
+            shoesImage.setColorFilter(displayShoes.getColor(), PorterDuff.Mode.OVERLAY);
+        }
+
+
 
     }
 
