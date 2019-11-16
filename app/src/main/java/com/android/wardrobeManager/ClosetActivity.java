@@ -1,6 +1,7 @@
 package com.android.wardrobeManager;
 
 import android.content.Intent;
+import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -82,6 +83,7 @@ public class ClosetActivity extends AppCompatActivity {
 
         Intent intent = new Intent(ClosetActivity.this, ExpandClosetActivity.class);
         intent.putExtra("closetClothes", closetClothes);
+        intent.putExtra("previousActivity", "ClosetActivity");
         startActivity(intent);
     }
 
