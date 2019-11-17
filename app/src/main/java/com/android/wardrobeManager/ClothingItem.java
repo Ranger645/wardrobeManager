@@ -38,6 +38,8 @@ public abstract class ClothingItem implements Parcelable {
 
     public abstract Class getClothingType();
 
+    public abstract String clothingTypeToString();
+
 
 
 }

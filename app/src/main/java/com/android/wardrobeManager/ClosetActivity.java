@@ -56,9 +56,6 @@ public class ClosetActivity extends AppCompatActivity {
         }
 
 
-        closetClothes.add(new Shirt(getResources().getColor(R.color.orange)));
-
-
     }
 
     public void backToMainScreen(View view) {

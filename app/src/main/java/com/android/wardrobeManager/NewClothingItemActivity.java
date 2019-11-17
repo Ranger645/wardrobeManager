@@ -1,7 +1,7 @@
 package com.android.wardrobeManager;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,13 +25,24 @@ public class NewClothingItemActivity extends AppCompatActivity {
     private ImageView imagePreview = null;
     private View colorPreview = null;
     private ArrayList<ClothingItem> closetClothes = null;
+    private ClothingItem newClothingItem = null;
+    private String previousActivity = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_clothing_item);
 
-        color = getResources().getColor(R.color.red);
+        closetClothes = getIntent().getParcelableArrayListExtra("closetClothes");
+        previousActivity = getIntent().getStringExtra("previousActivity");
+        if (getIntent().getParcelableExtra("newClothingItem") != null) {
+            newClothingItem = getIntent().getParcelableExtra("newClothingItem");
+            color = newClothingItem.getColor();
+        }
+        else {
+            color = getResources().getColor(R.color.red);
+            clothingType = "Shirt";
+        }
 
         imagePreview = findViewById(R.id.newClothingItemImagePreview);
         imagePreview.setColorFilter(color, PorterDuff.Mode.OVERLAY);
@@ -62,7 +73,16 @@ public class NewClothingItemActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {}
         });
 
-        closetClothes = getIntent().getParcelableExtra("closetClothes");
+        if (getIntent().getParcelableExtra("newClothingItem") != null) {
+            clothingType = ((ClothingItem)getIntent().getParcelableExtra("newClothingItem")).clothingTypeToString();
+            changeSpinnerSelection();
+        }
+        else {
+            clothingType = "Shirt";
+        }
+
+        updateImagePreviewClothingType();
+        updateColor();
 
     }
 
@@ -75,6 +95,12 @@ public class NewClothingItemActivity extends AppCompatActivity {
     public void itemSelected(String clothingType) {
         this.clothingType = clothingType;
 
+        updateImagePreviewClothingType();
+        updateColor();
+    }
+
+    private void updateImagePreviewClothingType() {
+
         switch (clothingType) {
             case "Shirt":
                 imagePreview.setImageResource(R.drawable.gray_shirt);
@@ -86,7 +112,20 @@ public class NewClothingItemActivity extends AppCompatActivity {
                 imagePreview.setImageResource(R.drawable.gray_shorts);
                 break;
         }
-        updateColor();
+    }
+
+    public void changeSpinnerSelection() {
+        switch (clothingType) {
+            case "Shirt":
+                itemTypeSpinner.setSelection(0);
+                break;
+            case "Shoes":
+                itemTypeSpinner.setSelection(1);
+                break;
+            case "Shorts":
+                itemTypeSpinner.setSelection(2);
+                break;
+        }
     }
 
     public void updateColor() {
@@ -97,20 +136,24 @@ public class NewClothingItemActivity extends AppCompatActivity {
     }
 
     public void goToPreviousActivity(View view) {
-        finish();
+        Intent intent = new Intent(NewClothingItemActivity.this, ExpandClosetActivity.class);
+        intent.putExtra("closetClothes", closetClothes);
+        intent.putExtra("newClothingItem", newClothingItem);
+        intent.putExtra("previousActivity", previousActivity);
+        startActivity(intent);
     }
 
     public void setClothingItem(View view) {
 
         switch (clothingType) {
             case "Shirt":
-                closetClothes.add(new Shirt(color));
+                newClothingItem = new Shirt(color);
                 break;
             case "Shoes":
-                closetClothes.add(new Shoes(color));
+                newClothingItem = new Shoes(color);
                 break;
             case "Shorts":
-                closetClothes.add(new Shorts(color));
+                newClothingItem = new Shorts(color);
                 break;
         }
 

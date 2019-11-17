@@ -23,7 +23,12 @@ public class Shirt extends ClothingItem {
 
     @Override
     public Class getClothingType() {
-        return null;
+        return this.getClass();
+    }
+
+    @Override
+    public String clothingTypeToString() {
+        return "Shirt";
     }
 
     public Shirt(Parcel source){
