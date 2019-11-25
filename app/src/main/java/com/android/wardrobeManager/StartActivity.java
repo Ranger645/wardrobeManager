@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class StartActivity extends AppCompatActivity {
 
-    public ArrayList<ClothingItem> closetClothes;
+    private ArrayList<ClothingItem> closetClothes;
     Shirt displayShirt;
     Shorts displayShorts;
     Shoes displayShoes;
@@ -24,15 +24,16 @@ public class StartActivity extends AppCompatActivity {
     ImageView shortsImage;
     ImageView shoesImage;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        initializingClosetClothes();
-
         if (getIntent().getParcelableArrayListExtra("closetClothes") != null) {
             closetClothes = getIntent().getParcelableArrayListExtra("closetClothes");
+        } else {
+            initializingClosetClothes();
         }
 
         displayShirt = (Shirt) randomClosetItem(Shirt.class);
@@ -42,8 +43,11 @@ public class StartActivity extends AppCompatActivity {
         shirtImage = findViewById(R.id.shirtImage);
         shortsImage = findViewById(R.id.shortsImage);
         shoesImage = findViewById(R.id.shoesImage);
-        updateColors();
+
+        shuffleOutfit(new View(this));
     }
+
+
 
     public void goToCloset(View view) {
 
@@ -125,9 +129,6 @@ public class StartActivity extends AppCompatActivity {
         if (displayShoes != null) {
             shoesImage.setColorFilter(displayShoes.getColor(), PorterDuff.Mode.OVERLAY);
         }
-
-
-
     }
 
 }

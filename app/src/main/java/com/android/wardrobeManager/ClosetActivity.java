@@ -1,18 +1,14 @@
 package com.android.wardrobeManager;
 
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import com.android.wardrobeManager.clothing_classes.Shirt;
-
 import java.util.ArrayList;
 
 public class ClosetActivity extends AppCompatActivity {
-
 
     private boolean shirtScrollVisible = false;
     private boolean shoeScrollVisible = false;
@@ -29,7 +25,7 @@ public class ClosetActivity extends AppCompatActivity {
     private TextView shoeToggle = null;
     private TextView shortToggle = null;
 
-    private ArrayList<ClothingItem> closetClothes = new ArrayList<ClothingItem>();
+    private ArrayList<ClothingItem> closetClothes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +49,9 @@ public class ClosetActivity extends AppCompatActivity {
 
         if (getIntent().getParcelableArrayListExtra("closetClothes") != null) {
             closetClothes = getIntent().getParcelableArrayListExtra("closetClothes");
+        } else {
+            closetClothes = new ArrayList<ClothingItem>();
         }
-
 
     }
 
@@ -90,12 +87,10 @@ public class ClosetActivity extends AppCompatActivity {
         if (!shoeScrollVisible) {
             shoeScroll.setVisibility(View.GONE);
             shoeToggle.setText(closetClothingTypeShow);
-        }
-        else {
+        } else {
             shoeScroll.setVisibility(View.VISIBLE);
             shoeToggle.setText(closetClothingTypeHide);
         }
-
 
     }
 
@@ -105,12 +100,10 @@ public class ClosetActivity extends AppCompatActivity {
         if (!shortScrollVisible) {
             shortScroll.setVisibility(View.GONE);
             shortToggle.setText(closetClothingTypeShow);
-        }
-        else {
+        } else {
             shortScroll.setVisibility(View.VISIBLE);
             shortToggle.setText(closetClothingTypeHide);
         }
-
 
     }
 

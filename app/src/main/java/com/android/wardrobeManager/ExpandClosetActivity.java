@@ -17,12 +17,17 @@ public class ExpandClosetActivity extends AppCompatActivity {
     private String previousActivity = null;
     private ImageView newClothingItemImage = null;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expand_closet);
-        closetClothes = getIntent().getParcelableArrayListExtra("closetClothes");
+
+        if (getIntent().getParcelableArrayListExtra("closetClothes") != null) {
+            closetClothes = getIntent().getParcelableArrayListExtra("closetClothes");
+        } else {
+            closetClothes = new ArrayList<ClothingItem>();
+        }
+
         previousActivity = getIntent().getStringExtra("previousActivity");
         newClothingItem = getIntent().getParcelableExtra("newClothingItem");
         newClothingItemImage = findViewById(R.id.newClothingItemImage);
@@ -42,35 +47,34 @@ public class ExpandClosetActivity extends AppCompatActivity {
                     newClothingItemImage.setImageResource(R.drawable.gray_shorts);
                     break;
             }
-            updateColor();
+
+            // This takes the color from the newClothingItem object and uses it to change the gray
+            // pixels in the image of the shirt to be that color when using the OVERLAY format
+            newClothingItemImage.setColorFilter(newClothingItem.getColor(), PorterDuff.Mode.OVERLAY);
+
         }
 
     }
 
-    public void updateColor() {
-
-        newClothingItemImage.setColorFilter(newClothingItem.getColor(), PorterDuff.Mode.OVERLAY);
-
-    }
-
-    public void addItemToCloset(View view) {
-        if (newClothingItem != null) {
-            closetClothes.add(newClothingItem);
-
-            ((TextView)view).setText("Add duplicate\nto closet");
-        }
-    }
+//    public void addItemToCloset(View view) {
+//        if (newClothingItem != null) {
+//            closetClothes.add(newClothingItem);
+//
+//            ((TextView)view).setText("Add duplicate\nto closet");
+//        }
+//    }
 
 
     public void goToPreviousActivity(View view) {
+
         Class previousActivityClass;
 
         switch (previousActivity) {
-            case "ClosetActivity":
-                previousActivityClass = ClosetActivity.class;
-                break;
             case "StartActivity":
                 previousActivityClass = StartActivity.class;
+                break;
+            case "ClosetActivity":
+                previousActivityClass = ClosetActivity.class;
                 break;
             default:
                 previousActivityClass = StartActivity.class;
@@ -79,7 +83,6 @@ public class ExpandClosetActivity extends AppCompatActivity {
 
         Intent intent = new Intent(ExpandClosetActivity.this, previousActivityClass);
         intent.putExtra("closetClothes", closetClothes);
-        intent.putExtra("previousActivity", previousActivity);
         intent.putExtra("newClothingItem", newClothingItem);
         startActivity(intent);
     }

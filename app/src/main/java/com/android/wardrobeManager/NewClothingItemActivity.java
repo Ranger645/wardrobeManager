@@ -33,13 +33,17 @@ public class NewClothingItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_clothing_item);
 
-        closetClothes = getIntent().getParcelableArrayListExtra("closetClothes");
+        if (getIntent().getParcelableArrayListExtra("closetClothes") != null) {
+            closetClothes = getIntent().getParcelableArrayListExtra("closetClothes");
+        } else {
+            closetClothes = new ArrayList<ClothingItem>();
+        }
+
         previousActivity = getIntent().getStringExtra("previousActivity");
         if (getIntent().getParcelableExtra("newClothingItem") != null) {
             newClothingItem = getIntent().getParcelableExtra("newClothingItem");
             color = newClothingItem.getColor();
-        }
-        else {
+        } else {
             color = getResources().getColor(R.color.red);
             clothingType = "Shirt";
         }
@@ -76,8 +80,7 @@ public class NewClothingItemActivity extends AppCompatActivity {
         if (getIntent().getParcelableExtra("newClothingItem") != null) {
             clothingType = ((ClothingItem)getIntent().getParcelableExtra("newClothingItem")).clothingTypeToString();
             changeSpinnerSelection();
-        }
-        else {
+        } else {
             clothingType = "Shirt";
         }
 
@@ -100,36 +103,25 @@ public class NewClothingItemActivity extends AppCompatActivity {
     }
 
     private void updateImagePreviewClothingType() {
-
-        switch (clothingType) {
-            case "Shirt":
-                imagePreview.setImageResource(R.drawable.gray_shirt);
-                break;
-            case "Shoes":
-                imagePreview.setImageResource(R.drawable.gray_shoes);
-                break;
-            case "Shorts":
-                imagePreview.setImageResource(R.drawable.gray_shorts);
-                break;
-        }
+        String imageName = "gray_" + clothingType.toLowerCase();
+        imagePreview.setImageResource(getResources().getIdentifier(imageName, "drawable", this.getPackageName()));
     }
 
     public void changeSpinnerSelection() {
-        switch (clothingType) {
-            case "Shirt":
-                itemTypeSpinner.setSelection(0);
+
+        String[] spinnerItems = getResources().getStringArray(R.array.clothing_types);
+        int index = 0;
+        for (int i = 0; i < spinnerItems.length; i++) {
+            if (spinnerItems[i].equals(clothingType)) {
+                index = i;
                 break;
-            case "Shoes":
-                itemTypeSpinner.setSelection(1);
-                break;
-            case "Shorts":
-                itemTypeSpinner.setSelection(2);
-                break;
+            }
         }
+        itemTypeSpinner.setSelection(index);
+
     }
 
     public void updateColor() {
-
         colorPreview.setBackgroundTintList(colorStateList);
         imagePreview.setColorFilter(color, PorterDuff.Mode.OVERLAY);
 
