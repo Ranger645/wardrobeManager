@@ -6,24 +6,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-
 import com.android.wardrobeManager.clothing_classes.Shirt;
 import com.android.wardrobeManager.clothing_classes.Shoes;
 import com.android.wardrobeManager.clothing_classes.Shorts;
-
 import java.util.ArrayList;
 
 public class StartActivity extends AppCompatActivity {
 
     private ArrayList<ClothingItem> closetClothes;
-    Shirt displayShirt;
-    Shorts displayShorts;
-    Shoes displayShoes;
+    private Shirt displayShirt;
+    private Shorts displayShorts;
+    private Shoes displayShoes;
 
-    ImageView shirtImage;
-    ImageView shortsImage;
-    ImageView shoesImage;
-
+    private ImageView shirtImage;
+    private ImageView shortsImage;
+    private ImageView shoesImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +43,6 @@ public class StartActivity extends AppCompatActivity {
 
         shuffleOutfit(new View(this));
     }
-
-
 
     public void goToCloset(View view) {
 

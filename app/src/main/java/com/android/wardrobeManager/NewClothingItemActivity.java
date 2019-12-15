@@ -9,11 +9,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.Spinner;
-
 import com.android.wardrobeManager.clothing_classes.Shirt;
 import com.android.wardrobeManager.clothing_classes.Shoes;
 import com.android.wardrobeManager.clothing_classes.Shorts;
-
 import java.util.ArrayList;
 
 public class NewClothingItemActivity extends AppCompatActivity {
@@ -97,7 +95,6 @@ public class NewClothingItemActivity extends AppCompatActivity {
 
     public void itemSelected(String clothingType) {
         this.clothingType = clothingType;
-
         updateImagePreviewClothingType();
         updateColor();
     }
@@ -124,7 +121,6 @@ public class NewClothingItemActivity extends AppCompatActivity {
     public void updateColor() {
         colorPreview.setBackgroundTintList(colorStateList);
         imagePreview.setColorFilter(color, PorterDuff.Mode.OVERLAY);
-
     }
 
     public void goToPreviousActivity(View view) {
@@ -148,8 +144,8 @@ public class NewClothingItemActivity extends AppCompatActivity {
                 newClothingItem = new Shorts(color);
                 break;
         }
-
         goToPreviousActivity(view);
+
     }
 
 }

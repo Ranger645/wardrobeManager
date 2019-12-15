@@ -1,4 +1,5 @@
 package com.android.wardrobeManager;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -6,7 +7,6 @@ public abstract class ClothingItem implements Parcelable {
 
     protected int color;
     protected int clothingItemId;
-
     private static int idCount = 0;
 
     public ClothingItem(int color) {

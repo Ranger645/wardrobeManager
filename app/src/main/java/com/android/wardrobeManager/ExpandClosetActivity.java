@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
-
 import java.util.ArrayList;
 
 public class ExpandClosetActivity extends AppCompatActivity {
@@ -53,17 +51,16 @@ public class ExpandClosetActivity extends AppCompatActivity {
             newClothingItemImage.setColorFilter(newClothingItem.getColor(), PorterDuff.Mode.OVERLAY);
 
         }
-
     }
 
-//    public void addItemToCloset(View view) {
-//        if (newClothingItem != null) {
-//            closetClothes.add(newClothingItem);
-//
-//            ((TextView)view).setText("Add duplicate\nto closet");
-//        }
-//    }
-
+    public void addItemToCloset(View view) {
+        if (newClothingItem != null) {
+            closetClothes.add(newClothingItem);
+            newClothingItem = null;
+            newClothingItemImage.setImageResource(R.drawable.no_clothing_item_selected);
+            newClothingItemImage.setColorFilter(getResources().getColor(R.color.gray), PorterDuff.Mode.OVERLAY);
+        }
+    }
 
     public void goToPreviousActivity(View view) {
 

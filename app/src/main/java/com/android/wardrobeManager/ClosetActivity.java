@@ -71,10 +71,10 @@ public class ClosetActivity extends AppCompatActivity {
             shirtScroll.setVisibility(View.VISIBLE);
             shirtToggle.setText(closetClothingTypeHide);
         }
+
     }
 
     public void goToExpandCloset(View view) {
-
         Intent intent = new Intent(ClosetActivity.this, ExpandClosetActivity.class);
         intent.putExtra("closetClothes", closetClothes);
         intent.putExtra("previousActivity", "ClosetActivity");
