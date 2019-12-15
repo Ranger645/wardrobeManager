@@ -33,18 +33,8 @@ public class ExpandClosetActivity extends AppCompatActivity {
         if (newClothingItem != null) {
 
             String clothingType = newClothingItem.clothingTypeToString();
-
-            switch (clothingType) {
-                case "Shirt":
-                    newClothingItemImage.setImageResource(R.drawable.gray_shirt);
-                    break;
-                case "Shoes":
-                    newClothingItemImage.setImageResource(R.drawable.gray_shoes);
-                    break;
-                case "Shorts":
-                    newClothingItemImage.setImageResource(R.drawable.gray_shorts);
-                    break;
-            }
+            String imageName = "gray_" + clothingType.toLowerCase();
+            newClothingItemImage.setImageResource(getResources().getIdentifier(imageName, "drawable", this.getPackageName()));
 
             // This takes the color from the newClothingItem object and uses it to change the gray
             // pixels in the image of the shirt to be that color when using the OVERLAY format

@@ -5,9 +5,11 @@ import android.os.Parcel;
 import com.android.wardrobeManager.ClothingItem;
 
 public class Shorts extends ClothingItem {
+
     public Shorts(int color) {
         super(color);
     }
+    public Shorts() {super();}
 
     public static final Creator<Shorts> CREATOR = new Creator<Shorts>() {
         @Override
@@ -17,7 +19,11 @@ public class Shorts extends ClothingItem {
 
         @Override
         public Shorts[] newArray(int size) {
-            return new Shorts[size];
+            Shorts[] arr = new Shorts[size];
+            for (int i = 0; i < size; i++) {
+                arr[i] = new Shorts();
+            }
+            return arr;
         }
     };
 
@@ -36,14 +42,4 @@ public class Shorts extends ClothingItem {
 
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(color);
-        parcel.writeInt(clothingItemId);
-    }
 }

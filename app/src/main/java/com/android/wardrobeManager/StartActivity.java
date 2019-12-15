@@ -124,6 +124,7 @@ public class StartActivity extends AppCompatActivity {
         if (displayShoes != null) {
             shoesImage.setColorFilter(displayShoes.getColor(), PorterDuff.Mode.OVERLAY);
         }
+
     }
 
 }

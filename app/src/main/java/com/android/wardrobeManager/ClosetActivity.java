@@ -78,6 +78,7 @@ public class ClosetActivity extends AppCompatActivity {
         Intent intent = new Intent(ClosetActivity.this, ExpandClosetActivity.class);
         intent.putExtra("closetClothes", closetClothes);
         intent.putExtra("previousActivity", "ClosetActivity");
+        intent.putExtra("previousActivityClass", ClosetActivity.class);
         startActivity(intent);
     }
 
