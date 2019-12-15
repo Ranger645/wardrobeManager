@@ -22,6 +22,10 @@
     <string name="plus_sign">+</string>
     <string name="closet_clothing_type_show">></string>
     <string name="closet_clothing_type_hide">v</string>
+    <string name="empty_laundry">Empty Laundry</string>
+    <string name="empty_shirts_laundry">Empty Shirts Laundry</string>
+    <string name="empty_shorts_laundry">Empty Shorts Laundry</string>
+    <string name="empty_shoes_laundry">Empty Shoes Laundry</string>
     <string-array name="clothing_types">
         <item>Shirt</item>
         <item>Shoes</item>

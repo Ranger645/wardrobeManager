@@ -14,6 +14,7 @@ import java.util.ArrayList;
 public class StartActivity extends AppCompatActivity {
 
     private ArrayList<ClothingItem> closetClothes;
+    private ArrayList<ClothingItem> laundryClothes;
     private Shirt displayShirt;
     private Shorts displayShorts;
     private Shoes displayShoes;
@@ -33,6 +34,12 @@ public class StartActivity extends AppCompatActivity {
             initializingClosetClothes();
         }
 
+        if (getIntent().getParcelableArrayListExtra("laundryClothes") != null) {
+            laundryClothes = getIntent().getParcelableArrayListExtra("laundryClothes");
+        } else {
+            initializingLaundryClothes();
+        }
+
         displayShirt = (Shirt) randomClosetItem(Shirt.class);
         displayShorts = (Shorts) randomClosetItem(Shorts.class);
         displayShoes = (Shoes) randomClosetItem(Shoes.class);
@@ -45,9 +52,14 @@ public class StartActivity extends AppCompatActivity {
     }
 
     public void goToCloset(View view) {
-
         Intent intent = new Intent(StartActivity.this, ClosetActivity.class);
         intent.putExtra("closetClothes", closetClothes);
+        startActivity(intent);
+    }
+
+    public void goToLaundry(View view) {
+        Intent intent = new Intent(StartActivity.this, LaundryActivity.class);
+        intent.putExtra("laundryClothes", laundryClothes);
         startActivity(intent);
     }
 
@@ -71,6 +83,16 @@ public class StartActivity extends AppCompatActivity {
         closetClothes.add(new Shirt(getResources().getColor(R.color.blue)));
         closetClothes.add(new Shirt(getResources().getColor(R.color.blue)));
         closetClothes.add(new Shirt(getResources().getColor(R.color.brown)));
+
+    }
+
+    private void initializingLaundryClothes() {
+
+        laundryClothes = new ArrayList<>();
+        laundryClothes.add(new Shirt(getResources().getColor(R.color.white)));
+        laundryClothes.add(new Shoes(getResources().getColor(R.color.yellow)));
+        laundryClothes.add(new Shirt(getResources().getColor(R.color.pink)));
+        laundryClothes.add(new Shorts(getResources().getColor(R.color.orange)));
 
     }
 
