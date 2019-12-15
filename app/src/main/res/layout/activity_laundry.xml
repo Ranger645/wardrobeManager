@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="#F0F0F0"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ClosetActivity">
+    tools:context=".LaundryActivity">
 
 
     <android.support.constraint.ConstraintLayout
@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -47,6 +48,18 @@
             android:layout_height="wrap_content"
             android:background="#F0F0F0">
 
+            <Button
+                android:id="@+id/button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/empty_laundry"
+                android:textSize="30sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/laundryTitle" />
+
             <TextView
                 android:id="@+id/laundryTitle"
                 android:layout_width="0dp"
@@ -54,7 +67,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="@string/closet"
+                android:text="@string/laundry"
                 android:textAlignment="center"
                 android:textSize="40sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -73,8 +86,29 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/laundryTitle" />
+                app:layout_constraintTop_toBottomOf="@+id/button" />
 
+
+            <Button
+                android:id="@+id/shirtsToggleView"
+                android:layout_width="40dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="5dp"
+                android:onClick="toggleShirtVisibility"
+                android:text="@string/closet_clothing_type_show"
+                app:layout_constraintBottom_toBottomOf="@+id/shirtsHeader"
+                app:layout_constraintStart_toEndOf="@+id/shirtsHeader"
+                app:layout_constraintTop_toTopOf="@+id/shirtsHeader" />
+
+            <Button
+                android:id="@+id/emptyShirtsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/empty_shirts_laundry"
+                app:layout_constraintBottom_toBottomOf="@+id/shirtsToggleView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/shirtsToggleView" />
 
             <HorizontalScrollView
                 android:id="@+id/shirtScrollView"
@@ -94,19 +128,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/addShirtButton"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="50dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="50dp"
-                        android:layout_weight="1"
-                        android:onClick="goToExpandCloset"
-                        android:text="@string/plus_sign"
-                        android:textSize="20sp" />
 
                     <ImageView
                         android:id="@+id/shirt1"
@@ -192,6 +213,27 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/shirtScrollView" />
 
+            <Button
+                android:id="@+id/shoesToggleView"
+                android:layout_width="40dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="5dp"
+                android:onClick="toggleShoesVisibility"
+                android:text="@string/closet_clothing_type_show"
+                app:layout_constraintBottom_toBottomOf="@+id/shoesHeader"
+                app:layout_constraintStart_toEndOf="@+id/shoesHeader"
+                app:layout_constraintTop_toTopOf="@+id/shoesHeader" />
+
+            <Button
+                android:id="@+id/emptyShoesButton"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/empty_shoes_laundry"
+                app:layout_constraintBottom_toBottomOf="@+id/shoesToggleView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/shoesToggleView" />
+
             <HorizontalScrollView
                 android:id="@+id/shoesScrollView"
                 android:layout_width="0dp"
@@ -210,19 +252,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/addShoesButton"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="50dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="50dp"
-                        android:layout_weight="1"
-                        android:onClick="goToExpandCloset"
-                        android:text="@string/plus_sign"
-                        android:textSize="20sp" />
 
                     <ImageView
                         android:id="@+id/shoes1"
@@ -303,6 +332,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/shoesScrollView" />
 
+            <Button
+                android:id="@+id/shortsToggleView"
+                android:layout_width="40dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:onClick="toggleShortsVisibility"
+                android:text="@string/closet_clothing_type_show"
+                app:layout_constraintBottom_toBottomOf="@+id/shortsHeader"
+                app:layout_constraintStart_toEndOf="@+id/shortsHeader"
+                app:layout_constraintTop_toBottomOf="@+id/shoesScrollView" />
+
+            <Button
+                android:id="@+id/emptyShortsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/empty_shorts_laundry"
+                app:layout_constraintBottom_toBottomOf="@+id/shortsToggleView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/shortsToggleView" />
+
             <HorizontalScrollView
                 android:id="@+id/shortsScrollView"
                 android:layout_width="0dp"
@@ -319,19 +370,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
-
-                    <Button
-                        android:id="@+id/addShortsButton"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginTop="50dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_marginBottom="50dp"
-                        android:layout_weight="1"
-                        android:onClick="goToExpandCloset"
-                        android:text="@string/plus_sign"
-                        android:textSize="20sp" />
 
                     <ImageView
                         android:id="@+id/shorts1"
@@ -394,41 +432,6 @@
 
                 </LinearLayout>
             </HorizontalScrollView>
-
-            <Button
-                android:id="@+id/shirtsToggleView"
-                android:layout_width="40dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="10dp"
-                android:onClick="toggleShirtVisibility"
-                android:text="@string/closet_clothing_type_show"
-                app:layout_constraintBottom_toBottomOf="@+id/shirtsHeader"
-                app:layout_constraintStart_toEndOf="@+id/shirtsHeader"
-                app:layout_constraintTop_toBottomOf="@+id/laundryTitle" />
-
-            <Button
-                android:id="@+id/shoesToggleView"
-                android:layout_width="40dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="5dp"
-                android:onClick="toggleShoesVisibility"
-                android:text="@string/closet_clothing_type_show"
-                app:layout_constraintBottom_toBottomOf="@+id/shoesHeader"
-                app:layout_constraintStart_toEndOf="@+id/shoesHeader"
-                app:layout_constraintTop_toTopOf="@+id/shoesHeader" />
-
-            <Button
-                android:id="@+id/shortsToggleView"
-                android:layout_width="40dp"
-                android:layout_height="0dp"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="5dp"
-                android:onClick="toggleShortsVisibility"
-                android:text="@string/closet_clothing_type_show"
-                app:layout_constraintBottom_toBottomOf="@+id/shortsHeader"
-                app:layout_constraintStart_toEndOf="@+id/shortsHeader"
-                app:layout_constraintTop_toBottomOf="@+id/shoesScrollView" />
 
 
         </android.support.constraint.ConstraintLayout>

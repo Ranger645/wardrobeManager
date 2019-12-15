@@ -8,14 +8,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class ClosetActivity extends AppCompatActivity {
+public class LaundryActivity extends AppCompatActivity {
 
     private boolean shirtScrollVisible = false;
     private boolean shoeScrollVisible = false;
     private boolean shortScrollVisible = false;
 
-    private String closetClothingTypeShow = "";
-    private String closetClothingTypeHide = "";
+    private String laundryClothingTypeShow = "";
+    private String laundryClothingTypeHide = "";
 
     private View shirtScroll = null;
     private View shoeScroll = null;
@@ -25,13 +25,13 @@ public class ClosetActivity extends AppCompatActivity {
     private TextView shoeToggle = null;
     private TextView shortToggle = null;
 
-    private ArrayList<ClothingItem> closetClothes;
     private ArrayList<ClothingItem> laundryClothes;
+    private ArrayList<ClothingItem> closetClothes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_closet);
+        setContentView(R.layout.activity_laundry);
 
         shirtScroll = findViewById(R.id.shirtScrollView);
         shoeScroll = findViewById(R.id.shoesScrollView);
@@ -45,14 +45,8 @@ public class ClosetActivity extends AppCompatActivity {
         findViewById(R.id.shoesScrollView).setVisibility(View.GONE);
         findViewById(R.id.shortsScrollView).setVisibility(View.GONE);
 
-        closetClothingTypeShow = getResources().getString(R.string.closet_clothing_type_show);
-        closetClothingTypeHide = getResources().getString(R.string.closet_clothing_type_hide);
-
-        if (getIntent().getParcelableArrayListExtra("closetClothes") != null) {
-            closetClothes = getIntent().getParcelableArrayListExtra("closetClothes");
-        } else {
-            closetClothes = new ArrayList<ClothingItem>();
-        }
+        laundryClothingTypeShow = getResources().getString(R.string.closet_clothing_type_show);
+        laundryClothingTypeHide = getResources().getString(R.string.closet_clothing_type_hide);
 
         if (getIntent().getParcelableArrayListExtra("laundryClothes") != null) {
             laundryClothes = getIntent().getParcelableArrayListExtra("laundryClothes");
@@ -60,12 +54,18 @@ public class ClosetActivity extends AppCompatActivity {
             laundryClothes = new ArrayList<ClothingItem>();
         }
 
+        if (getIntent().getParcelableArrayListExtra("closetClothes") != null) {
+            closetClothes = getIntent().getParcelableArrayListExtra("closetClothes");
+        } else {
+            closetClothes = new ArrayList<ClothingItem>();
+        }
+
     }
 
     public void backToMainScreen(View view) {
-        Intent intent = new Intent(ClosetActivity.this, StartActivity.class);
-        intent.putExtra("closetClothes", closetClothes);
+        Intent intent = new Intent(LaundryActivity.this, StartActivity.class);
         intent.putExtra("laundryClothes", laundryClothes);
+        intent.putExtra("closetClothes", closetClothes);
         startActivity(intent);
     }
 
@@ -74,21 +74,12 @@ public class ClosetActivity extends AppCompatActivity {
         shirtScrollVisible = !shirtScrollVisible;
         if (!shirtScrollVisible) {
             shirtScroll.setVisibility(View.GONE);
-            shirtToggle.setText(closetClothingTypeShow);
+            shirtToggle.setText(laundryClothingTypeShow);
         } else {
             shirtScroll.setVisibility(View.VISIBLE);
-            shirtToggle.setText(closetClothingTypeHide);
+            shirtToggle.setText(laundryClothingTypeHide);
         }
 
-    }
-
-    public void goToExpandCloset(View view) {
-        Intent intent = new Intent(ClosetActivity.this, ExpandClosetActivity.class);
-        intent.putExtra("closetClothes", closetClothes);
-        intent.putExtra("laundryClothes", laundryClothes);
-        intent.putExtra("previousActivity", "ClosetActivity");
-        intent.putExtra("previousActivityClass", ClosetActivity.class);
-        startActivity(intent);
     }
 
     public void toggleShoesVisibility(View view) {
@@ -96,10 +87,10 @@ public class ClosetActivity extends AppCompatActivity {
         shoeScrollVisible = !shoeScrollVisible;
         if (!shoeScrollVisible) {
             shoeScroll.setVisibility(View.GONE);
-            shoeToggle.setText(closetClothingTypeShow);
+            shoeToggle.setText(laundryClothingTypeShow);
         } else {
             shoeScroll.setVisibility(View.VISIBLE);
-            shoeToggle.setText(closetClothingTypeHide);
+            shoeToggle.setText(laundryClothingTypeHide);
         }
 
     }
@@ -109,10 +100,10 @@ public class ClosetActivity extends AppCompatActivity {
         shortScrollVisible = !shortScrollVisible;
         if (!shortScrollVisible) {
             shortScroll.setVisibility(View.GONE);
-            shortToggle.setText(closetClothingTypeShow);
+            shortToggle.setText(laundryClothingTypeShow);
         } else {
             shortScroll.setVisibility(View.VISIBLE);
-            shortToggle.setText(closetClothingTypeHide);
+            shortToggle.setText(laundryClothingTypeHide);
         }
 
     }
