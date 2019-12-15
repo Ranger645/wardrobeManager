@@ -54,18 +54,21 @@ public class StartActivity extends AppCompatActivity {
     public void goToCloset(View view) {
         Intent intent = new Intent(StartActivity.this, ClosetActivity.class);
         intent.putExtra("closetClothes", closetClothes);
+        intent.putExtra("laundryClothes", laundryClothes);
         startActivity(intent);
     }
 
     public void goToLaundry(View view) {
         Intent intent = new Intent(StartActivity.this, LaundryActivity.class);
         intent.putExtra("laundryClothes", laundryClothes);
+        intent.putExtra("closetClothes", closetClothes);
         startActivity(intent);
     }
 
     public void goToExpandCloset(View view) {
         Intent intent = new Intent(StartActivity.this, ExpandClosetActivity.class);
         intent.putExtra("closetClothes", closetClothes);
+        intent.putExtra("laundryClothes", laundryClothes);
         intent.putExtra("previousActivity", "StartActivity");
         startActivity(intent);
     }

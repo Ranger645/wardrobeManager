@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class ExpandClosetActivity extends AppCompatActivity {
 
     private ArrayList<ClothingItem> closetClothes = null;
+    private ArrayList<ClothingItem> laundryClothes = null;
     private ClothingItem newClothingItem = null;
     private String previousActivity = null;
     private ImageView newClothingItemImage = null;
@@ -24,6 +25,12 @@ public class ExpandClosetActivity extends AppCompatActivity {
             closetClothes = getIntent().getParcelableArrayListExtra("closetClothes");
         } else {
             closetClothes = new ArrayList<ClothingItem>();
+        }
+
+        if (getIntent().getParcelableArrayListExtra("laundryClothes") != null) {
+            laundryClothes = getIntent().getParcelableArrayListExtra("laundryClothes");
+        } else {
+            laundryClothes = new ArrayList<ClothingItem>();
         }
 
         previousActivity = getIntent().getStringExtra("previousActivity");
@@ -70,6 +77,7 @@ public class ExpandClosetActivity extends AppCompatActivity {
 
         Intent intent = new Intent(ExpandClosetActivity.this, previousActivityClass);
         intent.putExtra("closetClothes", closetClothes);
+        intent.putExtra("laundryClothes", laundryClothes);
         intent.putExtra("newClothingItem", newClothingItem);
         startActivity(intent);
     }
@@ -77,6 +85,7 @@ public class ExpandClosetActivity extends AppCompatActivity {
     public void goToNewClothingItemActivity(View view) {
         Intent intent = new Intent(ExpandClosetActivity.this, NewClothingItemActivity.class);
         intent.putExtra("closetClothes", closetClothes);
+        intent.putExtra("laundryClothes", laundryClothes);
         intent.putExtra("previousActivity", previousActivity);
         intent.putExtra("newClothingItem", newClothingItem);
         startActivity(intent);

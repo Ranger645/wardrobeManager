@@ -26,6 +26,7 @@ public class ClosetActivity extends AppCompatActivity {
     private TextView shortToggle = null;
 
     private ArrayList<ClothingItem> closetClothes;
+    private ArrayList<ClothingItem> laundryClothes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,11 +54,18 @@ public class ClosetActivity extends AppCompatActivity {
             closetClothes = new ArrayList<ClothingItem>();
         }
 
+        if (getIntent().getParcelableArrayListExtra("laundryClothes") != null) {
+            laundryClothes = getIntent().getParcelableArrayListExtra("laundryClothes");
+        } else {
+            laundryClothes = new ArrayList<ClothingItem>();
+        }
+
     }
 
     public void backToMainScreen(View view) {
         Intent intent = new Intent(ClosetActivity.this, StartActivity.class);
         intent.putExtra("closetClothes", closetClothes);
+        intent.putExtra("laundryClothes", laundryClothes);
         startActivity(intent);
     }
 
@@ -77,6 +85,7 @@ public class ClosetActivity extends AppCompatActivity {
     public void goToExpandCloset(View view) {
         Intent intent = new Intent(ClosetActivity.this, ExpandClosetActivity.class);
         intent.putExtra("closetClothes", closetClothes);
+        intent.putExtra("laundryClothes", laundryClothes);
         intent.putExtra("previousActivity", "ClosetActivity");
         intent.putExtra("previousActivityClass", ClosetActivity.class);
         startActivity(intent);
