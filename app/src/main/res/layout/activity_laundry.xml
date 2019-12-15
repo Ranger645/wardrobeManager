@@ -125,77 +125,10 @@
 
 
                 <LinearLayout
+                    android:id="@+id/laundryShirtsList"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/shirt1"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shirt" />
-
-                    <ImageView
-                        android:id="@+id/shirt2"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shirt" />
-
-                    <ImageView
-                        android:id="@+id/shirt3"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shirt" />
-
-                    <ImageView
-                        android:id="@+id/shirt4"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shirt" />
-
-                    <ImageView
-                        android:id="@+id/shirt5"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shirt" />
-
-                    <ImageView
-                        android:id="@+id/shirt6"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shirt" />
-
-                    <ImageView
-                        android:id="@+id/shirt7"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shirt" />
-                </LinearLayout>
+                    android:orientation="horizontal" />
             </HorizontalScrollView>
 
 
@@ -249,70 +182,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/shoesHeader">
 
                 <LinearLayout
+                    android:id="@+id/laundryShoesList"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/shoes1"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shoes" />
-
-                    <ImageView
-                        android:id="@+id/shoes2"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shoes" />
-
-                    <ImageView
-                        android:id="@+id/shoes3"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shoes" />
-
-                    <ImageView
-                        android:id="@+id/shoes4"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shoes" />
-
-                    <ImageView
-                        android:id="@+id/shoes5"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shoes" />
-
-                    <ImageView
-                        android:id="@+id/shoes6"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shoes" />
-
-                </LinearLayout>
+                    android:orientation="horizontal" />
 
 
             </HorizontalScrollView>
@@ -367,70 +240,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/shortsHeader">
 
                 <LinearLayout
+                    android:id="@+id/laundryShortsList"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/shorts1"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shorts" />
-
-                    <ImageView
-                        android:id="@+id/shorts2"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shorts" />
-
-                    <ImageView
-                        android:id="@+id/shorts3"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shorts" />
-
-                    <ImageView
-                        android:id="@+id/shorts4"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shorts" />
-
-                    <ImageView
-                        android:id="@+id/shorts5"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shorts" />
-
-                    <ImageView
-                        android:id="@+id/shorts6"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shorts" />
-
-                </LinearLayout>
+                    android:orientation="horizontal" />
             </HorizontalScrollView>
 
 
