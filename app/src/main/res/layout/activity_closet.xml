@@ -91,6 +91,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/closetShirtsList"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
@@ -108,72 +109,6 @@
                         android:text="@string/plus_sign"
                         android:textSize="20sp" />
 
-                    <ImageView
-                        android:id="@+id/shirt1"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shirt" />
-
-                    <ImageView
-                        android:id="@+id/shirt2"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shirt" />
-
-                    <ImageView
-                        android:id="@+id/shirt3"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shirt" />
-
-                    <ImageView
-                        android:id="@+id/shirt4"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shirt" />
-
-                    <ImageView
-                        android:id="@+id/shirt5"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shirt" />
-
-                    <ImageView
-                        android:id="@+id/shirt6"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shirt" />
-
-                    <ImageView
-                        android:id="@+id/shirt7"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shirt" />
                 </LinearLayout>
             </HorizontalScrollView>
 
@@ -200,13 +135,13 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
                 android:background="#FFFFFF"
-                android:fillViewport="true"
+                android:fillViewport="false"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/shoesHeader">
 
                 <LinearLayout
+                    android:id="@+id/closetShoesList"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
@@ -219,69 +154,9 @@
                         android:layout_marginTop="50dp"
                         android:layout_marginEnd="5dp"
                         android:layout_marginBottom="50dp"
-                        android:layout_weight="1"
                         android:onClick="goToExpandCloset"
                         android:text="@string/plus_sign"
                         android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/shoes1"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shoes" />
-
-                    <ImageView
-                        android:id="@+id/shoes2"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shoes" />
-
-                    <ImageView
-                        android:id="@+id/shoes3"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shoes" />
-
-                    <ImageView
-                        android:id="@+id/shoes4"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shoes" />
-
-                    <ImageView
-                        android:id="@+id/shoes5"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shoes" />
-
-                    <ImageView
-                        android:id="@+id/shoes6"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shoes" />
 
                 </LinearLayout>
 
@@ -316,6 +191,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/shortsHeader">
 
                 <LinearLayout
+                    android:id="@+id/closetShortsList"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:orientation="horizontal">
@@ -332,65 +208,6 @@
                         android:onClick="goToExpandCloset"
                         android:text="@string/plus_sign"
                         android:textSize="20sp" />
-
-                    <ImageView
-                        android:id="@+id/shorts1"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shorts" />
-
-                    <ImageView
-                        android:id="@+id/shorts2"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shorts" />
-
-                    <ImageView
-                        android:id="@+id/shorts3"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shorts" />
-
-                    <ImageView
-                        android:id="@+id/shorts4"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shorts" />
-
-                    <ImageView
-                        android:id="@+id/shorts5"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shorts" />
-
-                    <ImageView
-                        android:id="@+id/shorts6"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:layout_weight="1"
-                        android:contentDescription="@string/todo"
-                        app:srcCompat="@drawable/shorts" />
 
                 </LinearLayout>
             </HorizontalScrollView>

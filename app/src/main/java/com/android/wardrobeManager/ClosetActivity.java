@@ -8,9 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.ScrollView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.android.wardrobeManager.clothing_classes.Shirt;
 import com.android.wardrobeManager.clothing_classes.Shoes;
 import com.android.wardrobeManager.clothing_classes.Shorts;
@@ -37,9 +36,9 @@ public class ClosetActivity extends AppCompatActivity {
     private ArrayList<ClothingItem> closetClothes;
     private ArrayList<ClothingItem> laundryClothes;
 
-    private ScrollView shirtLayout;
-    private ScrollView shoesLayout;
-    private ScrollView shortsLayout;
+    private LinearLayout shirtLayout;
+    private LinearLayout shoesLayout;
+    private LinearLayout shortsLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +56,10 @@ public class ClosetActivity extends AppCompatActivity {
         findViewById(R.id.shirtScrollView).setVisibility(View.GONE);
         findViewById(R.id.shoesScrollView).setVisibility(View.GONE);
         findViewById(R.id.shortsScrollView).setVisibility(View.GONE);
+
+        shirtLayout = findViewById(R.id.closetShirtsList);
+        shoesLayout = findViewById(R.id.closetShoesList);
+        shortsLayout = findViewById(R.id.closetShortsList);
 
         closetClothingTypeShow = getResources().getString(R.string.closet_clothing_type_show);
         closetClothingTypeHide = getResources().getString(R.string.closet_clothing_type_hide);
