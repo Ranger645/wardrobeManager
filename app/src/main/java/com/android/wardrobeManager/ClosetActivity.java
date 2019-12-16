@@ -6,8 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class ClosetActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
+public class ClosetActivity extends AppCompatActivity {
 
     private boolean shirtScrollVisible = false;
     private boolean shoeScrollVisible = false;
@@ -23,6 +24,8 @@ public class ClosetActivity extends AppCompatActivity {
     private TextView shirtToggle = null;
     private TextView shoeToggle = null;
     private TextView shortToggle = null;
+
+    private ArrayList<ClothingItem> closetClothes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +47,18 @@ public class ClosetActivity extends AppCompatActivity {
         closetClothingTypeShow = getResources().getString(R.string.closet_clothing_type_show);
         closetClothingTypeHide = getResources().getString(R.string.closet_clothing_type_hide);
 
-
+        if (getIntent().getParcelableArrayListExtra("closetClothes") != null) {
+            closetClothes = getIntent().getParcelableArrayListExtra("closetClothes");
+        } else {
+            closetClothes = new ArrayList<ClothingItem>();
+        }
 
     }
 
     public void backToMainScreen(View view) {
-        startActivity(new Intent(ClosetActivity.this, StartActivity.class));
+        Intent intent = new Intent(ClosetActivity.this, StartActivity.class);
+        intent.putExtra("closetClothes", closetClothes);
+        startActivity(intent);
     }
 
     public void toggleShirtVisibility(View view) {
@@ -62,10 +71,15 @@ public class ClosetActivity extends AppCompatActivity {
             shirtScroll.setVisibility(View.VISIBLE);
             shirtToggle.setText(closetClothingTypeHide);
         }
+
     }
 
     public void goToExpandCloset(View view) {
-        startActivity(new Intent(ClosetActivity.this, ExpandClosetActivity.class));
+        Intent intent = new Intent(ClosetActivity.this, ExpandClosetActivity.class);
+        intent.putExtra("closetClothes", closetClothes);
+        intent.putExtra("previousActivity", "ClosetActivity");
+        intent.putExtra("previousActivityClass", ClosetActivity.class);
+        startActivity(intent);
     }
 
     public void toggleShoesVisibility(View view) {
@@ -74,12 +88,10 @@ public class ClosetActivity extends AppCompatActivity {
         if (!shoeScrollVisible) {
             shoeScroll.setVisibility(View.GONE);
             shoeToggle.setText(closetClothingTypeShow);
-        }
-        else {
+        } else {
             shoeScroll.setVisibility(View.VISIBLE);
             shoeToggle.setText(closetClothingTypeHide);
         }
-
 
     }
 
@@ -89,12 +101,10 @@ public class ClosetActivity extends AppCompatActivity {
         if (!shortScrollVisible) {
             shortScroll.setVisibility(View.GONE);
             shortToggle.setText(closetClothingTypeShow);
-        }
-        else {
+        } else {
             shortScroll.setVisibility(View.VISIBLE);
             shortToggle.setText(closetClothingTypeHide);
         }
-
 
     }
 

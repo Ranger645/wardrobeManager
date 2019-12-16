@@ -1,0 +1,45 @@
+package com.android.wardrobeManager.clothing_classes;
+
+import android.os.Parcel;
+
+import com.android.wardrobeManager.ClothingItem;
+
+public class Shoes extends ClothingItem {
+
+    public Shoes(int color) {
+        super(color);
+    }
+    public Shoes() {super();}
+
+    public static final Creator<Shoes> CREATOR = new Creator<Shoes>() {
+        @Override
+        public Shoes createFromParcel(Parcel in) {
+            return new Shoes(in);
+        }
+
+        @Override
+        public Shoes[] newArray(int size) {
+            Shoes[] arr = new Shoes[size];
+            for (int i = 0; i < size; i++) {
+                arr[i] = new Shoes();
+            }
+            return arr;
+        }
+    };
+
+    @Override
+    public Class getClothingType() {
+        return this.getClass();
+    }
+
+    @Override
+    public String clothingTypeToString() {
+        return "Shoes";
+    }
+
+    public Shoes(Parcel source){
+        super(source);
+
+    }
+
+}

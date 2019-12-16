@@ -26,7 +26,7 @@
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
             android:contentDescription="@string/todo"
-            app:srcCompat="@drawable/shirt" />
+            app:srcCompat="@drawable/no_clothing_item_selected" />
 
         <Button
             android:id="@+id/addItemToCloset"
@@ -34,6 +34,7 @@
             android:layout_height="150dp"
             android:layout_marginStart="5dp"
             android:layout_weight="1"
+            android:onClick="addItemToCloset"
             android:text="@string/add_to_closet"
             android:textSize="30sp" />
     </LinearLayout>
