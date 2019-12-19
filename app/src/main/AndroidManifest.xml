@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ExpandClosetActivity"></activity>
-        <activity android:name=".ClosetActivity" />
+        <activity android:name=".ui.closet.ClosetActivity" />
         <activity android:name=".NewClothingItemActivity" />
         <activity android:name=".StartActivity">
             <intent-filter>
