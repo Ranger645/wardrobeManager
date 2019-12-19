@@ -14,7 +14,8 @@ public class ClothingItem {
         this.type = type;
     }
 
-    public ClothingItem(String type, String colors, String material, String brand, float cost, String season) {
+    public ClothingItem(String imagePath, String type, String colors, String material, String brand, float cost, String season) {
+        this.imagePath = imagePath;
         this.type = type;
         this.colors = colors;
         this.material = material;
@@ -25,6 +26,8 @@ public class ClothingItem {
 
     @PrimaryKey(autoGenerate = true)
     private int id;
+
+    private String imagePath;
 
     private String type;
 
@@ -42,6 +45,10 @@ public class ClothingItem {
         this.id = id;
     }
 
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
     public void setType(String type) { this.type = type; }
 
     public void setColors(String colors) { this.colors = colors; }
@@ -55,6 +62,10 @@ public class ClothingItem {
     public void setSeason(String season) { this.season = season; }
 
     public int getId() { return id; }
+
+    public String getImagePath() {
+        return imagePath;
+    }
 
     public String getType() {
         return type;
