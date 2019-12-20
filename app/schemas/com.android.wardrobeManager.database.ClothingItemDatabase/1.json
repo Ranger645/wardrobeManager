@@ -2,17 +2,23 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "8ad39721d05ea48fd64937e7416beff7",
+    "identityHash": "2b39625262737fdf19576618e8ba4238",
     "entities": [
       {
         "tableName": "clothing_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `type` TEXT, `colors` TEXT, `material` TEXT, `brand` TEXT, `cost` REAL NOT NULL, `season` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `imagePath` TEXT, `type` TEXT, `colors` TEXT, `material` TEXT, `brand` TEXT, `cost` REAL NOT NULL, `season` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "id",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "imagePath",
+            "columnName": "imagePath",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "type",
@@ -64,7 +70,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '8ad39721d05ea48fd64937e7416beff7')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '2b39625262737fdf19576618e8ba4238')"
     ]
   }
 }

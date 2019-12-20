@@ -10,7 +10,7 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-@Database(entities = {ClothingItem.class}, version = 1)
+@Database(entities = {ClothingItem.class}, version = 2)
 public abstract class ClothingItemDatabase extends RoomDatabase {
 
     private static ClothingItemDatabase instance;
@@ -32,7 +32,6 @@ public abstract class ClothingItemDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            // Called when the database is created
             new PopulateDbAsyncTask(instance).execute();
         }
     };
@@ -49,7 +48,6 @@ public abstract class ClothingItemDatabase extends RoomDatabase {
         protected Void doInBackground(Void... voids) {
             dao.insert(new ClothingItem("<NULL>", "shirt", "red", "performance", "nike", 50, "summer"));
             dao.insert(new ClothingItem("<NULL>", "shorts", "red", "performance", "nike", 50, "summer"));
-            // dao.insert(new ClothingItem("pants", "red", "performance", "nike", 75, "summer"));
             return null;
         }
     }
