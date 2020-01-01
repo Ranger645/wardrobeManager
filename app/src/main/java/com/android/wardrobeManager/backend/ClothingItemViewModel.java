@@ -1,6 +1,7 @@
 package com.android.wardrobeManager.backend;
 
 import android.app.Application;
+import android.os.Parcelable;
 
 import com.android.wardrobeManager.database.ClothingItem;
 
@@ -28,4 +29,5 @@ public class ClothingItemViewModel extends AndroidViewModel {
     public LiveData<List<ClothingItem>> getClothingItems() {
         return clothingItems;
     }
+
 }

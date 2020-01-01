@@ -29,7 +29,7 @@ public class ClosetActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this,2 ));
         recyclerView.setHasFixedSize(true);
 
-        final ClosetAdapter adapter = new ClosetAdapter();
+        final ClosetAdapter adapter = new ClosetAdapter(this);
         recyclerView.setAdapter(adapter);
 
         clothingItemViewModel = ViewModelProviders.of(this).get(ClothingItemViewModel.class);
