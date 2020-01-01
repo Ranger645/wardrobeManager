@@ -21,6 +21,11 @@ public class AddItemActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+        ///////////////////////////////////////////////////////////////
+        // Temporary solution until x and check buttons are finished //
+        ///////////////////////////////////////////////////////////////
+
         final String saveTag = "Save";
         final String quitTag = "Quit";
 
@@ -41,5 +46,7 @@ public class AddItemActivity extends AppCompatActivity {
             }
         };
         WardrobeAlerts.showRadioButtonDialog(this, "Quit", new String[] {saveTag, quitTag}, callback);
+
+        ///////////////////////////////////////////////////////////////
     }
 }

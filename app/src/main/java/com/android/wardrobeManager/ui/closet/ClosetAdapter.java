@@ -60,6 +60,7 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ClosetItem
 
         public ClosetItemHolder(@NonNull View itemView) {
             super(itemView);
+            itemView.setTransitionName("");
             bnImage = itemView.findViewById(R.id.bn_clothing_item);
 
             // Clicking on the button will direct to the clothing edit activity
