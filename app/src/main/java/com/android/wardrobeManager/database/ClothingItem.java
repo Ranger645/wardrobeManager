@@ -16,8 +16,8 @@ public class ClothingItem {
         this.type = type;
     }
 
-    public ClothingItem(String imagePath, String type, String colors, String material, String brand, float cost, String season) {
-        this.imagePath = imagePath;
+    public ClothingItem(boolean customImage, String type, String colors, String material, String brand, float cost, String season) {
+        this.customImage = customImage;
         this.type = type;
         this.colors = colors;
         this.material = material;
@@ -29,7 +29,7 @@ public class ClothingItem {
     @PrimaryKey(autoGenerate = true)
     private int id;
 
-    private String imagePath;
+    private boolean customImage;
 
     private String type;
 
@@ -47,8 +47,8 @@ public class ClothingItem {
         this.id = id;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setCustomImage(boolean customImage) {
+        this.customImage = customImage;
     }
 
     public void setType(String type) { this.type = type; }
@@ -65,8 +65,8 @@ public class ClothingItem {
 
     public int getId() { return id; }
 
-    public String getImagePath() {
-        return imagePath;
+    public boolean getCustomImage() {
+        return customImage;
     }
 
     public String getType() {
