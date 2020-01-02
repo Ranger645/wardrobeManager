@@ -2,7 +2,6 @@ package com.android.wardrobeManager.backend;
 
 import android.app.Application;
 import android.graphics.Bitmap;
-import android.util.Log;
 import android.util.SparseArray;
 
 import com.android.wardrobeManager.database.ClothingItem;

@@ -1,15 +1,24 @@
 package com.android.wardrobeManager.database;
 
 
+import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "clothing_table")
-public class ClothingItem {
+public class ClothingItem implements Parcelable{
 
     public ClothingItem() {
+        this.customImage = false;
+        this.type = "shirt";
+        this.colors = "FF0000FF";
+        this.colorStyle = "PRIMARY_SECONDARY";
+        this.material = "cotton";
+        this.brand = "nike";
+        this.cost = 0.0f;
+        this.season = "summer";
     }
 
     public ClothingItem(String type) {
@@ -119,4 +128,46 @@ public class ClothingItem {
         builder.append(season);
         return builder.toString();
     }
+
+    public ClothingItem(Parcel in) {
+        id = in.readInt();
+        customImage = in.readInt() == 1;
+        type = in.readString();
+        colors = in.readString();
+        colorStyle = in.readString();
+        brand = in.readString();
+        cost = in.readFloat();
+        season = in.readString();
+        material = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeInt(id);
+        out.writeInt(customImage ? 1 : 0);
+        out.writeString(type);
+        out.writeString(colors);
+        out.writeString(colorStyle);
+        out.writeString(brand);
+        out.writeFloat(cost);
+        out.writeString(season);
+        out.writeString(material);
+    }
+
+    public static final Parcelable.Creator<ClothingItem> CREATOR = new Parcelable.Creator<ClothingItem>()
+    {
+        public ClothingItem createFromParcel(Parcel in)
+        {
+            return new ClothingItem(in);
+        }
+        public ClothingItem[] newArray(int size)
+        {
+            return new ClothingItem[size];
+        }
+    };
 }

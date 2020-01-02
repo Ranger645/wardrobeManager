@@ -3,6 +3,8 @@ package com.android.wardrobeManager.ui.closet;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.util.Log;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,8 +46,9 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ClosetItem
         /*
         TODO: Make the ClothingItem object actually control the appearance of the bnImage. Right now it is just a constant image and this is obviously wrong.
          */
-        // ClothingItem item = clothingItems.get(position);
-        int hash = ClothingItemImageManager.getImageHash(clothingItems.get(position));
+        ClothingItem item = clothingItems.get(position);
+        holder.setClothingItem(item);
+        int hash = ClothingItemImageManager.getImageHash(item);
         Bitmap bitmap = clothingItemBitmaps.get(hash);
         if (bitmap != null)
             holder.bnImage.setImageBitmap(bitmap);
@@ -67,6 +70,7 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ClosetItem
     class ClosetItemHolder extends RecyclerView.ViewHolder {
 
         private ImageButton bnImage;
+        private ClothingItem clothingItem;
 
         public ClosetItemHolder(@NonNull View itemView) {
             super(itemView);
@@ -77,9 +81,17 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ClosetItem
             bnImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    context.startActivity(new Intent(context, AddItemActivity.class));
+                    Intent intent = new Intent(context, AddItemActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable("clothingItem", clothingItem);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
                 }
             });
+        }
+
+        public void setClothingItem(ClothingItem item) {
+            clothingItem = item;
         }
     }
 

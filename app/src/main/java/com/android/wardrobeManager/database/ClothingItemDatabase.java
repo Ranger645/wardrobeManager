@@ -4,8 +4,6 @@ package com.android.wardrobeManager.database;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.android.wardrobeManager.R;
-
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;

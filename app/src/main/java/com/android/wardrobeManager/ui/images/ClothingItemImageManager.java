@@ -42,6 +42,7 @@ public class ClothingItemImageManager {
         File persistentImage = new File(directory, Integer.toString(hash));
         if (persistentImage.isFile()) {
             try {
+                Log.d("IMAGE_GEN", "Retrieving image");
                 return BitmapFactory.decodeStream(new FileInputStream(persistentImage));
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
@@ -69,6 +70,7 @@ public class ClothingItemImageManager {
 
     private static Bitmap generateClothingItemImage(ClothingItem toLoad, Application application) {
         // Creates an image from the clothing item object and saves it to the app's storage
+        Log.w("IMAGE_GEN", "Generating new image");
         Bitmap bitmap = Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888);
         int refRes = application.getResources().getIdentifier(toLoad.getType(), "drawable", application.getPackageName());
         Drawable d = application.getResources().getDrawable(refRes, application.getTheme());
@@ -79,13 +81,12 @@ public class ClothingItemImageManager {
     }
 
     public static int getImageHash(ClothingItem toHash) {
-        StringBuilder builder = new StringBuilder(ClothingItemDatabase.VERSION);
+        StringBuilder builder = new StringBuilder();
+        builder.append(toHash.getType());
         builder.append(toHash.getColors());
         builder.append(toHash.getBrand());
         builder.append(toHash.getMaterial());
-        builder.append(toHash.getSeason());
-        builder.append(toHash.getType());
-        builder.append(toHash.getCost());
+        Log.d("IMAGE_HASH", "values:" + builder.toString() + " hash:" + builder.toString().hashCode());
         return builder.toString().hashCode();
     }
 

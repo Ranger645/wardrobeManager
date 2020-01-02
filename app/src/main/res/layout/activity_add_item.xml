@@ -13,6 +13,7 @@
         android:layout_marginBottom="@dimen/add_item_bottom_margin_height">
 
         <ImageButton
+            android:id="@+id/add_item_preview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
