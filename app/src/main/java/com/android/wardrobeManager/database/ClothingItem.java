@@ -16,10 +16,11 @@ public class ClothingItem {
         this.type = type;
     }
 
-    public ClothingItem(boolean customImage, String type, String colors, String material, String brand, float cost, String season) {
+    public ClothingItem(boolean customImage, String type, String colors, String colorStyle, String material, String brand, float cost, String season) {
         this.customImage = customImage;
         this.type = type;
         this.colors = colors;
+        this.colorStyle = colorStyle;
         this.material = material;
         this.brand = brand;
         this.cost = cost;
@@ -34,6 +35,11 @@ public class ClothingItem {
     private String type;
 
     private String colors;
+
+    /*
+     * The type of pattern that the colors take. Examples are given as a list in strings.xml
+     */
+    private String colorStyle;
 
     private String material;
 
@@ -62,6 +68,14 @@ public class ClothingItem {
     public void setCost(float cost) { this.cost = cost; }
 
     public void setSeason(String season) { this.season = season; }
+
+    public void setColorStyle(String colorStyle) {
+        this.colorStyle = colorStyle;
+    }
+
+    public String getColorStyle() {
+        return colorStyle;
+    }
 
     public int getId() { return id; }
 
@@ -98,6 +112,7 @@ public class ClothingItem {
         builder.append(customImage);
         builder.append(type);
         builder.append(colors);
+        builder.append(colorStyle);
         builder.append(material);
         builder.append(brand);
         builder.append(cost);

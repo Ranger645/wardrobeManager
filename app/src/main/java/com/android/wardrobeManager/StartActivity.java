@@ -16,6 +16,14 @@ import java.util.TimerTask;
 
 public class StartActivity extends AppCompatActivity {
 
+    /*
+     * Variable for enabling quickstart
+     *
+     * Quickstart should be enabled most of the time. It should be disabled in any of the following
+     * cases:
+     *  App is restarting after a crash
+     *  App is starting for the first time after an update
+     */
     public boolean quickStart = false;
 
     @Override

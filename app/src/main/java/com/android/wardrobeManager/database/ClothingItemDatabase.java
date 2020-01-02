@@ -4,6 +4,8 @@ package com.android.wardrobeManager.database;
 import android.content.Context;
 import android.os.AsyncTask;
 
+import com.android.wardrobeManager.R;
+
 import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
@@ -13,7 +15,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 @Database(entities = {ClothingItem.class}, version = ClothingItemDatabase.VERSION)
 public abstract class ClothingItemDatabase extends RoomDatabase {
 
-    public static final int VERSION = 7;
+    public static final int VERSION = 9;
 
     private static ClothingItemDatabase instance;
 
@@ -53,8 +55,8 @@ public abstract class ClothingItemDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            dao.insert(new ClothingItem(false, "shirt", "FFFF0000", "performance", "nike", 50, "summer"));
-            dao.insert(new ClothingItem(false, "shorts", "FFFF00FF,FF00FF00", "performance", "nike", 50, "summer"));
+            dao.insert(new ClothingItem(false, "shirt", "FFFF0000", "PRIMARY_SECONDARY", "performance", "nike", 50, "summer"));
+            dao.insert(new ClothingItem(false, "shorts", "FFFF00FF,FF00FF00", "PRIMARY_SECONDARY", "performance", "nike", 50, "summer"));
             return null;
         }
     }

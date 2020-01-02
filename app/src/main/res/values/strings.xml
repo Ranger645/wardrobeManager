@@ -27,4 +27,11 @@
         <item>Shoes</item>
         <item>Shorts</item>
     </string-array>
+    <string-array name="color_styles">
+        <item>THIN_STRIPES</item>
+        <item>WIDE_STRIPES</item>
+        <item>POLKA_DOTS</item>
+        <item>PRIMARY_SECONDARY</item>
+        <item>PLEAT</item>
+    </string-array>
 </resources>

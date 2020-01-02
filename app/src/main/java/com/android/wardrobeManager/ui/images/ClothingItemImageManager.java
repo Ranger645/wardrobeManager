@@ -75,14 +75,7 @@ public class ClothingItemImageManager {
         Bitmap reference = Bitmap.createScaledBitmap(drawableToBitmap(d), bitmap.getWidth(), bitmap.getHeight(), false);
 
         int[] colors = parseColors(toLoad.getColors());
-        for(int i = 0; i < bitmap.getWidth(); i++) {
-            for (int n = 0; n < bitmap.getHeight(); n++) {
-                if (reference.getPixel(n, i) != 0xFFFFFFFF) {
-                    bitmap.setPixel(n, i, colors[0]);
-                }
-            }
-        }
-        return bitmap;
+        return ColorStyleFilterManager.filterColorStyle(toLoad.getColorStyle(), bitmap, reference, colors);
     }
 
     public static int getImageHash(ClothingItem toHash) {
