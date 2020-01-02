@@ -1,20 +1,20 @@
 package com.android.wardrobeManager;
 
-import android.app.Activity;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.View;
 import android.view.Window;
 
+import com.android.wardrobeManager.backend.ClothingItemViewModel;
 import com.android.wardrobeManager.ui.closet.ClosetActivity;
+import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
 
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class StartActivity extends Activity {
+public class StartActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +29,9 @@ public class StartActivity extends Activity {
                 startActivity(new Intent(StartActivity.this, ClosetActivity.class));
             }
         }, getApplicationContext().getResources().getInteger(R.integer.splash_screen_min_time_millis));
+
+        ClothingItemImageManager.deleteAllClothingItemImages(this.getApplication());
+        ViewModelProviders.of(this).get(ClothingItemViewModel.class);
 
     }
 

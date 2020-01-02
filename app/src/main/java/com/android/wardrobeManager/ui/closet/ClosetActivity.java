@@ -36,7 +36,7 @@ public class ClosetActivity extends AppCompatActivity {
         clothingItemViewModel.getClothingItems().observe(this, new Observer<List<ClothingItem>>() {
             @Override
             public void onChanged(List<ClothingItem> clothingItems) {
-                adapter.setItems(clothingItems);
+                adapter.setItems(clothingItems, clothingItemViewModel.getClothingItemBitmaps());
             }
         });
 

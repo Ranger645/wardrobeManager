@@ -92,4 +92,16 @@ public class ClothingItem {
     public String getSeason() {
         return season;
     }
+
+    public String toString() {
+        StringBuilder builder = new StringBuilder(id);
+        builder.append(customImage);
+        builder.append(type);
+        builder.append(colors);
+        builder.append(material);
+        builder.append(brand);
+        builder.append(cost);
+        builder.append(season);
+        return builder.toString();
+    }
 }

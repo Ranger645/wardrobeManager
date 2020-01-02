@@ -2,6 +2,8 @@ package com.android.wardrobeManager.ui.closet;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.ImageButton;
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.ui.add_item.AddItemActivity;
+import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +25,7 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ClosetItem
     private Context context = null;
 
     private List<ClothingItem> clothingItems = new ArrayList<>();
+    private SparseArray<Bitmap> clothingItemBitmaps = new SparseArray<>();
 
     public ClosetAdapter(Context context) {
         this.context = context;
@@ -41,7 +45,12 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ClosetItem
         TODO: Make the ClothingItem object actually control the appearance of the bnImage. Right now it is just a constant image and this is obviously wrong.
          */
         // ClothingItem item = clothingItems.get(position);
-        holder.bnImage.setImageResource(R.drawable.shirt);
+        int hash = ClothingItemImageManager.getImageHash(clothingItems.get(position));
+        Bitmap bitmap = clothingItemBitmaps.get(hash);
+        if (bitmap != null)
+            holder.bnImage.setImageBitmap(bitmap);
+        else
+            holder.bnImage.setImageResource(R.drawable.undefined);
     }
 
     @Override
@@ -49,8 +58,9 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ClosetItem
         return clothingItems.size();
     }
 
-    public void setItems(List<ClothingItem> items) {
+    public void setItems(List<ClothingItem> items, SparseArray<Bitmap> clothingItemBitmaps) {
         this.clothingItems = items;
+        this.clothingItemBitmaps = clothingItemBitmaps;
         notifyDataSetChanged();
     }
 

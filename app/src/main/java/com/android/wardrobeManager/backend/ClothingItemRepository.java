@@ -2,6 +2,7 @@ package com.android.wardrobeManager.backend;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.database.ClothingItemDAO;
@@ -18,9 +19,11 @@ public class ClothingItemRepository {
 
     public ClothingItemRepository(Application application) {
         // Initial copy of database item live data object to local reference
+        Log.d("CREATION", "Creating clothing item repo");
         ClothingItemDatabase db = ClothingItemDatabase.getInstance(application);
         this.dao = db.clothingItemDao();
         this.clothingItems = this.dao.getAllItems();
+        Log.d("CREATION", "Done creating clothing item repo");
     }
 
     public void insert(ClothingItem item) {
