@@ -11,14 +11,14 @@ import android.os.Bundle;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.StartActivity;
-import com.android.wardrobeManager.backend.ClothingItemViewModel;
+import com.android.wardrobeManager.backend.ClothingItemDatabaseViewModel;
 import com.android.wardrobeManager.database.ClothingItem;
 
 import java.util.List;
 
 public class ClosetActivity extends AppCompatActivity {
 
-    private ClothingItemViewModel clothingItemViewModel;
+    private ClothingItemDatabaseViewModel clothingItemDatabaseViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +32,11 @@ public class ClosetActivity extends AppCompatActivity {
         final ClosetAdapter adapter = new ClosetAdapter(this);
         recyclerView.setAdapter(adapter);
 
-        clothingItemViewModel = ViewModelProviders.of(this).get(ClothingItemViewModel.class);
-        clothingItemViewModel.getClothingItems().observe(this, new Observer<List<ClothingItem>>() {
+        clothingItemDatabaseViewModel = ViewModelProviders.of(this).get(ClothingItemDatabaseViewModel.class);
+        clothingItemDatabaseViewModel.getClothingItems().observe(this, new Observer<List<ClothingItem>>() {
             @Override
             public void onChanged(List<ClothingItem> clothingItems) {
-                adapter.setItems(clothingItems, clothingItemViewModel.getClothingItemBitmaps());
+                adapter.setItems(clothingItems, clothingItemDatabaseViewModel.getClothingItemBitmaps());
             }
         });
 

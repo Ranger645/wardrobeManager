@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.view.Window;
 
-import com.android.wardrobeManager.backend.ClothingItemViewModel;
+import com.android.wardrobeManager.backend.ClothingItemDatabaseViewModel;
 import com.android.wardrobeManager.ui.closet.ClosetActivity;
 import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
 
@@ -42,7 +42,7 @@ public class StartActivity extends AppCompatActivity {
 
         if (!quickStart)
             ClothingItemImageManager.deleteAllClothingItemImages(this.getApplication());
-        ViewModelProviders.of(this).get(ClothingItemViewModel.class);
+        ViewModelProviders.of(this).get(ClothingItemDatabaseViewModel.class);
 
     }
 

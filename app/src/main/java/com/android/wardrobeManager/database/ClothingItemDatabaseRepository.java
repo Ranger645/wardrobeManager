@@ -1,4 +1,4 @@
-package com.android.wardrobeManager.backend;
+package com.android.wardrobeManager.database;
 
 import android.app.Application;
 import android.os.AsyncTask;
@@ -12,12 +12,12 @@ import java.util.List;
 
 import androidx.lifecycle.LiveData;
 
-public class ClothingItemRepository {
+public class ClothingItemDatabaseRepository {
 
     private ClothingItemDAO dao;
     private LiveData<List<ClothingItem>> clothingItems;
 
-    public ClothingItemRepository(Application application) {
+    public ClothingItemDatabaseRepository(Application application) {
         // Initial copy of database item live data object to local reference
         ClothingItemDatabase db = ClothingItemDatabase.getInstance(application);
         this.dao = db.clothingItemDao();
