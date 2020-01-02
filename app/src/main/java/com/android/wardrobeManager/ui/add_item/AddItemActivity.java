@@ -2,6 +2,7 @@ package com.android.wardrobeManager.ui.add_item;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,6 +18,9 @@ import com.android.wardrobeManager.ui.util.WardrobeAlerts;
 import com.android.wardrobeManager.ui.util.WardrobeAlerts.*;
 
 public class AddItemActivity extends AppCompatActivity {
+
+    private ViewPager addItemViewPager = null;
+    private AddItemViewPagerAdapter addItemViewPagerAdapter = null;
 
     private AddItemViewModel addItemViewModel;
 
@@ -35,12 +39,18 @@ public class AddItemActivity extends AppCompatActivity {
         if (addItemViewModel.getClothingItem() == null)
             addItemViewModel.setClothingItem(new ClothingItem());
 
+        addItemViewPager = findViewById(R.id.add_item_view_pager);
+        addItemViewPagerAdapter = new AddItemViewPagerAdapter(
+                getSupportFragmentManager(),
+                AddItemViewPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
+                addItemViewModel.getClothingItem());
+        addItemViewPager.setAdapter(addItemViewPagerAdapter);
+
         refreshUIForClothingItem(addItemViewModel.getClothingItem());
     }
 
     private void refreshUIForClothingItem(ClothingItem clothingItem) {
-        ImageButton preview = findViewById(R.id.add_item_preview);
-        preview.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(getApplication(), clothingItem));
+
     }
 
     @Override

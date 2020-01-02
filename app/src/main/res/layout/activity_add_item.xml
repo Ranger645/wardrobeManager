@@ -7,23 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.add_item.AddItemActivity">
 
-    <RelativeLayout
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/add_item_view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/add_item_bottom_margin_height">
-
-        <ImageButton
-            android:id="@+id/add_item_preview"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:scaleType="fitXY"
-            android:src="@drawable/shirt"
-            android:background="@color/white"/>
-
-    </RelativeLayout>
+        android:layout_above="@+id/add_item_basic_edit"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/add_item_basic_edit"
         android:layout_width="match_parent"
         android:layout_height="@dimen/add_item_bottom_margin_height"
         android:layout_alignParentStart="true"
