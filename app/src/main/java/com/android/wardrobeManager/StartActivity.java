@@ -16,6 +16,8 @@ import java.util.TimerTask;
 
 public class StartActivity extends AppCompatActivity {
 
+    public boolean quickStart = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,7 +32,8 @@ public class StartActivity extends AppCompatActivity {
             }
         }, getApplicationContext().getResources().getInteger(R.integer.splash_screen_min_time_millis));
 
-        ClothingItemImageManager.deleteAllClothingItemImages(this.getApplication());
+        if (!quickStart)
+            ClothingItemImageManager.deleteAllClothingItemImages(this.getApplication());
         ViewModelProviders.of(this).get(ClothingItemViewModel.class);
 
     }

@@ -6,7 +6,12 @@ import android.content.ContextWrapper;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.util.Log;
 
+import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.database.ClothingItemDatabase;
 
@@ -44,7 +49,7 @@ public class ClothingItemImageManager {
         }
 
         // Generating file manually and saving it to disc
-        Bitmap bitmap = generateClothingItemImage(toLoad);
+        Bitmap bitmap = generateClothingItemImage(toLoad, application);
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(persistentImage);
@@ -62,15 +67,19 @@ public class ClothingItemImageManager {
         return bitmap;
     }
 
-    private static Bitmap generateClothingItemImage(ClothingItem toLoad) {
+    private static Bitmap generateClothingItemImage(ClothingItem toLoad, Application application) {
         // Creates an image from the clothing item object and saves it to the app's storage
         Bitmap bitmap = Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888);
-        int refRes = Resources.getSystem().getIdentifier("shirt", "drawable", null);
-        Bitmap reference = BitmapFactory.decodeResource(Resources.getSystem(), refRes);
-        String colors = toLoad.getColors();
+        int refRes = application.getResources().getIdentifier(toLoad.getType(), "drawable", application.getPackageName());
+        Drawable d = application.getResources().getDrawable(refRes, application.getTheme());
+        Bitmap reference = Bitmap.createScaledBitmap(drawableToBitmap(d), bitmap.getWidth(), bitmap.getHeight(), false);
+
+        int[] colors = parseColors(toLoad.getColors());
         for(int i = 0; i < bitmap.getWidth(); i++) {
             for (int n = 0; n < bitmap.getHeight(); n++) {
-                bitmap.setPixel(n, i, 0xFFFF00FF);
+                if (reference.getPixel(n, i) != 0xFFFFFFFF) {
+                    bitmap.setPixel(n, i, colors[0]);
+                }
             }
         }
         return bitmap;
@@ -85,6 +94,28 @@ public class ClothingItemImageManager {
         builder.append(toHash.getType());
         builder.append(toHash.getCost());
         return builder.toString().hashCode();
+    }
+
+    private static int[] parseColors(String encoded) {
+        String[] strColors = encoded.split(",");
+        int[] colors = new int[strColors.length];
+        for (int i = 0; i < colors.length; i++)
+            colors[i] = (int) Long.parseLong(strColors[i], 16);
+        return colors;
+    }
+
+    private static Bitmap drawableToBitmap (Drawable drawable) {
+
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable)drawable).getBitmap();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 
 }
