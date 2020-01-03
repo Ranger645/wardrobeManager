@@ -18,7 +18,7 @@ public class ColorStyleFilterManager {
         filters = new HashMap<>();
 
         // TODO: MOVE THIS TO INDIVIDUAL CLASSES
-        filters.put("PRIMARY_SECONDARY", new ColorStyleFilter() {
+        filters.put("primary_secondary", new ColorStyleFilter() {
             @Override
             public Bitmap filter(Bitmap bitmap, Bitmap ref, int[] colors) {
                 for(int n = 0; n < bitmap.getHeight(); n++) {

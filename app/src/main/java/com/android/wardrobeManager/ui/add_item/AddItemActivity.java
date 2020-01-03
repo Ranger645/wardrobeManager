@@ -7,13 +7,11 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.ImageButton;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.backend.AddItemViewModel;
 import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.ui.closet.ClosetActivity;
-import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
 import com.android.wardrobeManager.ui.util.WardrobeAlerts;
 import com.android.wardrobeManager.ui.util.WardrobeAlerts.*;
 

@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 9,
-    "identityHash": "16c57cba1ba98ab81da62bad19df0e52",
+    "version": 12,
+    "identityHash": "80b0f2e59da13c2a486eabd1210de18d",
     "entities": [
       {
         "tableName": "clothing_table",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `customImage` INTEGER NOT NULL, `type` TEXT, `subType` TEXT, `colors` TEXT, `design` TEXT, `style` INTEGER NOT NULL, `material` TEXT, `brand` TEXT, `cost` REAL NOT NULL, `size` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `customImage` INTEGER NOT NULL, `customName` TEXT, `type` TEXT, `subType` TEXT, `colors` TEXT, `design` TEXT, `style` INTEGER NOT NULL, `material` TEXT, `brand` TEXT, `cost` REAL NOT NULL, `size` TEXT)",
         "fields": [
           {
             "fieldPath": "id",
@@ -19,6 +19,12 @@
             "columnName": "customImage",
             "affinity": "INTEGER",
             "notNull": true
+          },
+          {
+            "fieldPath": "customName",
+            "columnName": "customName",
+            "affinity": "TEXT",
+            "notNull": false
           },
           {
             "fieldPath": "type",
@@ -88,7 +94,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '16c57cba1ba98ab81da62bad19df0e52')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '80b0f2e59da13c2a486eabd1210de18d')"
     ]
   }
 }

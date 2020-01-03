@@ -72,12 +72,12 @@ public class ClothingItemImageManager {
         // Creates an image from the clothing item object and saves it to the app's storage
         Log.w("IMAGE_GEN", "Generating new image");
         Bitmap bitmap = Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888);
-        int refRes = application.getResources().getIdentifier(toLoad.getType(), "drawable", application.getPackageName());
+        int refRes = application.getResources().getIdentifier(toLoad.getSubType(), "drawable", application.getPackageName());
         Drawable d = application.getResources().getDrawable(refRes, application.getTheme());
         Bitmap reference = Bitmap.createScaledBitmap(drawableToBitmap(d), bitmap.getWidth(), bitmap.getHeight(), false);
 
         int[] colors = parseColors(toLoad.getColors());
-        return ColorStyleFilterManager.filterColorStyle(toLoad.getColorStyle(), bitmap, reference, colors);
+        return ColorStyleFilterManager.filterColorStyle(toLoad.getDesign(), bitmap, reference, colors);
     }
 
     public static int getImageHash(ClothingItem toHash) {
