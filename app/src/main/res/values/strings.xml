@@ -1,40 +1,91 @@
 <resources>
     <string name="app_name">Wardrobe Manager</string>
     <string name="wardrobe_manager">Wardrobe Manager</string>
-    <string name="back">Back</string>
-    <string name="shoes">Shoes</string>
-    <string name="shorts">Shorts</string>
-    <string name="shirts">Shirts</string>
-    <string name="pants">Pants</string>
-    <string name="generate_outfit">Generate Outfit</string>
-    <string name="laundry">Laundry</string>
-    <string name="expand_wardrobe">Expand\nwardrobe</string>
-    <string name="shuffle">Shuffle</string>
-    <string name="outfit_settings">Outfit\nSettings</string>
-    <string name="closet">Closet</string>
-    <string name="todo">TODO</string>
-    <string name="additional_matches">+additional_matches</string>
-    <string name="expand_closet">Expand Closet</string>
-    <string name="set_clothing">Set Clothing</string>
-    <string name="add_to_closet">Add To Closet</string>
-    <string name="closet_match_combinations">Closet Match Combinations</string>
-    <string name="_10_more">10 more</string>
-    <string name="plus_sign">+</string>
-    <string name="closet_clothing_type_show">></string>
-    <string name="closet_clothing_type_hide">v</string>
-    <string-array name="clothing_types">
-        <item>Shirt</item>
-        <item>Shoes</item>
-        <item>Shorts</item>
+
+    <string-array name="clothing_item_options_type">
+        <item>hat</item>
+        <item>outerwear</item>
+        <item>top</item>
+        <item>full_body</item>
+        <item>belt</item>
+        <item>bottom</item>
+        <item>socks</item>
+        <item>shoes</item>
     </string-array>
-    <string-array name="color_styles">
-        <item>THIN_STRIPES</item>
-        <item>WIDE_STRIPES</item>
-        <item>POLKA_DOTS</item>
-        <item>PRIMARY_SECONDARY</item>
-        <item>PLEAT</item>
+    <string-array name="clothing_item_options_subtype_hat">
+        <item>baseball</item>
+        <item>winter</item>
+        <item>cowboy</item>
+        <item>fedora</item>
+        <item>straw</item>
+        <item>beach</item>
+    </string-array>
+    <string-array name="clothing_item_options_subtype_outerwear">
+        <item>jacket</item>
+        <item>sweatshirt</item>
+        <item>quarter-zip</item>
+        <item>coat</item>
+    </string-array>
+    <string-array name="clothing_item_options_subtype_top">
+        <item>short_sleeve_shirt</item>
+        <item>long_sleeve_shirt</item>
+        <item>tank_top</item>
+        <item>blouse</item>
+        <item>crop_top</item>
+    </string-array>
+    <string-array name="clothing_item_options_subtype_full_body">
+        <item>long_dress</item>
+        <item>jumpsuit</item>
+        <item>romper</item>
+        <item>short_dress</item>
+    </string-array>
+    <string-array name="clothing_item_options_subtype_belt">
+        <item>belt</item>
+    </string-array>
+    <string-array name="clothing_item_options_subtype_bottom">
+        <item>pants</item>
+        <item>shorts</item>
+        <item>skirt</item>
+        <item>joggers</item>
+        <item>sweatpants</item>
+    </string-array>
+    <string-array name="clothing_item_options_subtype_socks">
+        <item>no-show</item>
+        <item>ankle</item>
+        <item>mid-calf</item>
+        <item>knee-high</item>
+    </string-array>
+    <string-array name="clothing_item_options_subtype_shoes">
+        <item>sneakers</item>
+        <item>high-tops</item>
+        <item>dress</item>
+        <item>heels</item>
+        <item>flats</item>
+        <item>slides</item>
+        <item>flip-flops</item>
     </string-array>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="clothing_item_options_design">
+        <item>primary_secondary</item>
+        <item>thin_stripes</item>
+        <item>wide_stripes</item>
+        <item>polka_dots</item>
+        <item>pleated</item>
+    </string-array>
+    <string-array name="clothing_item_options_material">
+        <item>other</item>
+        <item>cotton</item>
+        <item>polyester</item>
+        <item>denim</item>
+        <item>wool</item>
+        <item>silk</item>
+        <item>leather</item>
+        <item>linen</item>
+        <item>flannel</item>
+    </string-array>
+    <string-array name="clothing_item_options_size">
+        <item>perfect</item>
+        <item>big</item>
+        <item>small</item>
+    </string-array>
 </resources>
