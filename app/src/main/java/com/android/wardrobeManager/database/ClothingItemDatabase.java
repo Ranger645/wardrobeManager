@@ -13,7 +13,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 @Database(entities = {ClothingItem.class}, version = ClothingItemDatabase.VERSION)
 public abstract class ClothingItemDatabase extends RoomDatabase {
 
-    public static final int VERSION = 12;
+    public static final int VERSION = 13;
 
     private static ClothingItemDatabase instance;
 
@@ -53,7 +53,7 @@ public abstract class ClothingItemDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            dao.insert(new ClothingItem(false, "top", "t_shirt",
+            dao.insert(new ClothingItem(false, "top", "short_sleeve_shirt",
                     "FFFF0000", "primary_secondary", 0, "polyester",
                     "nike", 50f, "big"));
             dao.insert(new ClothingItem(false, "bottom", "shorts",

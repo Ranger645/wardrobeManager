@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:background="@color/white"
-        android:src="@drawable/t_shirt"
+        android:src="@drawable/short_sleeve_shirt"
         android:scaleType="fitCenter"/>
 
 </androidx.cardview.widget.CardView>

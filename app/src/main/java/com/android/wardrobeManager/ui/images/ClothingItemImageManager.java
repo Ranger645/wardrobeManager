@@ -82,11 +82,10 @@ public class ClothingItemImageManager {
 
     public static int getImageHash(ClothingItem toHash) {
         StringBuilder builder = new StringBuilder();
-        builder.append(toHash.getType());
+        builder.append(toHash.getSubType());
         builder.append(toHash.getColors());
-        builder.append(toHash.getBrand());
-        builder.append(toHash.getMaterial());
-        Log.d("IMAGE_HASH", "values:" + builder.toString() + " hash:" + builder.toString().hashCode());
+        builder.append(toHash.getDesign());
+        // Log.d("IMAGE_HASH", "values:" + builder.toString() + " hash:" + builder.toString().hashCode());
         return builder.toString().hashCode();
     }
 

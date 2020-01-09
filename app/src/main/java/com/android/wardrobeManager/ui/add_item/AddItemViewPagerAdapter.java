@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.lifecycle.MutableLiveData;
 
 public class AddItemViewPagerAdapter extends FragmentPagerAdapter {
 
@@ -16,10 +17,8 @@ public class AddItemViewPagerAdapter extends FragmentPagerAdapter {
     private ItemPreviewFragment preview = null;
     private ItemParamEditFragment paramEdit = null;
 
-    public AddItemViewPagerAdapter(@NonNull FragmentManager fm, int behavior, ClothingItem item) {
+    public AddItemViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
-
-        clothingItem = item;
 
         preview = new ItemPreviewFragment();
         paramEdit = new ItemParamEditFragment();
@@ -34,9 +33,6 @@ public class AddItemViewPagerAdapter extends FragmentPagerAdapter {
         } else {
             fragment = paramEdit;
         }
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("clothingItem", clothingItem);
-        fragment.setArguments(bundle);
         return fragment;
     }
 

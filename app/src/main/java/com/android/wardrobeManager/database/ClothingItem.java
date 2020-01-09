@@ -12,7 +12,8 @@ public class ClothingItem implements Parcelable{
 
     public ClothingItem() {
         this.customImage = false;
-        this.type = "t_shirt";
+        this.type = "top";
+        this.subType = "short_sleeve_shirt";
         this.colors = "FF0000FF";
         this.design = "PRIMARY_SECONDARY";
         this.style = 0;

@@ -12,6 +12,7 @@
         <item>socks</item>
         <item>shoes</item>
     </string-array>
+    <string name="subtype_prefix">clothing_item_options_subtype_</string>
     <string-array name="clothing_item_options_subtype_hat">
         <item>baseball</item>
         <item>winter</item>
@@ -43,8 +44,8 @@
         <item>belt</item>
     </string-array>
     <string-array name="clothing_item_options_subtype_bottom">
-        <item>pants</item>
         <item>shorts</item>
+        <item>pants</item>
         <item>skirt</item>
         <item>joggers</item>
         <item>sweatpants</item>

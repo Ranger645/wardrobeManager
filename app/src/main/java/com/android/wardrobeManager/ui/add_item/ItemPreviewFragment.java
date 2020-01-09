@@ -6,13 +6,20 @@ import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProviders;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 
 import com.android.wardrobeManager.R;
+import com.android.wardrobeManager.backend.AddItemViewModel;
 import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
 
@@ -22,7 +29,7 @@ import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
 public class ItemPreviewFragment extends Fragment {
 
     public ItemPreviewFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -31,13 +38,20 @@ public class ItemPreviewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_item_preview, container, false);
 
-        // Setting the image for the preview to use
-        ClothingItem  clothingItem = getArguments().getParcelable("clothingItem");
-        ImageButton image = view.findViewById(R.id.add_item_preview);
-        image.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(
-                getActivity().getApplication(), clothingItem));
+        final AddItemViewModel addItemViewModel = ViewModelProviders.of(getActivity()).get(AddItemViewModel.class);
+        final ImageButton image = view.findViewById(R.id.add_item_preview);
+        addItemViewModel.getClothingItem().observe(getActivity(), new Observer<ClothingItem>() {
+            @Override
+            public void onChanged(ClothingItem clothingItem) {
+                Log.d("DEBUG","Updating preview window: " + clothingItem.toString());
+                image.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(
+                        getActivity().getApplication(), clothingItem));
+            }
+        });
 
         return view;
     }
+
+
 
 }

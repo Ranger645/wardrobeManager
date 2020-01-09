@@ -1,6 +1,7 @@
 package com.android.wardrobeManager.ui.add_item;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
@@ -40,11 +41,15 @@ public class AddItemActivity extends AppCompatActivity {
         addItemViewPager = findViewById(R.id.add_item_view_pager);
         addItemViewPagerAdapter = new AddItemViewPagerAdapter(
                 getSupportFragmentManager(),
-                AddItemViewPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
-                addItemViewModel.getClothingItem());
+                AddItemViewPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         addItemViewPager.setAdapter(addItemViewPagerAdapter);
 
-        refreshUIForClothingItem(addItemViewModel.getClothingItem());
+        addItemViewModel.getClothingItem().observe(this, new Observer<ClothingItem>() {
+            @Override
+            public void onChanged(ClothingItem clothingItem) {
+                refreshUIForClothingItem(clothingItem);
+            }
+        });
     }
 
     private void refreshUIForClothingItem(ClothingItem clothingItem) {
