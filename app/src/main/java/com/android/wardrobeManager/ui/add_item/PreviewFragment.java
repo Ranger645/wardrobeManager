@@ -26,9 +26,9 @@ import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ItemPreviewFragment extends Fragment {
+public class PreviewFragment extends Fragment {
 
-    public ItemPreviewFragment() {
+    public PreviewFragment() {
 
     }
 

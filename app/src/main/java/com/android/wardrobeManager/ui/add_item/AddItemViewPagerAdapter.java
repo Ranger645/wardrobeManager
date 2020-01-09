@@ -11,13 +11,13 @@ public class AddItemViewPagerAdapter extends FragmentPagerAdapter {
 
     private ClothingItem clothingItem;
 
-    private ItemPreviewFragment preview = null;
+    private PreviewFragment preview = null;
     private AdvEditFragment paramEdit = null;
 
     public AddItemViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
 
-        preview = new ItemPreviewFragment();
+        preview = new PreviewFragment();
         paramEdit = new AdvEditFragment();
     }
 
@@ -38,7 +38,7 @@ public class AddItemViewPagerAdapter extends FragmentPagerAdapter {
         return 2;
     }
 
-    public ItemPreviewFragment getPreviewFragment() {
+    public PreviewFragment getPreviewFragment() {
         return preview;
     }
 }
