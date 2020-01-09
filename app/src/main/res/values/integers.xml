@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="splash_screen_min_time_millis">500</integer>
+    <integer name="additem_advedit_button_wh_ratio">5</integer>
 </resources>

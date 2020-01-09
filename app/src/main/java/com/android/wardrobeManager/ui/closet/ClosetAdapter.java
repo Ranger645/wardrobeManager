@@ -43,9 +43,6 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ClosetItem
 
     @Override
     public void onBindViewHolder(@NonNull ClosetItemHolder holder, int position) {
-        /*
-        TODO: Make the ClothingItem object actually control the appearance of the bnImage. Right now it is just a constant image and this is obviously wrong.
-         */
         ClothingItem item = clothingItems.get(position);
         holder.setClothingItem(item);
         int hash = ClothingItemImageManager.getImageHash(item);

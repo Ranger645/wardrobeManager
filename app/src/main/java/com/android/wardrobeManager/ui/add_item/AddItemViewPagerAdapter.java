@@ -1,27 +1,24 @@
 package com.android.wardrobeManager.ui.add_item;
 
-import android.os.Bundle;
-
 import com.android.wardrobeManager.database.ClothingItem;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import androidx.lifecycle.MutableLiveData;
 
 public class AddItemViewPagerAdapter extends FragmentPagerAdapter {
 
     private ClothingItem clothingItem;
 
     private ItemPreviewFragment preview = null;
-    private ItemParamEditFragment paramEdit = null;
+    private AdvEditFragment paramEdit = null;
 
     public AddItemViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
 
         preview = new ItemPreviewFragment();
-        paramEdit = new ItemParamEditFragment();
+        paramEdit = new AdvEditFragment();
     }
 
     @NonNull

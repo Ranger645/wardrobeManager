@@ -20,9 +20,9 @@ import com.android.wardrobeManager.backend.AddItemViewModel;
 import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.ui.util.WardrobeAlerts;
 
-public class ItemParamEditFragment extends Fragment {
+public class AdvEditFragment extends Fragment {
 
-    public ItemParamEditFragment() {
+    public AdvEditFragment() {
         // Required empty public constructor
     }
 
@@ -36,36 +36,36 @@ public class ItemParamEditFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_item_param_edit, container, false);
         LinearLayout editList = view.findViewById(R.id.additem_edit_list);
 
-        final String[] typeOptions = getResources().getStringArray(R.array.clothing_item_options_type);
-        final ItemParamRadioButton btnType = new ItemParamRadioButton("Type", clothingItem.getType(), typeOptions, inflater, editList, new WardrobeAlerts.RadioButtonAlertCallback() {
+        String[] typeOptions = getResources().getStringArray(R.array.clothing_item_options_type);
+        String[] subTypeOptions = getSubtypesForType(clothingItem.getType(), addItemViewModel);
+        String[] designOptions = getResources().getStringArray(R.array.clothing_item_options_design);
+        String[] materialOptions = getResources().getStringArray(R.array.clothing_item_options_material);
+
+        final AdvEditRadioButton btnEditType = new AdvEditRadioButton("Type", typeOptions, getContext());
+        final AdvEditRadioButton btnEditSubType = new AdvEditRadioButton("Sub Type", subTypeOptions, getContext());
+        final AdvEditRadioButton btnEditDesign = new AdvEditRadioButton("Design", designOptions, getContext());
+        final AdvEditRadioButton btnEditMaterial = new AdvEditRadioButton("Material", materialOptions, getContext());
+
+        btnEditType.setOnRadioClickListener(new WardrobeAlerts.RadioButtonAlertCallback() {
+            @Override
+            public void onClick(Context context, String selectedItem, int itemIndex) {
+                        ClothingItem item = addItemViewModel.getClothingItem().getValue();
+                        item.setType(selectedItem);
+                        String[] subTypes = getSubtypesForType(selectedItem, addItemViewModel);
+                        btnEditSubType.setOptions(subTypes);
+                        item.setSubType(subTypes[0]);
+                        addItemViewModel.setClothingItem(item);
+            }
+        });
+        btnEditSubType.setOnRadioClickListener(new WardrobeAlerts.RadioButtonAlertCallback() {
             @Override
             public void onClick(Context context, String selectedItem, int itemIndex) {
                 ClothingItem item = addItemViewModel.getClothingItem().getValue();
-                item.setType(selectedItem);
-                String[] subtypes = getSubtypeResourceForType(selectedItem, addItemViewModel);
-                item.setSubType(subtypes[0]);
-                addItemViewModel.setClothingItem(item);
+                item.setSubType(selectedItem);
+                addItemViewModel.getClothingItem().setValue(item);
             }
         });
-
-        final ItemParamButton btnSubType = new ItemParamButton("Sub Type", clothingItem.getSubType(), inflater, editList);
-        btnSubType.setOnClick(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final String[] subTypeOptions = getSubtypeResourceForType(clothingItem.getType(), addItemViewModel);
-                WardrobeAlerts.showRadioButtonDialog(getContext(), "Sub Type", subTypeOptions, new WardrobeAlerts.RadioButtonAlertCallback() {
-                    @Override
-                    public void onClick(Context context, String selectedItem, int itemIndex) {
-                        ClothingItem item = addItemViewModel.getClothingItem().getValue();
-                        item.setSubType(selectedItem);
-                        addItemViewModel.getClothingItem().setValue(item);
-                    }
-                });
-            }
-        });
-
-        final String[] designOptions = getResources().getStringArray(R.array.clothing_item_options_design);
-        final ItemParamRadioButton btnDesign = new ItemParamRadioButton("Design", clothingItem.getDesign(), designOptions, inflater, editList, new WardrobeAlerts.RadioButtonAlertCallback() {
+        btnEditDesign.setOnRadioClickListener(new WardrobeAlerts.RadioButtonAlertCallback() {
             @Override
             public void onClick(Context context, String selectedItem, int itemIndex) {
                 ClothingItem item = addItemViewModel.getClothingItem().getValue();
@@ -73,11 +73,7 @@ public class ItemParamEditFragment extends Fragment {
                 addItemViewModel.setClothingItem(item);
             }
         });
-
-        // TODO: Implement style slider
-
-        final String[] materialOptions = getResources().getStringArray(R.array.clothing_item_options_material);
-        final ItemParamRadioButton btnMaterial = new ItemParamRadioButton("Material", clothingItem.getMaterial(), materialOptions, inflater, editList, new WardrobeAlerts.RadioButtonAlertCallback() {
+        btnEditMaterial.setOnRadioClickListener(new WardrobeAlerts.RadioButtonAlertCallback() {
             @Override
             public void onClick(Context context, String selectedItem, int itemIndex) {
                 ClothingItem item = addItemViewModel.getClothingItem().getValue();
@@ -86,25 +82,29 @@ public class ItemParamEditFragment extends Fragment {
             }
         });
 
+        editList.addView(btnEditType);
+        editList.addView(btnEditSubType);
+        editList.addView(btnEditDesign);
+        // TODO: Implement style slider
+        editList.addView(btnEditMaterial);
         // TODO: Implement manual brand entering view
-
         // TODO: Implement numerical cost entering
 
         addItemViewModel.getClothingItem().observe(getActivity(), new Observer<ClothingItem>() {
             @Override
             public void onChanged(ClothingItem clothingItem) {
-                Log.d("DEBUG", "Clothing item changed to: " + clothingItem.toString());
-                btnType.setValueText(clothingItem.getType());
-                btnSubType.setValueText(clothingItem.getSubType());
-                btnDesign.setValueText(clothingItem.getDesign());
-                btnMaterial.setValueText(clothingItem.getMaterial());
+                Log.d("ITEM_CHANGE", clothingItem.toString());
+                btnEditType.setValue(clothingItem.getType());
+                btnEditSubType.setValue(clothingItem.getSubType());
+                btnEditDesign.setValue(clothingItem.getDesign());
+                btnEditMaterial.setValue(clothingItem.getMaterial());
             }
         });
 
         return view;
     }
 
-    private String[] getSubtypeResourceForType(String type, AddItemViewModel viewModel) {
+    private String[] getSubtypesForType(String type, AddItemViewModel viewModel) {
         if (viewModel == null)
             viewModel = ViewModelProviders.of(getActivity()).get(AddItemViewModel.class);
         Resources resources = getResources();
