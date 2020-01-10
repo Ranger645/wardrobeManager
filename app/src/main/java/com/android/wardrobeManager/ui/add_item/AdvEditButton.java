@@ -11,8 +11,11 @@ import androidx.annotation.NonNull;
 
 public class AdvEditButton extends FrameLayout {
 
+    protected String title;
+
     public AdvEditButton(String title, @NonNull Context context) {
         super(context);
+        this.title = title;
         initView(title, context);
     }
 

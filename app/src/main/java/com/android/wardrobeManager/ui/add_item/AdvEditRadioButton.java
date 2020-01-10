@@ -10,14 +10,11 @@ import androidx.annotation.Nullable;
 
 public class AdvEditRadioButton extends AdvEditButton {
 
-    private String title;
     private String[] options;
     private WardrobeAlerts.RadioButtonAlertCallback onRadioClickListener;
 
     public AdvEditRadioButton(String title, String[] options, @NonNull Context context) {
         super(title, context);
-
-        this.title = title;
         this.options = options;
 
         // Default listener: does nothing

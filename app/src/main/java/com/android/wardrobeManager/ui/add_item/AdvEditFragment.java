@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,21 +41,26 @@ public class AdvEditFragment extends Fragment {
         String[] subTypeOptions = getSubtypesForType(clothingItem.getType(), addItemViewModel);
         String[] designOptions = getResources().getStringArray(R.array.clothing_item_options_design);
         String[] materialOptions = getResources().getStringArray(R.array.clothing_item_options_material);
+        String[] sizeOptions = getResources().getStringArray(R.array.clothing_item_options_size);
 
         final AdvEditRadioButton btnEditType = new AdvEditRadioButton("Type", typeOptions, getContext());
         final AdvEditRadioButton btnEditSubType = new AdvEditRadioButton("Sub Type", subTypeOptions, getContext());
         final AdvEditRadioButton btnEditDesign = new AdvEditRadioButton("Design", designOptions, getContext());
+
         final AdvEditRadioButton btnEditMaterial = new AdvEditRadioButton("Material", materialOptions, getContext());
+        final AdvEditTextEnterButton btnEditBrand = new AdvEditTextEnterButton("Brand", clothingItem.getBrand(), InputType.TYPE_CLASS_TEXT, getContext());
+        final AdvEditTextEnterButton btnEditCost = new AdvEditTextEnterButton("Cost", Float.toString(clothingItem.getCost()), InputType.TYPE_CLASS_NUMBER, getContext());
+        final AdvEditRadioButton btnEditSize = new AdvEditRadioButton("Size", sizeOptions, getContext());
 
         btnEditType.setOnRadioClickListener(new WardrobeAlerts.RadioButtonAlertCallback() {
             @Override
             public void onClick(Context context, String selectedItem, int itemIndex) {
-                        ClothingItem item = addItemViewModel.getClothingItem().getValue();
-                        item.setType(selectedItem);
-                        String[] subTypes = getSubtypesForType(selectedItem, addItemViewModel);
-                        btnEditSubType.setOptions(subTypes);
-                        item.setSubType(subTypes[0]);
-                        addItemViewModel.setClothingItem(item);
+                ClothingItem item = addItemViewModel.getClothingItem().getValue();
+                item.setType(selectedItem);
+                String[] subTypes = getSubtypesForType(selectedItem, addItemViewModel);
+                btnEditSubType.setOptions(subTypes);
+                item.setSubType(subTypes[0]);
+                addItemViewModel.setClothingItem(item);
             }
         });
         btnEditSubType.setOnRadioClickListener(new WardrobeAlerts.RadioButtonAlertCallback() {
@@ -73,11 +79,37 @@ public class AdvEditFragment extends Fragment {
                 addItemViewModel.setClothingItem(item);
             }
         });
+
         btnEditMaterial.setOnRadioClickListener(new WardrobeAlerts.RadioButtonAlertCallback() {
             @Override
             public void onClick(Context context, String selectedItem, int itemIndex) {
                 ClothingItem item = addItemViewModel.getClothingItem().getValue();
                 item.setMaterial(selectedItem);
+                addItemViewModel.setClothingItem(item);
+            }
+        });
+        btnEditBrand.setInputAlertCallback(new WardrobeAlerts.InputAlertCallback() {
+            @Override
+            public void onEnterPressed(Context context, String value) {
+                Log.e("DEBUG", "HELLO WORLD");
+                ClothingItem item = addItemViewModel.getClothingItem().getValue();
+                item.setBrand(value);
+                addItemViewModel.setClothingItem(item);
+            }
+        });
+        btnEditCost.setInputAlertCallback(new WardrobeAlerts.InputAlertCallback() {
+            @Override
+            public void onEnterPressed(Context context, String value) {
+                ClothingItem item = addItemViewModel.getClothingItem().getValue();
+                item.setCost(Float.parseFloat(value));
+                addItemViewModel.setClothingItem(item);
+            }
+        });
+        btnEditSize.setOnRadioClickListener(new WardrobeAlerts.RadioButtonAlertCallback() {
+            @Override
+            public void onClick(Context context, String selectedItem, int itemIndex) {
+                ClothingItem item = addItemViewModel.getClothingItem().getValue();
+                item.setSize(selectedItem);
                 addItemViewModel.setClothingItem(item);
             }
         });
@@ -87,8 +119,9 @@ public class AdvEditFragment extends Fragment {
         editList.addView(btnEditDesign);
         // TODO: Implement style slider
         editList.addView(btnEditMaterial);
-        // TODO: Implement manual brand entering view
-        // TODO: Implement numerical cost entering
+        editList.addView(btnEditBrand);
+        editList.addView(btnEditCost);
+        editList.addView(btnEditSize);
 
         addItemViewModel.getClothingItem().observe(getActivity(), new Observer<ClothingItem>() {
             @Override
@@ -98,6 +131,9 @@ public class AdvEditFragment extends Fragment {
                 btnEditSubType.setValue(clothingItem.getSubType());
                 btnEditDesign.setValue(clothingItem.getDesign());
                 btnEditMaterial.setValue(clothingItem.getMaterial());
+                btnEditBrand.setValue(clothingItem.getBrand());
+                btnEditCost.setValue(Float.toString(clothingItem.getCost()));
+                btnEditSize.setValue(clothingItem.getSize());
             }
         });
 
