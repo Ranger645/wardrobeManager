@@ -21,14 +21,12 @@ public class AddItemActivity extends AppCompatActivity {
     private ViewPager addItemViewPager = null;
     private AddItemViewPagerAdapter addItemViewPagerAdapter = null;
 
-    private AddItemViewModel addItemViewModel;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
-        addItemViewModel = ViewModelProviders.of(this).get(AddItemViewModel.class);
+        AddItemViewModel addItemViewModel = ViewModelProviders.of(this).get(AddItemViewModel.class);
         Bundle bundle = getIntent().getExtras();
 
         // This parcelable will be passed when there is a particular item that needs to be edited.
@@ -44,16 +42,6 @@ public class AddItemActivity extends AppCompatActivity {
                 AddItemViewPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         addItemViewPager.setAdapter(addItemViewPagerAdapter);
 
-        addItemViewModel.getClothingItem().observe(this, new Observer<ClothingItem>() {
-            @Override
-            public void onChanged(ClothingItem clothingItem) {
-                refreshUIForClothingItem(clothingItem);
-            }
-        });
-    }
-
-    private void refreshUIForClothingItem(ClothingItem clothingItem) {
-
     }
 
     @Override
@@ -66,12 +54,14 @@ public class AddItemActivity extends AppCompatActivity {
         final String saveTag = "Save";
         final String quitTag = "Quit";
 
+        final AddItemViewModel addItemViewModel = ViewModelProviders.of(this).get(AddItemViewModel.class);
+
         RadioButtonAlertCallback callback = new RadioButtonAlertCallback() {
             public void onClick(Context context, String selectedItem, int itemIndex) {
 
                 // TODO: Make this actually save to the closet.
                 if (selectedItem.equals(saveTag)) {
-
+                    addItemViewModel.persistToDatabase();
                 } else if (selectedItem.equals(quitTag)) {
 
                 } else {

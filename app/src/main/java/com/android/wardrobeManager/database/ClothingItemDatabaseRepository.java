@@ -28,10 +28,11 @@ public class ClothingItemDatabaseRepository {
         new InsertItemAsyncTask(dao).execute(item);
     }
 
+    public void update(ClothingItem item) { new UpdateItemAsyncTask(dao).execute(item); }
+
     public LiveData<List<ClothingItem>> getClothingItems() {
         return this.clothingItems;
     }
-
 
     private static class InsertItemAsyncTask extends AsyncTask<ClothingItem, Void, Void> {
 
@@ -44,6 +45,21 @@ public class ClothingItemDatabaseRepository {
         @Override
         protected Void doInBackground(ClothingItem... items) {
             this.dao.insert(items[0]);
+            return null;
+        }
+    }
+
+    private static class UpdateItemAsyncTask extends AsyncTask<ClothingItem, Void, Void> {
+
+        private ClothingItemDAO dao;
+
+        private UpdateItemAsyncTask(ClothingItemDAO dao) {
+            this.dao = dao;
+        }
+
+        @Override
+        protected Void doInBackground(ClothingItem... items) {
+            this.dao.update(items[0]);
             return null;
         }
     }
