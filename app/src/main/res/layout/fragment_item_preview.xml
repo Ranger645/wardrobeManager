@@ -13,4 +13,11 @@
         android:src="@drawable/short_sleeve_shirt"
         android:background="@color/white"/>
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/round_outline"
+        android:scaleType="fitXY"
+        android:background="@android:color/transparent"/>
+
 </FrameLayout>
