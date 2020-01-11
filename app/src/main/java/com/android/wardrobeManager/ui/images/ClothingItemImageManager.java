@@ -14,6 +14,7 @@ import android.util.Log;
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.database.ClothingItemDatabase;
+import com.android.wardrobeManager.ui.util.Utility;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -76,7 +77,7 @@ public class ClothingItemImageManager {
         Drawable d = application.getResources().getDrawable(refRes, application.getTheme());
         Bitmap reference = Bitmap.createScaledBitmap(drawableToBitmap(d), bitmap.getWidth(), bitmap.getHeight(), false);
 
-        int[] colors = parseColors(toLoad.getColors());
+        int[] colors = Utility.parseClothingItemColors(toLoad.getColors());
         return ColorStyleFilterManager.filterColorStyle(toLoad.getDesign(), bitmap, reference, colors);
     }
 
@@ -87,14 +88,6 @@ public class ClothingItemImageManager {
         builder.append(toHash.getDesign());
         // Log.d("IMAGE_HASH", "values:" + builder.toString() + " hash:" + builder.toString().hashCode());
         return builder.toString().hashCode();
-    }
-
-    private static int[] parseColors(String encoded) {
-        String[] strColors = encoded.split(",");
-        int[] colors = new int[strColors.length];
-        for (int i = 0; i < colors.length; i++)
-            colors[i] = (int) Long.parseLong(strColors[i], 16);
-        return colors;
     }
 
     private static Bitmap drawableToBitmap (Drawable drawable) {

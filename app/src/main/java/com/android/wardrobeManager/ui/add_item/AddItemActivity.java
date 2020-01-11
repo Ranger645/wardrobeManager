@@ -7,19 +7,29 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.SparseArray;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.backend.AddItemViewModel;
 import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.ui.closet.ClosetActivity;
+import com.android.wardrobeManager.ui.util.Utility;
 import com.android.wardrobeManager.ui.util.WardrobeAlerts;
 import com.android.wardrobeManager.ui.util.WardrobeAlerts.*;
+
+import java.util.Map;
 
 public class AddItemActivity extends AppCompatActivity {
 
     private ViewPager addItemViewPager = null;
     private AddItemViewPagerAdapter addItemViewPagerAdapter = null;
+
+    private static SparseArray<String> colorToStringMap = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +51,18 @@ public class AddItemActivity extends AppCompatActivity {
                 getSupportFragmentManager(),
                 AddItemViewPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         addItemViewPager.setAdapter(addItemViewPagerAdapter);
+
+        if (colorToStringMap == null) {
+            initColorToStringMap();
+        }
+
+        addItemViewModel.getClothingItem().observe(this, new Observer<ClothingItem>() {
+            @Override
+            public void onChanged(ClothingItem clothingItem) {
+                TextView nameEditText = findViewById(R.id.name_edit_field);
+                nameEditText.setText(getClothingItemAutomaticName(clothingItem));
+            }
+        });
 
     }
 
@@ -75,5 +97,50 @@ public class AddItemActivity extends AppCompatActivity {
         WardrobeAlerts.showRadioButtonDialog(this, "Quit", new String[] {saveTag, quitTag}, callback);
 
         ///////////////////////////////////////////////////////////////
+    }
+
+    private static void initColorToStringMap() {
+        colorToStringMap = new SparseArray<>();
+        colorToStringMap.put(Color.BLACK, "Black");
+        colorToStringMap.put(0xFFFF00FF, "Purple");
+        colorToStringMap.put(Color.BLUE, "Blue");
+        colorToStringMap.put(Color.CYAN, "Cyan");
+        colorToStringMap.put(Color.GREEN, "Green");
+        colorToStringMap.put(Color.YELLOW, "Yellow");
+        colorToStringMap.put(0xFFFFFF00, "Orange");
+        colorToStringMap.put(Color.RED, "Red");
+        colorToStringMap.put(Color.WHITE, "White");
+    }
+
+    private static String getClothingItemAutomaticName(ClothingItem item) {
+        StringBuilder builder = new StringBuilder();
+        String colorStr = item.getColors();
+        long[] colors = Utility.hexListStrToLongArray(colorStr, ",");
+        for (int i = 0; i < colors.length; i++) {
+            long roundedColor = 0;
+            while (colors[i] != 0) {
+                Log.d("COLOR", "Color[i]" + colors[i]);
+                roundedColor <<= 8;
+                if ((colors[i] & 0xFF) >= 0x80) {
+                    roundedColor |= 0xFF;
+                }
+                colors[i] >>= 8;
+            }
+            Log.d("COLOR", "Rounded color: " + roundedColor);
+            builder.append(colorToStringMap.get((int) roundedColor, "<NULL>"));
+            if (i < colors.length - 1) {
+                if (colors.length >= 3)
+                    builder.append(", ");
+                else
+                    builder.append(" ");
+                if (i == colors.length - 2)
+                    builder.append("and ");
+            }
+        }
+        builder.append(" ");
+        builder.append(item.getDesign());
+        builder.append(" ");
+        builder.append(item.getSubType());
+        return builder.toString();
     }
 }
