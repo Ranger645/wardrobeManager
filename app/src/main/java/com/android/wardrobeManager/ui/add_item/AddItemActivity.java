@@ -11,7 +11,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.wardrobeManager.R;
@@ -61,6 +65,8 @@ public class AddItemActivity extends AppCompatActivity {
             public void onChanged(ClothingItem clothingItem) {
                 TextView nameEditText = findViewById(R.id.name_edit_field);
                 nameEditText.setText(getClothingItemAutomaticName(clothingItem));
+
+                updateColorDisplay(clothingItem);
             }
         });
 
@@ -97,6 +103,21 @@ public class AddItemActivity extends AppCompatActivity {
         WardrobeAlerts.showRadioButtonDialog(this, "Quit", new String[] {saveTag, quitTag}, callback);
 
         ///////////////////////////////////////////////////////////////
+    }
+
+    private void updateColorDisplay(ClothingItem item) {
+        int[] colors = Utility.parseClothingItemColors(item.getColors());
+        LinearLayout displayLayout = findViewById(R.id.color_edit_button_display);
+        displayLayout.removeAllViews();
+        displayLayout.setBackgroundColor(Color.BLUE);
+        for (int i = 0; i < colors.length; i++) {
+            View view = new View(displayLayout.getContext());
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
+            params.weight = 1;
+            view.setLayoutParams(params);
+            view.setBackgroundColor(colors[i]);
+            displayLayout.addView(view);
+        }
     }
 
     private static void initColorToStringMap() {
