@@ -1,6 +1,7 @@
 package com.android.wardrobeManager.ui.add_item;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GestureDetectorCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
@@ -11,10 +12,10 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,11 +23,10 @@ import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.backend.AddItemViewModel;
 import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.ui.closet.ClosetActivity;
+import com.android.wardrobeManager.ui.color_edit.ColorEditActivity;
 import com.android.wardrobeManager.ui.util.Utility;
 import com.android.wardrobeManager.ui.util.WardrobeAlerts;
 import com.android.wardrobeManager.ui.util.WardrobeAlerts.*;
-
-import java.util.Map;
 
 public class AddItemActivity extends AppCompatActivity {
 
@@ -59,6 +59,17 @@ public class AddItemActivity extends AppCompatActivity {
         if (colorToStringMap == null) {
             initColorToStringMap();
         }
+
+        final View.OnClickListener goToColorEdit = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AddItemActivity.this, ColorEditActivity.class);
+                startActivity(intent);
+            }
+        };
+
+        FrameLayout colorEditButton = findViewById(R.id.color_edit_button);
+        colorEditButton.setOnClickListener(goToColorEdit);
 
         addItemViewModel.getClothingItem().observe(this, new Observer<ClothingItem>() {
             @Override

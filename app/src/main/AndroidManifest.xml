@@ -19,7 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.add_item.AddItemActivity"></activity>
+        <activity android:name=".ui.add_item.AddItemActivity" />
+        <activity android:name=".ui.color_edit.ColorEditActivity"></activity>
     </application>
 
 </manifest>
