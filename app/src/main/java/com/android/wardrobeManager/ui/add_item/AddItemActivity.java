@@ -1,6 +1,7 @@
 package com.android.wardrobeManager.ui.add_item;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GestureDetectorCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -68,7 +69,7 @@ public class AddItemActivity extends AppCompatActivity {
             }
         };
 
-        FrameLayout colorEditButton = findViewById(R.id.color_edit_button);
+        ConstraintLayout colorEditButton = findViewById(R.id.color_edit_button);
         colorEditButton.setOnClickListener(goToColorEdit);
 
         addItemViewModel.getClothingItem().observe(this, new Observer<ClothingItem>() {
