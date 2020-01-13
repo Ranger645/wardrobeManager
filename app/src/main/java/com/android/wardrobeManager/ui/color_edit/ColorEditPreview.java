@@ -9,17 +9,24 @@ import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.android.wardrobeManager.R;
+
 public class ColorEditPreview extends View {
 
     private static final int COLOR_INDICATOR_THICKNESS = 30;
     private static final int COLOR_INDICATOR_RADIUS = 75;
+
     private int touchX = -100, touchY = -100;
 
     private Bitmap imageBitmap;
+    private boolean customImage = false;
 
-    public ColorEditPreview(Context context, Bitmap imageBitmap) {
+    private ColorSelectListener colorSelectListener;
+
+    public ColorEditPreview(Context context, Bitmap imageBitmap, boolean customImage) {
         super(context);
         this.imageBitmap = imageBitmap;
+        this.customImage = customImage;
     }
 
     @Override
@@ -29,14 +36,9 @@ public class ColorEditPreview extends View {
         Paint defaultBrush = new Paint();
         canvas.drawBitmap(imageBitmap, null, fullCanvas1, defaultBrush);
 
-        float touchXf = touchX;
-        float touchYf = touchY;
         if (touchX >= 0 && touchY >= 0 && touchX < canvas.getWidth() && touchY < canvas.getHeight()) {
-            int scaledX = (int) ((touchXf / canvas.getWidth()) * imageBitmap.getWidth());
-            int scaledY = (int) ((touchYf / canvas.getHeight()) * imageBitmap.getHeight());
-
             Paint thickBrush = new Paint();
-            thickBrush.setColor(imageBitmap.getPixel(scaledX, scaledY));
+            thickBrush.setColor(getColorAtViewPoint(touchX, touchY));
             thickBrush.setStyle(Paint.Style.STROKE);
             thickBrush.setStrokeWidth(COLOR_INDICATOR_THICKNESS);
 
@@ -56,15 +58,36 @@ public class ColorEditPreview extends View {
         this.invalidate();
     }
 
+    public void setColorSelectListener(ColorSelectListener listener) {
+        this.colorSelectListener = listener;
+    }
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN) {
-            touchX = (int) event.getX();
-            touchY = (int) event.getY();
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-
+        if (customImage) {
+            if (event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN) {
+                touchX = (int) event.getX();
+                touchY = (int) event.getY();
+            } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                if (colorSelectListener != null)
+                    colorSelectListener.onColorSelect(getColorAtViewPoint(touchX, touchY));
+                touchX = touchY = -100;
+            }
+            invalidate();
         }
-        invalidate();
         return true;
+    }
+
+    private int getColorAtViewPoint(float viewX, float viewY) {
+        int scaledX = (int) ((viewX / this.getWidth()) * imageBitmap.getWidth());
+        int scaledY = (int) ((viewY / this.getHeight()) * imageBitmap.getHeight());
+        int color = imageBitmap.getPixel(scaledX, scaledY);
+        if ((color & 0xFF000000) == 0)
+            return getResources().getColor(R.color.colorAccent, getContext().getTheme());
+        return color;
+    }
+
+    public interface ColorSelectListener {
+        void onColorSelect(int color);
     }
 }

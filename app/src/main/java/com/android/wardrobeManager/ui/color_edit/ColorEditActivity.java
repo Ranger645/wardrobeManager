@@ -42,9 +42,14 @@ public class ColorEditActivity extends AppCompatActivity {
             addItemViewModel.setClothingItem(new ClothingItem());
         }
 
-        final Bitmap clothingItemBitmap = ClothingItemImageManager.dynamicClothingItemLoad(
-                getApplication(), clothingItem);
-        final ColorEditPreview previewView = new ColorEditPreview(this, clothingItemBitmap);
+        final ColorEditPreview previewView = new ColorEditPreview(this, ClothingItemImageManager.dynamicClothingItemLoad(
+                getApplication(), clothingItem), clothingItem.isCustomImage());
+        previewView.setColorSelectListener(new ColorEditPreview.ColorSelectListener() {
+            @Override
+            public void onColorSelect(int color) {
+                addClothingItemColor(0xFF000000 | color);
+            }
+        });
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.MATCH_PARENT,
                 ConstraintLayout.LayoutParams.MATCH_PARENT);
@@ -55,7 +60,8 @@ public class ColorEditActivity extends AppCompatActivity {
         addItemViewModel.getClothingItem().observe(this, new Observer<ClothingItem>() {
             @Override
             public void onChanged(ClothingItem item) {
-                previewView.setImageBitmap(clothingItemBitmap);
+                previewView.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(
+                        getApplication(), clothingItem));
 
                 updateColorDisplay(item);
             }
@@ -99,7 +105,7 @@ public class ColorEditActivity extends AppCompatActivity {
         ClothingItem item = addItemViewModel.getClothingItem().getValue();
         StringBuilder builder = new StringBuilder(item.getColors());
         builder.append(",");
-        builder.append(color);
+        builder.append(Integer.toHexString(color));
         item.setColors(builder.toString());
         addItemViewModel.setClothingItem(item);
     }
