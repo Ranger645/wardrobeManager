@@ -24,48 +24,20 @@ import java.io.IOException;
 
 public class ClothingItemImageManager {
 
-    final static String image_folder = "Images";
-
-    public static void deleteAllClothingItemImages(Application application) {
-        ContextWrapper cw = new ContextWrapper(application.getApplicationContext());
-        File directory = cw.getDir(image_folder, Context.MODE_PRIVATE);
-
-        File[] files = directory.listFiles();
-        for (File file : files)
-            file.delete();
-    }
+    final static String CLOTHING_ITEM_IMAGE_FOLDER = "clothing_item_images";
 
     public static Bitmap dynamicClothingItemLoad(Application application, ClothingItem toLoad) {
-        ContextWrapper cw = new ContextWrapper(application.getApplicationContext());
-        File directory = cw.getDir(image_folder, Context.MODE_PRIVATE);
-
         int hash = getImageHash(toLoad);
-        File persistentImage = new File(directory, Integer.toString(hash));
-        if (persistentImage.isFile()) {
-            try {
-                Log.d("IMAGE_GEN", "Retrieving image");
-                return BitmapFactory.decodeStream(new FileInputStream(persistentImage));
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
-        }
+        StringBuilder pathBuilder = new StringBuilder(CLOTHING_ITEM_IMAGE_FOLDER);
+        pathBuilder.append(File.pathSeparator);
+        pathBuilder.append(hash);
+        Bitmap bitmap = ImageIo.loadImageFromFile(pathBuilder.toString(), application);
+        if (bitmap != null)
+            return  bitmap;
 
         // Generating file manually and saving it to disc
-        Bitmap bitmap = generateClothingItemImage(toLoad, application);
-        FileOutputStream fos = null;
-        try {
-            fos = new FileOutputStream(persistentImage);
-            // Use the compress method on the BitMap object to write image to the OutputStream
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        bitmap = generateClothingItemImage(toLoad, application);
+        ImageIo.saveBitMapToFile(bitmap, pathBuilder.toString(), application);
         return bitmap;
     }
 

@@ -59,6 +59,14 @@ public class ColorEditActivity extends AppCompatActivity {
         FrameLayout previewDisplayLayout = findViewById(R.id.color_edit_preview_frame);
         previewDisplayLayout.addView(previewView);
 
+        final ManualColorSelectorView manualSelector = new ManualColorSelectorView(this);
+        params = new FrameLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.MATCH_PARENT,
+                ConstraintLayout.LayoutParams.MATCH_PARENT);
+        manualSelector.setLayoutParams(params);
+        FrameLayout manualSelectLayout = findViewById(R.id.manual_color_select_frame);
+        manualSelectLayout.addView(manualSelector);
+
         addItemViewModel.getClothingItem().observe(this, new Observer<ClothingItem>() {
             @Override
             public void onChanged(ClothingItem item) {

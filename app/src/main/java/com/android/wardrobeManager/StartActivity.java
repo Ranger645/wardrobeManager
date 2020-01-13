@@ -9,7 +9,9 @@ import android.view.Window;
 
 import com.android.wardrobeManager.backend.ClothingItemDatabaseViewModel;
 import com.android.wardrobeManager.ui.closet.ClosetActivity;
+import com.android.wardrobeManager.ui.color_edit.ManualColorSelectorGraphic;
 import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
+import com.android.wardrobeManager.ui.images.ImageIo;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -41,8 +43,11 @@ public class StartActivity extends AppCompatActivity {
         }, getApplicationContext().getResources().getInteger(R.integer.splash_screen_min_time_millis));
 
         if (!quickStart)
-            ClothingItemImageManager.deleteAllClothingItemImages(this.getApplication());
+            ImageIo.deleteAllImages(this.getApplication());
         ViewModelProviders.of(this).get(ClothingItemDatabaseViewModel.class);
+
+        // TODO: Make this run in an async task
+        ManualColorSelectorGraphic.initialize(getApplication());
 
     }
 
