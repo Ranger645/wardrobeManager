@@ -5,6 +5,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.backend.AddItemViewModel;
 import com.android.wardrobeManager.database.ClothingItem;
+import com.android.wardrobeManager.ui.add_item.AddItemActivity;
 import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
 import com.android.wardrobeManager.ui.util.Utility;
 
@@ -69,13 +71,29 @@ public class ColorEditActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(ColorEditActivity.this, AddItemActivity.class);
+        Bundle bundle = new Bundle();
+        final AddItemViewModel addItemViewModel = ViewModelProviders.of(this).get(AddItemViewModel.class);
+        bundle.putParcelable("clothingItem", addItemViewModel.getClothingItem().getValue());
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
     private void updateColorDisplay(ClothingItem item) {
         int[] colors = Utility.parseClothingItemColors(item.getColors());
         LinearLayout displayLayout = findViewById(R.id.color_edit_button_display);
         displayLayout.removeAllViews();
         displayLayout.setBackgroundColor(Color.BLUE);
         for (int i = 0; i < colors.length; i++) {
-            ColorEditSingleColorButton colorButton = new ColorEditSingleColorButton(this, colors[i]);
+            final ColorEditSingleColorButton colorButton = new ColorEditSingleColorButton(this, colors[i]);
+            colorButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeClothingItemColor(((ColorEditSingleColorButton) v).getColor());
+                }
+            });
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT);
             params.weight = 1;
             colorButton.setLayoutParams(params);
@@ -88,10 +106,12 @@ public class ColorEditActivity extends AppCompatActivity {
         AddItemViewModel addItemViewModel = ViewModelProviders.of(this).get(AddItemViewModel.class);
         ClothingItem item = addItemViewModel.getClothingItem().getValue();
         int[] colors = Utility.parseClothingItemColors(item.getColors());
+        if (colors.length <= 1)
+            return;
         StringBuilder newColors = new StringBuilder();
         for (int i = 0; i < colors.length; i++) {
             if (colors[i] != color) {
-                newColors.append(colors[i]);
+                newColors.append(Integer.toHexString(colors[i]));
                 if (i < colors.length - 1)
                     newColors.append(",");
             }

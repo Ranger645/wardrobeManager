@@ -1,7 +1,5 @@
 package com.android.wardrobeManager.ui.color_edit;
 
-import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 
 import com.android.wardrobeManager.R;
@@ -16,11 +14,10 @@ public class ColorEditSingleColorButton extends AppCompatButton {
         super(activity);
         this.color = color;
 
-        this.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-
     }
+
+    public int getColor() {
+        return color;
+    }
+
 }
