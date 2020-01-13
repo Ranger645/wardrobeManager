@@ -8,13 +8,20 @@
     tools:context=".ui.color_edit.ColorEditActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/color_edit_preview_frame"
+        android:id="@+id/color_edit_preview_frame_holder"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/rounded_panel_margin_size"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/linearLayout"
+        app:layout_constraintBottom_toTopOf="@id/functionality_layout"
         android:background="@android:color/white">
+
+        <FrameLayout
+            android:id="@+id/color_edit_preview_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
 
         <ImageView
             android:id="@+id/color_edit_preview"
@@ -34,13 +41,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/functionality_layout"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginRight="@dimen/rounded_panel_margin_size"
         android:layout_marginLeft="@dimen/rounded_panel_margin_size"
-        app:layout_constraintTop_toBottomOf="@id/color_edit_preview_frame"
+        app:layout_constraintTop_toBottomOf="@id/color_edit_preview_frame_holder"
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@android:color/white">
 

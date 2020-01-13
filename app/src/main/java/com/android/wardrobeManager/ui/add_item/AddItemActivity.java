@@ -41,11 +41,11 @@ public class AddItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
 
-        AddItemViewModel addItemViewModel = ViewModelProviders.of(this).get(AddItemViewModel.class);
+        final AddItemViewModel addItemViewModel = ViewModelProviders.of(this).get(AddItemViewModel.class);
         Bundle bundle = getIntent().getExtras();
 
         // This parcelable will be passed when there is a particular item that needs to be edited.
-        ClothingItem clothingItem = bundle.getParcelable("clothingItem");
+        final ClothingItem clothingItem = bundle.getParcelable("clothingItem");
         if (clothingItem != null)
             addItemViewModel.setClothingItem(clothingItem);
         if (addItemViewModel.getClothingItem() == null)
@@ -65,6 +65,9 @@ public class AddItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(AddItemActivity.this, ColorEditActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("clothingItem", clothingItem);
+                intent.putExtras(bundle);
                 startActivity(intent);
             }
         };
