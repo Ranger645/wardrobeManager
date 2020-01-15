@@ -58,7 +58,6 @@ public class ClothingItemImageManager {
         builder.append(toHash.getSubType());
         builder.append(toHash.getColors());
         builder.append(toHash.getDesign());
-        // Log.d("IMAGE_HASH", "values:" + builder.toString() + " hash:" + builder.toString().hashCode());
         return builder.toString().hashCode();
     }
 
