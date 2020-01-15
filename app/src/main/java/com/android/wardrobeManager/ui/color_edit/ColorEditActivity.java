@@ -2,6 +2,8 @@ package com.android.wardrobeManager.ui.color_edit;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.wardrobeManager.R;
@@ -30,7 +33,9 @@ public class ColorEditActivity extends AppCompatActivity {
     private boolean previewDisplayed = true;
 
     private static final String COLOR_EDIT_PREVIEW_FRAG_TAG = "COLOR_EDIT_PREVIEW";
+    private static final String COLOR_EDIT_MANUAL_FRAG_TAG = "COLOR_EDIT_MANUAL";
     private ColorEditPreviewFragment colorEditPreviewFragment;
+    private ColorEditManualFragment colorEditManualFragment;
 
     private AddItemViewModel viewModel = null;
 
@@ -51,19 +56,20 @@ public class ColorEditActivity extends AppCompatActivity {
             viewModel.setClothingItem(new ClothingItem());
         }
 
-        FrameLayout fragmentHolder = findViewById(R.id.color_edit_fragment_holder);
         colorEditPreviewFragment = ColorEditPreviewFragment.getInstance(clothingItem);
-        getSupportFragmentManager().beginTransaction().add(fragmentHolder.getId(), colorEditPreviewFragment, COLOR_EDIT_PREVIEW_FRAG_TAG).commit();
+        colorEditManualFragment = ColorEditManualFragment.getInstance();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.color_edit_fragment_holder, colorEditPreviewFragment, COLOR_EDIT_PREVIEW_FRAG_TAG);
+        ft.commit();
 
         View colorEditFunctionButton = findViewById(R.id.color_edit_function_button);
         colorEditFunctionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (previewDisplayed) {
-                    Log.d("CLICK", "Going to color select");
+                    switchColorEditFragments(COLOR_EDIT_MANUAL_FRAG_TAG, true);
                 } else {
-                    Log.d("CLICK", "Going to preview");
-                    switchColorEditFragments(COLOR_EDIT_PREVIEW_FRAG_TAG);
+                    switchColorEditFragments(COLOR_EDIT_PREVIEW_FRAG_TAG, true);
                 }
                 previewDisplayed = !previewDisplayed;
             }
@@ -112,7 +118,21 @@ public class ColorEditActivity extends AppCompatActivity {
         }
     }
 
-    protected void switchColorEditFragments(String tagToSwitchTo) {
-
+    protected void switchColorEditFragments(String tagToSwitchTo, boolean doAnimation) {
+        AddItemViewModel addItemViewModel = ViewModelProviders.of(this).get(AddItemViewModel.class);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        TextView buttonView = findViewById(R.id.color_edit_function_button);
+        if (tagToSwitchTo.equals(COLOR_EDIT_PREVIEW_FRAG_TAG)) {
+            ft.setCustomAnimations(R.anim.slide_from_top, R.anim.fade_out);
+            colorEditPreviewFragment = ColorEditPreviewFragment.getInstance(addItemViewModel.getClothingItem().getValue());
+            ft.replace(R.id.color_edit_fragment_holder, colorEditPreviewFragment, tagToSwitchTo);
+            buttonView.setText("Custom Color");
+        } else {
+            ft.setCustomAnimations(R.anim.fade_in, R.anim.slide_towards_top);
+            colorEditManualFragment = ColorEditManualFragment.getInstance();
+            ft.replace(R.id.color_edit_fragment_holder, colorEditManualFragment, tagToSwitchTo);
+            buttonView.setText("Save Colors");
+        }
+        ft.commit();
     }
 }
