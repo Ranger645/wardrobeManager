@@ -7,6 +7,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -45,21 +46,13 @@ public class ManualColorSelectorView extends View {
         float colorSelectorCenterX = canvas.getWidth() / 2;
         float colorSelectorCenterY = canvas.getHeight() / 2;
 
-        float dRot = 0f;
+        // Calculating new angle:
         if (newX != oldX || newY != oldY) {
-            dRot = 180f - (float) Math.toDegrees(Math.atan((colorSelectorCenterX - oldX) / (colorSelectorCenterY - oldY))) - (float) Math.toDegrees(Math.atan((newX - colorSelectorCenterX) / (newY - colorSelectorCenterY)));
-
-            float direction = 0f;
-            float velX = newX - oldX;
-            float speedX = Math.abs(velX);
-            float velY = newY - oldY;
-            float speedY = Math.abs(velY);
-            if (speedX > speedY)
-                direction = velX / speedX;
-            else
-                direction = (newX > colorSelectorCenterX ? 1 : -1) * velY / speedY;
-
-            rotation = (0.02f * direction * dRot + rotation) % 360;
+            double oldAngle = Math.toDegrees(Math.atan((oldX - colorSelectorCenterX) / (oldY - colorSelectorCenterY)));
+            oldAngle = translateRelativeAngleToAbsolute(oldAngle, oldX - colorSelectorCenterX, oldY - colorSelectorCenterY);
+            double newAngle = Math.toDegrees(Math.atan((newX - colorSelectorCenterX) / (newY - colorSelectorCenterY)));
+            newAngle = translateRelativeAngleToAbsolute(newAngle, newX - colorSelectorCenterX, newY - colorSelectorCenterY);
+            this.rotation += (oldAngle - newAngle);
             oldX = newX;
             oldY = newY;
         }
@@ -94,6 +87,8 @@ public class ManualColorSelectorView extends View {
         } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
             oldX = event.getX();
             oldY = event.getY();
+            newX = event.getX();
+            newY = event.getY();
         } else if (event.getAction() == MotionEvent.ACTION_UP) {
             newX = oldX;
             newY = oldY;
@@ -101,6 +96,20 @@ public class ManualColorSelectorView extends View {
 
         invalidate();
         return true;
+    }
+
+    private double translateRelativeAngleToAbsolute(double relativeAngle, float x, float y) {
+        if (relativeAngle < 0)
+            relativeAngle += 90;
+        if (x > 0 && y >= 0)
+            return relativeAngle;
+        if (x >= 0 && y < 0)
+            return relativeAngle + 90;
+        if (x <= 0 && y > 0)
+            return relativeAngle + 270;
+        if (x < 0 && y <= 0)
+            return relativeAngle + 180;
+        return 0;
     }
 
 }
