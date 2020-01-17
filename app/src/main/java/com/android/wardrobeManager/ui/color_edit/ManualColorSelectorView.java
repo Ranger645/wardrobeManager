@@ -7,10 +7,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.RectF;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import com.android.wardrobeManager.R;
 
@@ -25,17 +24,30 @@ public class ManualColorSelectorView extends View {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
+        int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
+        this.setMeasuredDimension(parentWidth/2, parentHeight);
+        this.setLayoutParams(new FrameLayout.LayoutParams(parentWidth,parentWidth));
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         Paint defaultBrush = new Paint();
         defaultBrush.setColor(Color.GRAY);
+        // canvas.drawRect(new Rect(0, 0, canvas.getWidth(), canvas.getHeight()), defaultBrush);
         Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.color_selector_wheel);
-        float centerX = canvas.getWidth() / 2;
-        float centerY = canvas.getHeight();
+
+        float colorSelectorWidth = canvas.getWidth() - 100;
+        float colorSelectorHeight = canvas.getHeight() - 100;
+        float colorSelectorCenterX = canvas.getWidth() / 2;
+        float colorSelectorCenterY = canvas.getHeight() / 2;
 
         float dRot = 0f;
         if (newX != oldX || newY != oldY) {
-            dRot = 180f - (float) Math.toDegrees(Math.atan((centerX - oldX) / (centerY - oldY))) - (float) Math.toDegrees(Math.atan((newX - centerX) / (newY - centerY)));
+            dRot = 180f - (float) Math.toDegrees(Math.atan((colorSelectorCenterX - oldX) / (colorSelectorCenterY - oldY))) - (float) Math.toDegrees(Math.atan((newX - colorSelectorCenterX) / (newY - colorSelectorCenterY)));
 
             float direction = 0f;
             float velX = newX - oldX;
@@ -45,17 +57,12 @@ public class ManualColorSelectorView extends View {
             if (speedX > speedY)
                 direction = velX / speedX;
             else
-                direction = (newX > centerX ? 1 : -1) * velY / speedY;
+                direction = (newX > colorSelectorCenterX ? 1 : -1) * velY / speedY;
 
             rotation = (0.02f * direction * dRot + rotation) % 360;
             oldX = newX;
             oldY = newY;
         }
-
-        float colorSelectorWidth = canvas.getHeight() + 200;
-        float colorSelectorHeight = canvas.getHeight() + 200;
-        float colorSelectorCenterX = canvas.getWidth() / 2;
-        float colorSelectorCenterY = canvas.getHeight() - 100;
 
         Matrix matrix = new Matrix();
         matrix.reset();

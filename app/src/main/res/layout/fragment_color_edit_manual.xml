@@ -1,9 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimaryDark"
     tools:context=".ui.color_edit.ColorEditManualFragment">
 
-</FrameLayout>
+    <FrameLayout
+        android:id="@+id/manual_color_wheel_frame"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="@dimen/rounded_panel_margin_size"
+        app:layout_constraintBottom_toTopOf="@+id/manual_color_grayscale_frame_holder">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/manual_color_grayscale_frame_holder"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginBottom="48dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <FrameLayout
+            android:id="@+id/manual_color_grayscale_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </FrameLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/rounded_outline_slim" />
+
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
