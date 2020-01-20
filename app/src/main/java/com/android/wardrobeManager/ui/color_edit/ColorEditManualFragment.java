@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.backend.AddItemViewModel;
+import com.android.wardrobeManager.backend.ColorEditViewModel;
 import com.android.wardrobeManager.ui.util.Utility;
 
 public class ColorEditManualFragment extends Fragment {
@@ -34,7 +35,7 @@ public class ColorEditManualFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        final AddItemViewModel viewModel = ViewModelProviders.of(getActivity()).get(AddItemViewModel.class);
+        final ColorEditViewModel viewModel = ViewModelProviders.of(getActivity()).get(ColorEditViewModel.class);
 
         // Inflate the layout for this fragment
         ConstraintLayout rootLayout = (ConstraintLayout) inflater.inflate(R.layout.fragment_color_edit_manual, container, false);

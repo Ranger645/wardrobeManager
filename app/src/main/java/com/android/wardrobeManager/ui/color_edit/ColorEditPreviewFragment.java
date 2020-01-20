@@ -1,21 +1,19 @@
 package com.android.wardrobeManager.ui.color_edit;
 
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.android.wardrobeManager.R;
-import com.android.wardrobeManager.backend.AddItemViewModel;
+import com.android.wardrobeManager.backend.ColorEditViewModel;
 import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
 
@@ -46,7 +44,7 @@ public class ColorEditPreviewFragment extends Fragment {
         ConstraintLayout rootLayout = (ConstraintLayout) inflater.inflate(R.layout.fragment_color_edit_preview, container, false);
 
         ClothingItem clothingItem = getArguments().getParcelable("clothingItem");
-        final AddItemViewModel viewModel = ViewModelProviders.of(getActivity()).get(AddItemViewModel.class);
+        final ColorEditViewModel viewModel = ViewModelProviders.of(getActivity()).get(ColorEditViewModel.class);
 
         previewView = new ColorEditPreview(this.getActivity(),
                 ClothingItemImageManager.dynamicClothingItemLoad(getActivity().getApplication(), clothingItem),

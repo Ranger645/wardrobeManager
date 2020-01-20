@@ -4,9 +4,9 @@ import android.app.Application;
 
 import androidx.annotation.NonNull;
 
-public class AddItemViewModel extends ClothingItemViewModel {
+public class ColorEditViewModel extends ClothingItemViewModel {
 
-    public AddItemViewModel(@NonNull Application application) {
+    public ColorEditViewModel(@NonNull Application application) {
         super(application);
     }
 

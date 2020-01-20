@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.backend.AddItemViewModel;
+import com.android.wardrobeManager.backend.ColorEditViewModel;
 import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.ui.add_item.AddItemActivity;
 import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
@@ -37,14 +38,14 @@ public class ColorEditActivity extends AppCompatActivity {
     private ColorEditPreviewFragment colorEditPreviewFragment;
     private ColorEditManualFragment colorEditManualFragment;
 
-    private AddItemViewModel viewModel = null;
+    private ColorEditViewModel viewModel = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_color_edit);
 
-        viewModel = ViewModelProviders.of(this).get(AddItemViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(ColorEditViewModel.class);
         Bundle bundle = getIntent().getExtras();
 
         // This parcelable will be passed when there is a particular item that needs to be edited.
@@ -92,8 +93,7 @@ public class ColorEditActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(ColorEditActivity.this, AddItemActivity.class);
         Bundle bundle = new Bundle();
-        final AddItemViewModel addItemViewModel = ViewModelProviders.of(this).get(AddItemViewModel.class);
-        bundle.putParcelable("clothingItem", addItemViewModel.getClothingItem().getValue());
+        bundle.putParcelable("clothingItem", viewModel.getClothingItem().getValue());
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -119,12 +119,11 @@ public class ColorEditActivity extends AppCompatActivity {
     }
 
     protected void switchColorEditFragments(String tagToSwitchTo, boolean doAnimation) {
-        AddItemViewModel addItemViewModel = ViewModelProviders.of(this).get(AddItemViewModel.class);
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         TextView buttonView = findViewById(R.id.color_edit_function_button);
         if (tagToSwitchTo.equals(COLOR_EDIT_PREVIEW_FRAG_TAG)) {
             ft.setCustomAnimations(R.anim.slide_from_top, R.anim.fade_out);
-            colorEditPreviewFragment = ColorEditPreviewFragment.getInstance(addItemViewModel.getClothingItem().getValue());
+            colorEditPreviewFragment = ColorEditPreviewFragment.getInstance(viewModel.getClothingItem().getValue());
             ft.replace(R.id.color_edit_fragment_holder, colorEditPreviewFragment, tagToSwitchTo);
             buttonView.setText("Custom Color");
         } else {
