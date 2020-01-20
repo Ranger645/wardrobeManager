@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.backend.AddItemViewModel;
+import com.android.wardrobeManager.ui.util.Utility;
 
 public class ColorEditManualFragment extends Fragment {
 
@@ -44,12 +45,15 @@ public class ColorEditManualFragment extends Fragment {
 
         FrameLayout greyScaleSliderContainer = rootLayout.findViewById(R.id.manual_color_grayscale_frame);
         greyscaleSlider = new ManualColorGrayscaleView(getActivity());
+        greyscaleSlider.setColor(colorWheel.getColor());
         greyScaleSliderContainer.addView(greyscaleSlider);
 
         colorWheel.setColorChangeListener(new ManualColorSelectorView.ManualColorSelectorUpdateListener() {
             @Override
             public void onNewColorSelect(int newColor) {
                 Log.d("COLOR_CHANGE", "Color Changed");
+                greyscaleSlider.setColor(newColor);
+                greyscaleSlider.invalidate();
             }
         });
         greyscaleSlider.setColorGrayscaleListener(new ManualColorGrayscaleView.ManualColorGrayscaleListener() {
@@ -62,7 +66,7 @@ public class ColorEditManualFragment extends Fragment {
             @Override
             public void onNewColorSelect(int newColor) {
                 Log.d("COLOR_SELECT", "New color selected: " + newColor);
-                viewModel.addClothingItemColor(newColor);
+                viewModel.addClothingItemColor(Utility.convertColorPercentageToColor(newColor, greyscaleSlider.getColorPercentage()));
                 getActivity().findViewById(R.id.color_edit_button_display).invalidate();
             }
         });

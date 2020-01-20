@@ -26,4 +26,31 @@ public class Utility {
         return (ax - bx) * (ax - bx) + (ay - by) * (ay - by);
     }
 
+    public static int convertColorPercentageToColor(int color, double percentage) {
+        int r = (0x00FF0000 & color) >> 16;
+        int g = (0x0000FF00 & color) >> 8;
+        int b = 0x000000FF & color;
+        if (percentage < 50) {
+            // Dark end
+            percentage /= 50.0;
+            r *= percentage;
+            g *= percentage;
+            b *= percentage;
+            return 0xFF000000 | (r << 16) | (g << 8) | b;
+        } else {
+            // Light end
+            int dr = 255 - r;
+            int dg = 255 - g;
+            int db = 255 - b;
+            percentage = (percentage - 50) / 50.0;
+            dr *= percentage;
+            dg *= percentage;
+            db *= percentage;
+            r += dr;
+            g += dg;
+            b += db;
+        }
+        return 0xFF000000 | (r << 16) | (g << 8) | b;
+    }
+
 }

@@ -81,9 +81,6 @@ public class ManualColorSelectorView extends View {
         matrix.postRotate(rotation);
         matrix.postTranslate(colorSelectorCenterX, colorSelectorCenterY);
 
-//        Paint borderBrush = new Paint();
-//        borderBrush.setColor(Color.BLACK);
-//        canvas.drawCircle(colorSelectorCenterX, colorSelectorCenterY, colorSelectorWidth / 2 + 50, borderBrush);
         Paint separatorBrush = new Paint();
         separatorBrush.setColor(Color.WHITE);
         canvas.drawCircle(colorSelectorCenterX, colorSelectorCenterY, getColorSelectButtonRadius() + 10, separatorBrush);
@@ -156,4 +153,9 @@ public class ManualColorSelectorView extends View {
     public void setColorSelectListener(ManualColorSelectorUpdateListener colorSelectListener) {
         this.colorSelectListener = colorSelectListener;
     }
+
+    public int getColor() {
+        return ManualColorSelectorGraphic.getColorAtAngle(rotation);
+    }
+
 }
