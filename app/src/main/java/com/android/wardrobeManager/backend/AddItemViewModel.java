@@ -57,8 +57,11 @@ public class AddItemViewModel extends AndroidViewModel {
     public void addClothingItemColor(int color) {
         ClothingItem item = this.getClothingItem().getValue();
         StringBuilder builder = new StringBuilder(item.getColors());
-        builder.append(",");
+        Log.d("OLD_COLORS: ", builder.toString());
+        if (builder.charAt(builder.length() - 1) != ',')
+            builder.append(",");
         builder.append(Integer.toHexString(color));
+        Log.d("NEW_COLORS: ", builder.toString());
         item.setColors(builder.toString());
         this.setClothingItem(item);
     }

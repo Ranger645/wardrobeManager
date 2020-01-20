@@ -2,7 +2,6 @@ package com.android.wardrobeManager.ui.color_edit;
 
 import android.app.Application;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.util.Log;
 
 import com.android.wardrobeManager.ui.images.ImageIo;
@@ -77,7 +76,6 @@ public class ManualColorSelectorGraphic {
         angle = (angle + 180) % 360;
         int radius = colorSelectorImage.getWidth() / 2;
         int adjustedRadius = radius - 20;
-        Log.d("ANGLE", "" + angle + ", " + Math.cos(Math.toRadians(angle)) + ", " + Math.sin(Math.toRadians(angle)));
         return colorSelectorImage.getPixel((int) (adjustedRadius * Math.sin(Math.toRadians(angle))) + radius,
                 (int) (adjustedRadius * Math.cos(Math.toRadians(angle))) + radius);
     }

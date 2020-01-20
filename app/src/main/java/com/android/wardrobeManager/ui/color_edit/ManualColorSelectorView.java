@@ -7,18 +7,36 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
 import com.android.wardrobeManager.R;
+import com.android.wardrobeManager.ui.util.Utility;
 
 public class ManualColorSelectorView extends View {
 
-    private float rotation = 0;
+    // TODO: Implement hard coded values based around variable width and height along with functions
+    // for computing x, y, w, and h value of different parts of the drawn stuff.
 
+    // Relative to width and height of canvas:
+    private static final double COLOR_SELECT_BUTTON_RADIUS_PERCENT = 0.7;
+    private static final double COLOR_WHEEL_RADIUS_PERCENT = 0.9;
+
+    private static final int SELECT_BUTTON_TOUCH_DISTANCE_THRESHOLD = 20;
+
+    private boolean hasMoved = false;
+    private float rotation = 0;
     private float oldX = -1, oldY = -1, newX = -1, newY = -1;
+
+    private ManualColorSelectorUpdateListener colorChangeListener = new ManualColorSelectorUpdateListener() {
+        @Override
+        public void onNewColorSelect(int newColor) {}
+    };
+    private ManualColorSelectorUpdateListener colorSelectListener = new ManualColorSelectorUpdateListener() {
+        @Override
+        public void onNewColorSelect(int newColor) {}
+    };
 
     public ManualColorSelectorView(Context context) {
         super(context);
@@ -38,11 +56,10 @@ public class ManualColorSelectorView extends View {
         super.onDraw(canvas);
         Paint defaultBrush = new Paint();
         defaultBrush.setColor(Color.GRAY);
-        // canvas.drawRect(new Rect(0, 0, canvas.getWidth(), canvas.getHeight()), defaultBrush);
         Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.color_selector_wheel);
 
-        float colorSelectorWidth = canvas.getWidth() - 100;
-        float colorSelectorHeight = canvas.getHeight() - 100;
+        float colorSelectorWidth = getColorWheelWidth();
+        float colorSelectorHeight = colorSelectorWidth;
         float colorSelectorCenterX = canvas.getWidth() / 2;
         float colorSelectorCenterY = canvas.getHeight() / 2;
 
@@ -64,38 +81,19 @@ public class ManualColorSelectorView extends View {
         matrix.postRotate(rotation);
         matrix.postTranslate(colorSelectorCenterX, colorSelectorCenterY);
 
-        Paint borderBrush = new Paint();
-        borderBrush.setColor(Color.BLACK);
-        canvas.drawCircle(colorSelectorCenterX, colorSelectorCenterY, colorSelectorWidth / 2 + 50, borderBrush);
+//        Paint borderBrush = new Paint();
+//        borderBrush.setColor(Color.BLACK);
+//        canvas.drawCircle(colorSelectorCenterX, colorSelectorCenterY, colorSelectorWidth / 2 + 50, borderBrush);
         Paint separatorBrush = new Paint();
         separatorBrush.setColor(Color.WHITE);
-        canvas.drawCircle(colorSelectorCenterX, colorSelectorCenterY, colorSelectorWidth / 2 - 10, separatorBrush);
+        canvas.drawCircle(colorSelectorCenterX, colorSelectorCenterY, getColorSelectButtonRadius() + 10, separatorBrush);
         Paint selectedColor = new Paint();
         if (rotation < 0)
             rotation += 360;
         selectedColor.setColor(ManualColorSelectorGraphic.getColorAtAngle(rotation));
-        canvas.drawCircle(colorSelectorCenterX, colorSelectorCenterY, colorSelectorWidth / 2 - 110, selectedColor);
+        canvas.drawCircle(colorSelectorCenterX, colorSelectorCenterY, getColorSelectButtonRadius(), selectedColor);
         canvas.drawBitmap(imageBitmap, matrix, defaultBrush);
 
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_MOVE) {
-            newX = event.getX();
-            newY = event.getY();
-        } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            oldX = event.getX();
-            oldY = event.getY();
-            newX = event.getX();
-            newY = event.getY();
-        } else if (event.getAction() == MotionEvent.ACTION_UP) {
-            newX = oldX;
-            newY = oldY;
-        }
-
-        invalidate();
-        return true;
     }
 
     private double translateRelativeAngleToAbsolute(double relativeAngle, float x, float y) {
@@ -112,4 +110,50 @@ public class ManualColorSelectorView extends View {
         return 0;
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_MOVE) {
+            hasMoved = true;
+            newX = event.getX();
+            newY = event.getY();
+            this.colorChangeListener.onNewColorSelect(ManualColorSelectorGraphic.getColorAtAngle(rotation));
+        } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            hasMoved = false;
+            oldX = event.getX();
+            oldY = event.getY();
+            newX = event.getX();
+            newY = event.getY();
+        } else if (event.getAction() == MotionEvent.ACTION_UP) {
+            double colorSelectButtonRadiusSquared = Math.pow(getColorSelectButtonRadius(), 2);
+            if (Utility.distanceSquared(oldX, oldY, newX, newY) < SELECT_BUTTON_TOUCH_DISTANCE_THRESHOLD * SELECT_BUTTON_TOUCH_DISTANCE_THRESHOLD
+                    && Utility.distanceSquared(getWidth() / 2, getHeight() / 2, newX, newY) < colorSelectButtonRadiusSquared) {
+                this.colorSelectListener.onNewColorSelect(ManualColorSelectorGraphic.getColorAtAngle(rotation));
+            }
+            newX = oldX;
+            newY = oldY;
+        }
+
+        invalidate();
+        return true;
+    }
+
+    public interface ManualColorSelectorUpdateListener {
+        void onNewColorSelect(int newColor);
+    }
+
+    public float getColorWheelWidth() {
+        return (float) COLOR_WHEEL_RADIUS_PERCENT * this.getWidth();
+    }
+
+    public float getColorSelectButtonRadius() {
+        return (float) COLOR_SELECT_BUTTON_RADIUS_PERCENT * this.getWidth() / 2;
+    }
+
+    public void setColorChangeListener(ManualColorSelectorUpdateListener colorChangeListener) {
+        this.colorChangeListener = colorChangeListener;
+    }
+
+    public void setColorSelectListener(ManualColorSelectorUpdateListener colorSelectListener) {
+        this.colorSelectListener = colorSelectListener;
+    }
 }

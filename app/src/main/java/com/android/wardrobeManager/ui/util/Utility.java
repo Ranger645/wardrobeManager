@@ -22,4 +22,8 @@ public class Utility {
         return hexListStrToIntArray(colors, ",");
     }
 
+    public static double distanceSquared(double ax, double ay, double bx, double by) {
+        return (ax - bx) * (ax - bx) + (ay - by) * (ay - by);
+    }
+
 }

@@ -1,6 +1,8 @@
 package com.android.wardrobeManager.ui.color_edit;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
@@ -11,6 +13,15 @@ import android.view.MotionEvent;
 import android.view.View;
 
 public class ManualColorGrayscaleView extends View {
+
+    private double percentage = 50;
+
+    private ManualColorGrayscaleListener colorGrayscaleListener = new ManualColorGrayscaleListener() {
+        @Override
+        public void onNewColorSelect(double newColor) {
+
+        }
+    };
 
     public ManualColorGrayscaleView(Context context) {
         super(context);
@@ -36,6 +47,18 @@ public class ManualColorGrayscaleView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        percentage = event.getX() / ((double) this.getWidth());
+        invalidate();
+
+        this.colorGrayscaleListener.onNewColorSelect(percentage);
         return super.onTouchEvent(event);
+    }
+
+    public interface ManualColorGrayscaleListener {
+        void onNewColorSelect(double colorPercentage);
+    }
+
+    public void setColorGrayscaleListener(ManualColorGrayscaleListener colorGrayscaleListener) {
+        this.colorGrayscaleListener = colorGrayscaleListener;
     }
 }
