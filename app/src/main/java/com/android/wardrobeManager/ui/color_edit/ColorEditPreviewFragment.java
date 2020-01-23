@@ -17,9 +17,6 @@ import com.android.wardrobeManager.backend.ColorEditViewModel;
 import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ColorEditPreviewFragment extends Fragment {
 
     private ColorEditPreview previewView;

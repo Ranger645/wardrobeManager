@@ -8,6 +8,37 @@
     tools:context=".ui.color_edit.ColorEditManualFragment">
 
     <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/colorAccent"
+        android:layout_marginTop="@dimen/rounded_panel_margin_size"
+        android:layout_marginBottom="@dimen/rounded_panel_margin_size"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/manual_color_wheel_frame">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:scaleType="fitStart"
+            android:layout_margin="16dp"
+            android:src="@drawable/short_sleeve_shirt"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/rounded_outline_top"
+            android:scaleType="fitXY"/>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/rounded_outline_bottom"
+            android:scaleType="fitXY"
+            android:layout_gravity="bottom"/>
+
+    </FrameLayout>
+
+    <FrameLayout
         android:id="@+id/manual_color_wheel_frame"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -20,7 +51,6 @@
         android:id="@+id/manual_color_grayscale_frame_holder"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginBottom="48dp"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <FrameLayout

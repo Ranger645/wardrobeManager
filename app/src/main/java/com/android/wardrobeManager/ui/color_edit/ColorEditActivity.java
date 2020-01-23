@@ -68,9 +68,9 @@ public class ColorEditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (previewDisplayed) {
-                    switchColorEditFragments(COLOR_EDIT_MANUAL_FRAG_TAG, true);
+                    switchColorEditFragments(COLOR_EDIT_MANUAL_FRAG_TAG);
                 } else {
-                    switchColorEditFragments(COLOR_EDIT_PREVIEW_FRAG_TAG, true);
+                    switchColorEditFragments(COLOR_EDIT_PREVIEW_FRAG_TAG);
                 }
                 previewDisplayed = !previewDisplayed;
             }
@@ -118,7 +118,7 @@ public class ColorEditActivity extends AppCompatActivity {
         }
     }
 
-    protected void switchColorEditFragments(String tagToSwitchTo, boolean doAnimation) {
+    protected void switchColorEditFragments(String tagToSwitchTo) {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
         TextView buttonView = findViewById(R.id.color_edit_function_button);
         if (tagToSwitchTo.equals(COLOR_EDIT_PREVIEW_FRAG_TAG)) {

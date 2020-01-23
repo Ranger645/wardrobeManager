@@ -20,8 +20,9 @@ public class ManualColorSelectorView extends View {
     // for computing x, y, w, and h value of different parts of the drawn stuff.
 
     // Relative to width and height of canvas:
-    private static final double COLOR_SELECT_BUTTON_RADIUS_PERCENT = 0.7;
+    private static final double COLOR_SELECT_BUTTON_RADIUS_PERCENT = 0.65;
     private static final double COLOR_WHEEL_RADIUS_PERCENT = 0.9;
+    private static final double COLOR_WHEEL_BORDER_PERCENT = 0.85;
 
     private static final int SELECT_BUTTON_TOUCH_DISTANCE_THRESHOLD = 20;
 
@@ -83,7 +84,7 @@ public class ManualColorSelectorView extends View {
 
         Paint separatorBrush = new Paint();
         separatorBrush.setColor(Color.WHITE);
-        canvas.drawCircle(colorSelectorCenterX, colorSelectorCenterY, getColorSelectButtonRadius() + 10, separatorBrush);
+        canvas.drawCircle(colorSelectorCenterX, colorSelectorCenterY, getColorWheelBorderRadius(), separatorBrush);
         Paint selectedColor = new Paint();
         if (rotation < 0)
             rotation += 360;
@@ -138,12 +139,16 @@ public class ManualColorSelectorView extends View {
         void onNewColorSelect(int newColor);
     }
 
-    public float getColorWheelWidth() {
+    protected float getColorWheelWidth() {
         return (float) COLOR_WHEEL_RADIUS_PERCENT * this.getWidth();
     }
 
-    public float getColorSelectButtonRadius() {
+    protected float getColorSelectButtonRadius() {
         return (float) COLOR_SELECT_BUTTON_RADIUS_PERCENT * this.getWidth() / 2;
+    }
+
+    protected float getColorWheelBorderRadius() {
+        return (float) COLOR_WHEEL_BORDER_PERCENT * this.getWidth() / 2;
     }
 
     public void setColorChangeListener(ManualColorSelectorUpdateListener colorChangeListener) {

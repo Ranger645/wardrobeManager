@@ -26,7 +26,7 @@
         android:layout_marginLeft="@dimen/rounded_panel_margin_size"
         app:layout_constraintTop_toBottomOf="@id/color_edit_fragment_holder"
         app:layout_constraintBottom_toTopOf="@id/color_edit_function_button_layout"
-        android:background="@color/colorAccent">
+        android:background="@color/colorPrimaryDark">
 
         <LinearLayout
             android:id="@+id/color_edit_button_display"
@@ -36,16 +36,9 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scaleType="fitStart"
-            android:src="@drawable/rounded_outline_top"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:scaleType="fitEnd"
-            android:src="@drawable/rounded_outline_bottom"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:src="@drawable/rounded_outline_slim"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
