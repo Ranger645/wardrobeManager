@@ -1,5 +1,7 @@
 package com.android.wardrobeManager.ui.closet;
 
+import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -8,15 +10,18 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.StartActivity;
 import com.android.wardrobeManager.backend.ClothingItemDatabaseViewModel;
 import com.android.wardrobeManager.database.ClothingItem;
+import com.android.wardrobeManager.ui.add_item.AddItemActivity;
 
 import java.util.List;
 
-public class ClosetActivity extends AppCompatActivity {
+public class ClosetActivity extends AppCompatActivity implements ClosetClothingItemClickListener {
 
     private ClothingItemDatabaseViewModel clothingItemDatabaseViewModel;
 
@@ -29,7 +34,7 @@ public class ClosetActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new GridLayoutManager(this,2 ));
         recyclerView.setHasFixedSize(true);
 
-        final ClosetAdapter adapter = new ClosetAdapter(this);
+        final ClosetAdapter adapter = new ClosetAdapter(this, this);
         recyclerView.setAdapter(adapter);
 
         clothingItemDatabaseViewModel = ViewModelProviders.of(this).get(ClothingItemDatabaseViewModel.class);
@@ -48,4 +53,13 @@ public class ClosetActivity extends AppCompatActivity {
         startActivity(new Intent(ClosetActivity.this, StartActivity.class));
     }
 
+    @Override
+    public void onClothingItemClick(ClothingItem item, ImageButton clothingImageView) {
+        Intent intent = new Intent(ClosetActivity.this, AddItemActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("clothingItem", item);
+        intent.putExtras(bundle);
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ClosetActivity.this, clothingImageView, "sharedName");
+        startActivity(intent, options.toBundle());
+    }
 }

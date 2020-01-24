@@ -3,6 +3,7 @@ package com.android.wardrobeManager.ui.closet;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.database.ClothingItem;
@@ -26,11 +28,14 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ClosetItem
 
     private Context context = null;
 
+    private ClosetClothingItemClickListener clothingClickListener;
+
     private List<ClothingItem> clothingItems = new ArrayList<>();
     private SparseArray<Bitmap> clothingItemBitmaps = new SparseArray<>();
 
-    public ClosetAdapter(Context context) {
+    public ClosetAdapter(Context context, ClosetClothingItemClickListener listner) {
         this.context = context;
+        this.clothingClickListener = listner;
     }
 
     @NonNull
@@ -71,18 +76,13 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ClosetItem
 
         public ClosetItemHolder(@NonNull View itemView) {
             super(itemView);
-            itemView.setTransitionName("");
             bnImage = itemView.findViewById(R.id.bn_clothing_item);
 
             // Clicking on the button will direct to the clothing edit activity
             bnImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, AddItemActivity.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable("clothingItem", clothingItem);
-                    intent.putExtras(bundle);
-                    context.startActivity(intent);
+                    clothingClickListener.onClothingItemClick(clothingItem, bnImage);
                 }
             });
         }

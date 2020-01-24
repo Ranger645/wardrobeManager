@@ -38,6 +38,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.viewpager.widget.ViewPager
+        android:transitionName="sharedName"
         android:id="@+id/add_item_view_pager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
