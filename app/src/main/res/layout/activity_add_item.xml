@@ -55,8 +55,7 @@
         android:layout_marginLeft="@dimen/rounded_panel_margin_size"
         android:layout_alignParentBottom="true"
         android:clickable="true"
-        android:focusable="true"
-        android:background="@color/white">
+        android:focusable="true">
 
         <LinearLayout
             android:id="@+id/color_edit_button_display"
@@ -68,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:scaleType="fitXY"
-            android:src="@drawable/rounded_outline_top"
+            android:src="@drawable/rounded_white_outline_top"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

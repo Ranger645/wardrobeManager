@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.Pair;
 import android.util.SparseArray;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -88,7 +89,9 @@ public class AddItemActivity extends AppCompatActivity {
         bundle.putParcelable("clothingItem", item);
         intent.putExtras(bundle);
 
-        ActivityOptions previewTransitionOptions = ActivityOptions.makeSceneTransitionAnimation(AddItemActivity.this, addItemViewPager, "preview_transition");
+        Pair<View, String> p1 = Pair.create((View) addItemViewPager, "preview_transition");
+        Pair<View, String> p2 = Pair.create(findViewById(R.id.color_edit_button), "color_transition");
+        ActivityOptions previewTransitionOptions = ActivityOptions.makeSceneTransitionAnimation(AddItemActivity.this, p1, p2);
         startActivity(intent, previewTransitionOptions.toBundle());
     }
 

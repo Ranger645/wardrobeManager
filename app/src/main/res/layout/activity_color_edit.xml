@@ -21,6 +21,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/color_display_frame"
+        android:transitionName="color_transition"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginRight="@dimen/rounded_panel_margin_size"
@@ -39,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:src="@drawable/rounded_outline_slim"
+            android:src="@drawable/rounded_white_outline_slim"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

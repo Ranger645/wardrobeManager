@@ -63,7 +63,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/rounded_outline_slim" />
+            android:src="@drawable/rounded_white_outline_slim" />
 
     </FrameLayout>
 
