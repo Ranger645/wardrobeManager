@@ -7,6 +7,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -61,19 +62,13 @@ public class AddItemActivity extends AppCompatActivity {
             initColorToStringMap();
         }
 
-        final View.OnClickListener goToColorEdit = new View.OnClickListener() {
+        ConstraintLayout colorEditButton = findViewById(R.id.color_edit_button);
+        colorEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AddItemActivity.this, ColorEditActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("clothingItem", clothingItem);
-                intent.putExtras(bundle);
-                startActivity(intent);
+                goToColorEdit(clothingItem);
             }
-        };
-
-        ConstraintLayout colorEditButton = findViewById(R.id.color_edit_button);
-        colorEditButton.setOnClickListener(goToColorEdit);
+        });
 
         addItemViewModel.getClothingItem().observe(this, new Observer<ClothingItem>() {
             @Override
@@ -85,6 +80,16 @@ public class AddItemActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    protected void goToColorEdit(ClothingItem item) {
+        Intent intent = new Intent(AddItemActivity.this, ColorEditActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("clothingItem", item);
+        intent.putExtras(bundle);
+
+        ActivityOptions previewTransitionOptions = ActivityOptions.makeSceneTransitionAnimation(AddItemActivity.this, addItemViewPager, "preview_transition");
+        startActivity(intent, previewTransitionOptions.toBundle());
     }
 
     @Override

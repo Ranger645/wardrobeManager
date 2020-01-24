@@ -9,6 +9,7 @@
 
     <FrameLayout
         android:id="@+id/color_edit_fragment_holder"
+        android:transitionName="preview_transition"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="@dimen/rounded_panel_margin_size"
