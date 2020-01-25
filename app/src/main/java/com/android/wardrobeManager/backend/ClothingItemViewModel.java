@@ -62,4 +62,14 @@ public class ClothingItemViewModel extends AndroidViewModel {
         item.setColors(builder.toString());
         this.setClothingItem(item);
     }
+
+    public boolean addUniqueClothingItemColor(int color) {
+        ClothingItem item = this.getClothingItem().getValue();
+        int[] colors = Utility.parseClothingItemColors(item.getColors());
+        for (int i = 0; i < colors.length; i++)
+            if (color == colors[i])
+                return false;
+        addClothingItemColor(color);
+        return true;
+    }
 }

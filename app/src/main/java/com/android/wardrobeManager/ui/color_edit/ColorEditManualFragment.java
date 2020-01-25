@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.backend.AddItemViewModel;
@@ -67,7 +68,8 @@ public class ColorEditManualFragment extends Fragment {
             @Override
             public void onNewColorSelect(int newColor) {
                 Log.d("COLOR_SELECT", "New color selected: " + newColor);
-                viewModel.addClothingItemColor(Utility.convertColorPercentageToColor(newColor, greyscaleSlider.getColorPercentage()));
+                // TODO: Reconsider the use cases for added duplicate colors:
+                viewModel.addUniqueClothingItemColor(Utility.convertColorPercentageToColor(newColor, greyscaleSlider.getColorPercentage()));
                 getActivity().findViewById(R.id.color_edit_button_display).invalidate();
             }
         });
