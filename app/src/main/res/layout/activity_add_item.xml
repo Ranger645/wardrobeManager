@@ -38,8 +38,8 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.viewpager.widget.ViewPager
-        android:transitionName="sharedName"
         android:id="@+id/add_item_view_pager"
+        android:transitionName="add_item_viewpager_transition"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name_edit_frame"
@@ -49,6 +49,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/color_edit_button"
+        android:transitionName="color_edit_button_transition"
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_marginRight="@dimen/rounded_panel_margin_size"

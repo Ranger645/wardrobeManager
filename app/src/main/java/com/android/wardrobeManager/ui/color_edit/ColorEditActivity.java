@@ -7,12 +7,14 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
+import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -26,6 +28,7 @@ import com.android.wardrobeManager.backend.AddItemViewModel;
 import com.android.wardrobeManager.backend.ColorEditViewModel;
 import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.ui.add_item.AddItemActivity;
+import com.android.wardrobeManager.ui.closet.ClosetActivity;
 import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
 import com.android.wardrobeManager.ui.util.Utility;
 
@@ -72,7 +75,6 @@ public class ColorEditActivity extends AppCompatActivity {
                 } else {
                     switchColorEditFragments(COLOR_EDIT_PREVIEW_FRAG_TAG);
                 }
-                previewDisplayed = !previewDisplayed;
             }
         });
 
@@ -91,11 +93,22 @@ public class ColorEditActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+        if (previewDisplayed) {
+            backToAddItemActivity();
+        } else {
+            switchColorEditFragments(COLOR_EDIT_PREVIEW_FRAG_TAG);
+        }
+    }
+
+    protected void backToAddItemActivity() {
         Intent intent = new Intent(ColorEditActivity.this, AddItemActivity.class);
         Bundle bundle = new Bundle();
         bundle.putParcelable("clothingItem", viewModel.getClothingItem().getValue());
         intent.putExtras(bundle);
-        startActivity(intent);
+        Pair<View, String> p1 = new Pair<>(findViewById(R.id.color_edit_fragment_holder), "add_item_viewpager_transition");
+        Pair<View, String> p2 = new Pair<>(findViewById(R.id.color_edit_button_display), "color_edit_button_transition");
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ColorEditActivity.this, p1, p2);
+        startActivity(intent, options.toBundle());
     }
 
     protected void updateColorDisplay(int[] colors) {
@@ -133,5 +146,6 @@ public class ColorEditActivity extends AppCompatActivity {
             buttonView.setText("Save Colors");
         }
         ft.commit();
+        previewDisplayed = !previewDisplayed;
     }
 }

@@ -59,7 +59,7 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
         Bundle bundle = new Bundle();
         bundle.putParcelable("clothingItem", item);
         intent.putExtras(bundle);
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ClosetActivity.this, clothingImageView, "sharedName");
+        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ClosetActivity.this, clothingImageView, "add_item_viewpager_transition");
         startActivity(intent, options.toBundle());
     }
 }
