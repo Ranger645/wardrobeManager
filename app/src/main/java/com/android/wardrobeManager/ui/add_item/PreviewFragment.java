@@ -17,16 +17,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.backend.AddItemViewModel;
 import com.android.wardrobeManager.database.ClothingItem;
+import com.android.wardrobeManager.ui.closet.ClosetActivity;
 import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class PreviewFragment extends Fragment {
+
+    private ImageButton previewButton;
+    private ImageView saveButton, closeButton, cameraButton;
 
     public PreviewFragment() {
 
@@ -39,19 +41,36 @@ public class PreviewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_item_preview, container, false);
 
         final AddItemViewModel addItemViewModel = ViewModelProviders.of(getActivity()).get(AddItemViewModel.class);
-        final ImageButton image = view.findViewById(R.id.add_item_preview);
+
+        previewButton = view.findViewById(R.id.add_item_preview);
         addItemViewModel.getClothingItem().observe(getActivity(), new Observer<ClothingItem>() {
             @Override
             public void onChanged(ClothingItem clothingItem) {
-                Log.d("DEBUG","Updating preview window: " + clothingItem.toString());
-                image.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(
+                previewButton.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(
                         getActivity().getApplication(), clothingItem));
             }
         });
 
+        saveButton = view.findViewById(R.id.add_item_check_mark_button);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddItemActivity activity = (AddItemActivity) getActivity();
+                addItemViewModel.persistToDatabase();
+                activity.backToCloset();
+            }
+        });
+        closeButton = view.findViewById(R.id.add_item_close_button);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddItemActivity activity = (AddItemActivity) getActivity();
+                activity.backToCloset();
+            }
+        });
+        cameraButton = view.findViewById(R.id.add_item_camera_button);
+
         return view;
     }
-
-
 
 }

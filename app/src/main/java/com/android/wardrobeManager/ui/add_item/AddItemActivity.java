@@ -33,6 +33,9 @@ import com.android.wardrobeManager.ui.util.WardrobeAlerts.*;
 
 public class AddItemActivity extends AppCompatActivity {
 
+    private PreviewFragment previewFragment;
+    private AdvEditFragment advEditFragment;
+
     private ViewPager addItemViewPager = null;
     private AddItemViewPagerAdapter addItemViewPagerAdapter = null;
 
@@ -109,23 +112,20 @@ public class AddItemActivity extends AppCompatActivity {
 
         RadioButtonAlertCallback callback = new RadioButtonAlertCallback() {
             public void onClick(Context context, String selectedItem, int itemIndex) {
-
-                // TODO: Make this actually save to the closet.
                 if (selectedItem.equals(saveTag)) {
                     addItemViewModel.persistToDatabase();
-                } else if (selectedItem.equals(quitTag)) {
-
-                } else {
-
                 }
-
-                Intent intent = new Intent(AddItemActivity.this, ClosetActivity.class);
-                startActivity(intent);
+                backToCloset();
             }
         };
         WardrobeAlerts.showRadioButtonDialog(this, "Quit", new String[] {saveTag, quitTag}, callback);
 
         ///////////////////////////////////////////////////////////////
+    }
+
+    protected void backToCloset() {
+        Intent intent = new Intent(AddItemActivity.this, ClosetActivity.class);
+        startActivity(intent);
     }
 
     private void updateColorDisplay(ClothingItem item) {
