@@ -37,7 +37,7 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <androidx.viewpager.widget.ViewPager
+    <com.android.wardrobeManager.ui.add_item.AddItemViewPager
         android:id="@+id/add_item_view_pager"
         android:transitionName="add_item_viewpager_transition"
         android:layout_width="match_parent"

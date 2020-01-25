@@ -36,7 +36,7 @@ public class AddItemActivity extends AppCompatActivity {
     private PreviewFragment previewFragment;
     private AdvEditFragment advEditFragment;
 
-    private ViewPager addItemViewPager = null;
+    private AddItemViewPager addItemViewPager = null;
     private AddItemViewPagerAdapter addItemViewPagerAdapter = null;
 
     private static SparseArray<String> colorToStringMap = null;
@@ -61,6 +61,15 @@ public class AddItemActivity extends AppCompatActivity {
                 getSupportFragmentManager(),
                 AddItemViewPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         addItemViewPager.setAdapter(addItemViewPagerAdapter);
+        addItemViewPagerAdapter.getMainWindow().setCameraStatusChangeListener(new MainWindowFragment.CameraStatusChangeListener() {
+            @Override
+            public void onCameraStatusChange(boolean cameraOpen) {
+                if (cameraOpen)
+                    addItemViewPager.setSwipingEnabled(false);
+                else
+                    addItemViewPager.setSwipingEnabled(true);
+            }
+        });
         PreviewFragment previewFragment = addItemViewPagerAdapter.getPreviewFragment();
         previewFragment.setOnSaveListener(new View.OnClickListener() {
             @Override

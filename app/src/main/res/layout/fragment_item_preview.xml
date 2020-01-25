@@ -50,7 +50,7 @@
             android:src="@drawable/ic_menu_camera"
             android:layout_margin="@dimen/rounded_panel_margin_size"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackground"/>
