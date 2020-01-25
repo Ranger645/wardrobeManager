@@ -27,11 +27,16 @@ import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
 
 public class PreviewFragment extends Fragment {
 
-    private ImageButton previewButton;
-    private ImageView saveButton, closeButton, cameraButton;
+    private View.OnClickListener onPreviewClickedListener, onSaveListener, onCloseListener, onCameraClickedListener;
 
     public PreviewFragment() {
+        View.OnClickListener blankListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        };
+        onPreviewClickedListener = onSaveListener = onCloseListener = onCameraClickedListener = blankListener;
     }
 
     @Override
@@ -42,7 +47,10 @@ public class PreviewFragment extends Fragment {
 
         final AddItemViewModel addItemViewModel = ViewModelProviders.of(getActivity()).get(AddItemViewModel.class);
 
-        previewButton = view.findViewById(R.id.add_item_preview);
+        final ImageView previewButton = view.findViewById(R.id.add_item_preview);
+        synchronized (onPreviewClickedListener) {
+            previewButton.setOnClickListener(onPreviewClickedListener);
+        }
         addItemViewModel.getClothingItem().observe(getActivity(), new Observer<ClothingItem>() {
             @Override
             public void onChanged(ClothingItem clothingItem) {
@@ -51,26 +59,50 @@ public class PreviewFragment extends Fragment {
             }
         });
 
-        saveButton = view.findViewById(R.id.add_item_check_mark_button);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddItemActivity activity = (AddItemActivity) getActivity();
-                addItemViewModel.persistToDatabase();
-                activity.backToCloset();
-            }
-        });
-        closeButton = view.findViewById(R.id.add_item_close_button);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AddItemActivity activity = (AddItemActivity) getActivity();
-                activity.backToCloset();
-            }
-        });
-        cameraButton = view.findViewById(R.id.add_item_camera_button);
+        ImageView saveButton = view.findViewById(R.id.add_item_check_mark_button);
+        synchronized (onSaveListener) {
+            saveButton.setOnClickListener(onSaveListener);
+        }
+
+        ImageView closeButton = view.findViewById(R.id.add_item_close_button);
+        synchronized (closeButton) {
+            closeButton.setOnClickListener(onCloseListener);
+        }
+
+        ImageView cameraButton = view.findViewById(R.id.add_item_camera_button);
+        synchronized (cameraButton) {
+            cameraButton.setOnClickListener(onCameraClickedListener);
+        }
 
         return view;
     }
 
+    public void setOnPreviewClickedListener(View.OnClickListener onPreviewClickedListener) {
+        this.onPreviewClickedListener = onPreviewClickedListener;
+        setClickListener(R.id.add_item_preview, onPreviewClickedListener);
+    }
+
+    public void setOnSaveListener(View.OnClickListener onSaveListener) {
+        this.onSaveListener = onSaveListener;
+        setClickListener(R.id.add_item_check_mark_button, onSaveListener);
+    }
+
+    public void setOnCloseListener(View.OnClickListener onCloseListener) {
+        this.onCloseListener = onCloseListener;
+        setClickListener(R.id.add_item_close_button, onCloseListener);
+    }
+
+    public void setOnCameraClickedListener(View.OnClickListener onCameraClickedListener) {
+        this.onCameraClickedListener = onCameraClickedListener;
+        setClickListener(R.id.add_item_camera_button, onCameraClickedListener);
+    }
+
+    private void setClickListener(int viewResId, View.OnClickListener listener) {
+        if (getView() != null) {
+            View view = getView().findViewById(viewResId);
+            if (view != null) {
+                view.setOnClickListener(listener);
+            }
+        }
+    }
 }

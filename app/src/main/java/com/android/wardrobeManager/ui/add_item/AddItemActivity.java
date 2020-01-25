@@ -61,6 +61,20 @@ public class AddItemActivity extends AppCompatActivity {
                 getSupportFragmentManager(),
                 AddItemViewPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         addItemViewPager.setAdapter(addItemViewPagerAdapter);
+        PreviewFragment previewFragment = addItemViewPagerAdapter.getPreviewFragment();
+        previewFragment.setOnSaveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addItemViewModel.persistToDatabase();
+                backToCloset();
+            }
+        });
+        previewFragment.setOnCloseListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                backToCloset();
+            }
+        });
 
         if (colorToStringMap == null) {
             initColorToStringMap();
