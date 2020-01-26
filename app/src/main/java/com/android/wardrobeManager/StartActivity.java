@@ -26,7 +26,7 @@ public class StartActivity extends AppCompatActivity {
      *  App is restarting after a crash
      *  App is starting for the first time after an update
      */
-    public boolean quickStart = false;
+    public boolean quickStart = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -82,8 +82,7 @@ public class ColorEditActivity extends AppCompatActivity {
             @Override
             public void onChanged(ClothingItem item) {
                 if (colorEditPreviewFragment.getPreviewView() != null)
-                    colorEditPreviewFragment.getPreviewView().setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(
-                            getApplication(), clothingItem));
+                    colorEditPreviewFragment.getPreviewView().setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(clothingItem));
 
                 updateColorDisplay(Utility.parseClothingItemColors(item.getColors()));
             }

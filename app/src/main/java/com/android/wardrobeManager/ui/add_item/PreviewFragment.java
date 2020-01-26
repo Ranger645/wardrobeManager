@@ -55,13 +55,9 @@ public class PreviewFragment extends Fragment {
         addItemViewModel.getClothingItem().observe(getActivity(), new Observer<ClothingItem>() {
             @Override
             public void onChanged(ClothingItem clothingItem) {
-                Log.d("ITEM_CHANGED", "Custom: " + clothingItem.isCustomImage());
-                previewButton.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(
-                        WardrobeManager.getInstance(), clothingItem));
+                previewButton.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(clothingItem));
             }
         });
-        previewButton.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(
-                getActivity().getApplication(), addItemViewModel.getClothingItem().getValue()));
 
         ImageView saveButton = view.findViewById(R.id.add_item_check_mark_button);
         synchronized (onSaveListener) {

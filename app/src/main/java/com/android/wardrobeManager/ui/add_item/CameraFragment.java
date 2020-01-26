@@ -107,6 +107,7 @@ public class CameraFragment extends Fragment {
                     @Override
                     public void onImageSaved(@NonNull File file) {
                         ClothingItem newItem = addItemViewModel.getClothingItem().getValue();
+                        ClothingItemImageManager.removeBufferValue(newItem.getId());
                         newItem.setCustomImage(true);
                         pictureTakenCallback.onPictureTaken();
                     }

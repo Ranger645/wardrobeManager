@@ -31,10 +31,14 @@ public class ClothingItemImageManager {
 
     final static SparseArray<Bitmap> bitmapBuffer = new SparseArray<>();
 
-    public static Bitmap dynamicClothingItemLoad(Application application, ClothingItem toLoad) {
+    public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad) {
+        return dynamicClothingItemLoad(toLoad, true);
+    }
+
+    public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad, boolean useCustomImageBuffer) {
         if (toLoad.isCustomImage()) {
             Bitmap bufferVal = bitmapBuffer.get(toLoad.getId(), null);
-            if (bufferVal != null) {
+            if (useCustomImageBuffer && bufferVal != null) {
                 Log.d("BITMAP_BUFFER", "Cache hit!");
                 return bufferVal;
             }
@@ -48,7 +52,7 @@ public class ClothingItemImageManager {
             if (bitmap == null) {
                 Log.e("IMAGE_LOAD", "Failed to find custom image. Falling back to auto-generate.");
                 toLoad.setCustomImage(false);
-                bitmap = dynamicClothingItemLoad(application, toLoad);
+                bitmap = dynamicClothingItemLoad(toLoad, useCustomImageBuffer);
             }
             return bitmap;
         } else {
@@ -115,4 +119,7 @@ public class ClothingItemImageManager {
         return bitmap;
     }
 
+    public static void removeBufferValue(int id) {
+        bitmapBuffer.remove(id);
+    }
 }

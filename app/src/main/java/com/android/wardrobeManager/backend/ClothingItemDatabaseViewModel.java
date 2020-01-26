@@ -36,7 +36,7 @@ public class ClothingItemDatabaseViewModel extends AndroidViewModel {
                 for (ClothingItem item : clothingItems)
                     if (clothingItemBitmaps.get(ClothingItemImageManager.getImageHash(item)) == null)
                         clothingItemBitmaps.put(ClothingItemImageManager.getImageHash(item),
-                                ClothingItemImageManager.dynamicClothingItemLoad(application, item));
+                                ClothingItemImageManager.dynamicClothingItemLoad(item));
             }
         });
     }

@@ -44,7 +44,7 @@ public class ColorEditPreviewFragment extends Fragment {
         final ColorEditViewModel viewModel = ViewModelProviders.of(getActivity()).get(ColorEditViewModel.class);
 
         previewView = new ColorEditPreview(this.getActivity(),
-                ClothingItemImageManager.dynamicClothingItemLoad(getActivity().getApplication(), clothingItem),
+                ClothingItemImageManager.dynamicClothingItemLoad(clothingItem),
                 clothingItem.isCustomImage());
         previewView.setColorSelectListener(new ColorEditPreview.ColorSelectListener() {
             @Override
