@@ -24,6 +24,7 @@ public class DesignFilterManager {
         filters.put("wide_horizontal_stripes", new WideHorizontalStripes());
         filters.put("thin_vertical_stripes", new ThinVerticalStripes());
         filters.put("wide_vertical_stripes", new WideVerticalStripes());
+        filters.put("polka_dots", new PolkaDots());
 
     }
 
