@@ -112,11 +112,6 @@ public class AddItemActivity extends AppCompatActivity implements GestureDetecto
 
     @Override
     public void onBackPressed() {
-
-        ///////////////////////////////////////////////////////////////
-        // Temporary solution until x and check buttons are finished //
-        ///////////////////////////////////////////////////////////////
-
         final String saveTag = "Save";
         final String quitTag = "Quit";
 
@@ -131,13 +126,12 @@ public class AddItemActivity extends AppCompatActivity implements GestureDetecto
             }
         };
         WardrobeAlerts.showRadioButtonDialog(this, "Quit", new String[] {saveTag, quitTag}, callback);
-
-        ///////////////////////////////////////////////////////////////
     }
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent e) {
-        return gestureDetector.onTouchEvent(e) || super.dispatchTouchEvent(e);
+        super.dispatchTouchEvent(e);
+        return gestureDetector.onTouchEvent(e);
     }
 
     protected void backToCloset() {
@@ -235,7 +229,6 @@ public class AddItemActivity extends AppCompatActivity implements GestureDetecto
         int minSpeed = getResources().getInteger(R.integer.FLING_MIN_GESTURE_SPEED);
         if (velocityY < -minSpeed) {
             goToColorEdit();
-            return true;
         }
         return false;
     }
