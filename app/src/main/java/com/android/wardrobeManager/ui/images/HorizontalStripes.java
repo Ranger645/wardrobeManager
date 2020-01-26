@@ -4,10 +4,18 @@ import android.graphics.Bitmap;
 
 import java.util.Map;
 
-public class ThinVerticalStripes implements DesignFilterManager.DesignFilter {
+public class HorizontalStripes implements DesignFilterManager.DesignFilter {
 
     protected Map<String, DesignFilterManager.DesignFilter> filters;
-    private int thickness = 10;
+    private int thickness;
+
+    HorizontalStripes(int thickness) {
+        this.thickness = thickness;
+    }
+
+    HorizontalStripes() {
+        thickness = 10;
+    }
 
     public Bitmap filter(Bitmap bitmap, Bitmap ref, int[] colors) {
 
@@ -17,7 +25,7 @@ public class ThinVerticalStripes implements DesignFilterManager.DesignFilter {
             int y = i / bitmap.getWidth();
 
             if (ref.getPixel(x, y) != 0xFFFFFFFF) {
-                int stripeColor = colors[(x / thickness) % (colors.length)];
+                int stripeColor = colors[(y / thickness) % (colors.length)];
 
                 bitmap.setPixel(i % bitmap.getWidth(), i / bitmap.getWidth(), stripeColor);
 

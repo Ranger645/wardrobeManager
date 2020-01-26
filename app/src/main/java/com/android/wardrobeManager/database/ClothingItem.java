@@ -30,8 +30,8 @@ public class ClothingItem implements Parcelable{
         this("", customImage, type, subType, colors, design, style, material, brand, cost, size);
     }
 
-
-    public @Ignore ClothingItem(String customName, boolean customImage, String type, String subType, String colors, String design, int style, String material, String brand, float cost, String size) {
+    @Ignore
+    public ClothingItem(String customName, boolean customImage, String type, String subType, String colors, String design, int style, String material, String brand, float cost, String size) {
         this.customName = customName;
         this.customImage = customImage;
         this.type = type;
