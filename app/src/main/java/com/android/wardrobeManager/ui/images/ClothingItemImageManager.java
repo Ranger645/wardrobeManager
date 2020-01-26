@@ -10,6 +10,7 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.util.SparseArray;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.WardrobeManager;
@@ -28,10 +29,22 @@ public class ClothingItemImageManager {
 
     final static String CLOTHING_ITEM_IMAGE_FOLDER = "clothing_item_images";
 
+    final static SparseArray<Bitmap> bitmapBuffer = new SparseArray<>();
+
     public static Bitmap dynamicClothingItemLoad(Application application, ClothingItem toLoad) {
         if (toLoad.isCustomImage()) {
+            Bitmap bufferVal = bitmapBuffer.get(toLoad.getId(), null);
+            if (bufferVal != null) {
+                Log.d("BITMAP_BUFFER", "Cache hit!");
+                return bufferVal;
+            }
             String path = getClothingItemImagePath(Integer.toString(toLoad.getId()));
             Bitmap bitmap = ImageIo.loadImageFromFile(path);
+            if (bitmap != null) {
+                Log.d("BITMAP_BUFFER", "Cache store: " + toLoad.getId());
+                bitmapBuffer.put(toLoad.getId(), bitmap);
+            }
+
             if (bitmap == null) {
                 Log.e("IMAGE_LOAD", "Failed to find custom image. Falling back to auto-generate.");
                 toLoad.setCustomImage(false);
@@ -42,12 +55,11 @@ public class ClothingItemImageManager {
             int hash = getImageHash(toLoad);
             String imagePath = getClothingItemImagePath(Integer.toString(hash));
             Bitmap bitmap = ImageIo.loadImageFromFile(imagePath);
-            if (bitmap != null)
-                return bitmap;
 
-            // Generating file manually and saving it to disc
-            bitmap = generateClothingItemImage(toLoad);
-            ImageIo.saveBitMapToFile(bitmap, imagePath);
+            if (bitmap == null) {
+                bitmap = generateClothingItemImage(toLoad);
+                ImageIo.saveBitMapToFile(bitmap, imagePath);
+            }
             return bitmap;
         }
     }

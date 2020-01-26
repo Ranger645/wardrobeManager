@@ -96,7 +96,6 @@ public class CameraFragment extends Fragment {
         ImageCaptureConfig imageCaptureConfig = new ImageCaptureConfig.Builder().setCaptureMode(ImageCapture.CaptureMode.MIN_LATENCY)
                 .setTargetRotation(getActivity().getWindowManager().getDefaultDisplay().getRotation()).setCaptureMode(ImageCapture.CaptureMode.MIN_LATENCY).build();
         final ImageCapture imgCap = new ImageCapture(imageCaptureConfig);
-        imgCap.setFlashMode(FlashMode.ON);
 
         final AddItemViewModel addItemViewModel = ViewModelProviders.of(getActivity()).get(AddItemViewModel.class);
         takePictureButton.setOnClickListener(new View.OnClickListener() {

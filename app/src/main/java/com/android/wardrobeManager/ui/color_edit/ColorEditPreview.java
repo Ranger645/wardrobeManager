@@ -19,7 +19,7 @@ public class ColorEditPreview extends View {
     private int touchX = -100, touchY = -100;
 
     private Bitmap imageBitmap;
-    private boolean customImage = false;
+    private boolean customImage;
 
     private ColorSelectListener colorSelectListener;
 
