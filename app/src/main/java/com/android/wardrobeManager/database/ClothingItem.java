@@ -5,11 +5,13 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "clothing_table")
 public class ClothingItem implements Parcelable{
 
+    @Ignore
     public ClothingItem() {
         this.customImage = false;
         this.type = "top";
@@ -23,11 +25,13 @@ public class ClothingItem implements Parcelable{
         this.size = "big";
     }
 
+
     public ClothingItem(boolean customImage, String type, String subType, String colors, String design, int style, String material, String brand, float cost, String size) {
         this("", customImage, type, subType, colors, design, style, material, brand, cost, size);
     }
 
-    public ClothingItem(String customName, boolean customImage, String type, String subType, String colors, String design, int style, String material, String brand, float cost, String size) {
+
+    public @Ignore ClothingItem(String customName, boolean customImage, String type, String subType, String colors, String design, int style, String material, String brand, float cost, String size) {
         this.customName = customName;
         this.customImage = customImage;
         this.type = type;
