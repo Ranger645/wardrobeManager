@@ -104,7 +104,7 @@ public class ClothingItemImageManager {
         Bitmap reference = Bitmap.createScaledBitmap(drawableToBitmap(d), bitmap.getWidth(), bitmap.getHeight(), false);
 
         int[] colors = Utility.parseClothingItemColors(toLoad.getColors());
-        return ColorStyleFilterManager.filterColorStyle(toLoad.getDesign(), bitmap, reference, colors);
+        return DesignFilterManager.filterDesign(toLoad.getDesign(), bitmap, reference, colors);
     }
 
     private static Bitmap drawableToBitmap (Drawable drawable) {
