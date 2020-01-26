@@ -28,7 +28,8 @@ public class DesignFilterManager {
         filters.put("gradient", new VerticalGradient());
         filters.put("vertical_gradient", new VerticalGradient());
         filters.put("horizontal_gradient", new HorizontalGradient());
-
+        filters.put("birds_eye", new BirdsEye());
+        filters.put("checker", new Checker());
 
     }
 
