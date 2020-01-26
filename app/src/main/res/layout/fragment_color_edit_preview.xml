@@ -8,21 +8,17 @@
     android:background="@color/colorAccent">
 
     <FrameLayout
+        android:id="@+id/color_edit_preview_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <FrameLayout
-            android:id="@+id/color_edit_preview_frame"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </FrameLayout>
+        android:layout_height="match_parent"
+        android:elevation="0dp">
 
     </FrameLayout>
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:elevation="1dp"
         android:scaleType="fitStart"
         android:src="@drawable/rounded_outline_top"
         app:layout_constraintTop_toTopOf="parent" />
@@ -30,6 +26,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:elevation="1dp"
         android:scaleType="fitEnd"
         android:src="@drawable/rounded_outline_bottom"
         app:layout_constraintBottom_toBottomOf="parent" />

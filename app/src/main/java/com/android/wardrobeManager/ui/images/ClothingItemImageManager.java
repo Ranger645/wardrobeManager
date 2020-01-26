@@ -36,23 +36,24 @@ public class ClothingItemImageManager {
     }
 
     public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad, boolean useCustomImageBuffer) {
-        if (toLoad.isCustomImage()) {
+        return dynamicClothingItemLoad(toLoad, useCustomImageBuffer, true);
+    }
+
+    public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad, boolean useCustomImageBuffer, boolean tryCustomImageLoad) {
+        if (tryCustomImageLoad && toLoad.isCustomImage()) {
             Bitmap bufferVal = bitmapBuffer.get(toLoad.getId(), null);
             if (useCustomImageBuffer && bufferVal != null) {
-                Log.d("BITMAP_BUFFER", "Cache hit!");
                 return bufferVal;
             }
             String path = getClothingItemImagePath(Integer.toString(toLoad.getId()));
             Bitmap bitmap = ImageIo.loadImageFromFile(path);
             if (bitmap != null) {
-                Log.d("BITMAP_BUFFER", "Cache store: " + toLoad.getId());
                 bitmapBuffer.put(toLoad.getId(), bitmap);
             }
 
             if (bitmap == null) {
                 Log.e("IMAGE_LOAD", "Failed to find custom image. Falling back to auto-generate.");
-                toLoad.setCustomImage(false);
-                bitmap = dynamicClothingItemLoad(toLoad, useCustomImageBuffer);
+                bitmap = dynamicClothingItemLoad(toLoad, useCustomImageBuffer, false);
             }
             return bitmap;
         } else {
