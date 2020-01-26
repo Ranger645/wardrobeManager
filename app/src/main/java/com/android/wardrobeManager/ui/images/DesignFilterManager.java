@@ -30,6 +30,9 @@ public class DesignFilterManager {
         filters.put("horizontal_gradient", new HorizontalGradient());
         filters.put("birds_eye", new BirdsEye());
         filters.put("checker", new Checker());
+        filters.put("diagonal", new DiagonalUpRight());
+        filters.put("diagonal_up_right", new DiagonalUpRight());
+        filters.put("diagonal_down_right", new DiagonalDownRight());
 
     }
 
