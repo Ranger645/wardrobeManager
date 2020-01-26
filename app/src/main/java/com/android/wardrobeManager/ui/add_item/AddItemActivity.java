@@ -31,10 +31,10 @@ import com.android.wardrobeManager.ui.util.Utility;
 import com.android.wardrobeManager.ui.util.WardrobeAlerts;
 import com.android.wardrobeManager.ui.util.WardrobeAlerts.*;
 
-public class AddItemActivity extends AppCompatActivity {
+public class AddItemActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
 
-    private PreviewFragment previewFragment;
-    private AdvEditFragment advEditFragment;
+    private GestureDetector gestureDetector;
+    private static final int FLING_UP_MIN_GESTURE_VELOCITY = 1000;
 
     private AddItemViewPager addItemViewPager = null;
     private AddItemViewPagerAdapter addItemViewPagerAdapter = null;
@@ -45,6 +45,8 @@ public class AddItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_item);
+
+        gestureDetector = new GestureDetector(this, this);
 
         final AddItemViewModel addItemViewModel = ViewModelProviders.of(this).get(AddItemViewModel.class);
         Bundle bundle = getIntent().getExtras();
@@ -79,7 +81,7 @@ public class AddItemActivity extends AppCompatActivity {
         colorEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                goToColorEdit(clothingItem);
+                goToColorEdit();
             }
         });
 
@@ -95,10 +97,11 @@ public class AddItemActivity extends AppCompatActivity {
 
     }
 
-    protected void goToColorEdit(ClothingItem item) {
+    protected void goToColorEdit() {
+        AddItemViewModel addItemViewModel = ViewModelProviders.of(this).get(AddItemViewModel.class);
         Intent intent = new Intent(AddItemActivity.this, ColorEditActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putParcelable("clothingItem", item);
+        bundle.putParcelable("clothingItem", addItemViewModel.getClothingItem().getValue());
         intent.putExtras(bundle);
 
         Pair<View, String> p1 = Pair.create((View) addItemViewPager, "preview_transition");
@@ -130,6 +133,11 @@ public class AddItemActivity extends AppCompatActivity {
         WardrobeAlerts.showRadioButtonDialog(this, "Quit", new String[] {saveTag, quitTag}, callback);
 
         ///////////////////////////////////////////////////////////////
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent e) {
+        return gestureDetector.onTouchEvent(e) || super.dispatchTouchEvent(e);
     }
 
     protected void backToCloset() {
@@ -195,5 +203,40 @@ public class AddItemActivity extends AppCompatActivity {
         builder.append(" ");
         builder.append(item.getSubType());
         return builder.toString();
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        int minSpeed = getResources().getInteger(R.integer.FLING_MIN_GESTURE_SPEED);
+        if (velocityY < -minSpeed) {
+            goToColorEdit();
+            return true;
+        }
+        return false;
     }
 }
