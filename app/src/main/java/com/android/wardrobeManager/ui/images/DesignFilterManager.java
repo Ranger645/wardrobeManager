@@ -25,6 +25,10 @@ public class DesignFilterManager {
         filters.put("thin_vertical_stripes", new ThinVerticalStripes());
         filters.put("wide_vertical_stripes", new WideVerticalStripes());
         filters.put("polka_dots", new PolkaDots());
+        filters.put("gradient", new VerticalGradient());
+        filters.put("vertical_gradient", new VerticalGradient());
+        filters.put("horizontal_gradient", new HorizontalGradient());
+
 
     }
 
