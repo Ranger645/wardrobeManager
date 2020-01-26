@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.android.wardrobeManager.R;
+import com.android.wardrobeManager.WardrobeManager;
 import com.android.wardrobeManager.backend.AddItemViewModel;
 import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.ui.closet.ClosetActivity;
@@ -54,10 +55,13 @@ public class PreviewFragment extends Fragment {
         addItemViewModel.getClothingItem().observe(getActivity(), new Observer<ClothingItem>() {
             @Override
             public void onChanged(ClothingItem clothingItem) {
+                Log.d("ITEM_CHANGED", "Custom: " + clothingItem.isCustomImage());
                 previewButton.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(
-                        getActivity().getApplication(), clothingItem));
+                        WardrobeManager.getInstance(), clothingItem));
             }
         });
+        previewButton.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(
+                getActivity().getApplication(), addItemViewModel.getClothingItem().getValue()));
 
         ImageView saveButton = view.findViewById(R.id.add_item_check_mark_button);
         synchronized (onSaveListener) {

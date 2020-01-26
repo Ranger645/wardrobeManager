@@ -5,7 +5,11 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.media.ExifInterface;
 import android.util.Log;
+
+import com.android.wardrobeManager.WardrobeManager;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,15 +21,36 @@ public class ImageIo {
 
     private static final String MASTER_IMAGE_DIR = "images";
 
-    public static Bitmap loadImageFromFile(String path, Application application) {
-        ContextWrapper cw = new ContextWrapper(application.getApplicationContext());
-        File directory = cw.getDir(MASTER_IMAGE_DIR, Context.MODE_PRIVATE);
-
-        File persistentImage = new File(directory, path);
+    public static Bitmap loadImageFromFile(String path) {
+        File persistentImage = new File(getImageDir(), path);
         if (persistentImage.isFile()) {
             try {
                 Log.d("IMAGE_GEN", "Retrieving image");
-                return BitmapFactory.decodeStream(new FileInputStream(persistentImage));
+                Bitmap bitmap = BitmapFactory.decodeStream(new FileInputStream(persistentImage));
+                ExifInterface exif = null;
+                try {
+                    exif = new ExifInterface(persistentImage.getAbsolutePath());
+                    String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+                    if (orientString == null)
+                        return bitmap;
+                    Log.d("TEST", "orientString: " + orientString);
+                    int orientation = Integer.parseInt(orientString);
+                    Log.d("TEST", "orientation: " + orientation);
+                    int rotationAngle = 0;
+                    if (orientation == ExifInterface.ORIENTATION_ROTATE_90)
+                        rotationAngle = 90;
+                    if (orientation == ExifInterface.ORIENTATION_ROTATE_180)
+                        rotationAngle = 180;
+                    if (orientation == ExifInterface.ORIENTATION_ROTATE_270)
+                        rotationAngle = 270;
+                    Matrix matrix = new Matrix();
+                    matrix.postRotate(rotationAngle);
+                    return Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return bitmap;
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
@@ -33,10 +58,8 @@ public class ImageIo {
         return null;
     }
 
-    public static void saveBitMapToFile(Bitmap toSave, String path, Application application) {
-        ContextWrapper cw = new ContextWrapper(application.getApplicationContext());
-        File directory = cw.getDir(MASTER_IMAGE_DIR, Context.MODE_PRIVATE);
-        File persistentImage = new File(directory, path);
+    public static void saveBitMapToFile(Bitmap toSave, String path) {
+        File persistentImage = new File(getImageDir(), path);
 
         FileOutputStream fos = null;
         try {
@@ -54,14 +77,16 @@ public class ImageIo {
         }
     }
 
-    public static void deleteAllImages(Application application) {
-        ContextWrapper cw = new ContextWrapper(application.getApplicationContext());
-        File directory = cw.getDir(MASTER_IMAGE_DIR, Context.MODE_PRIVATE);
-
-        File[] files = directory.listFiles();
+    public static void deleteAllImages() {
+        File[] files = getImageDir().listFiles();
         for (File file : files) {
             file.delete();
         }
+    }
+
+    public static File getImageDir() {
+        ContextWrapper cw = new ContextWrapper(WardrobeManager.getInstance().getApplicationContext());
+        return cw.getDir(MASTER_IMAGE_DIR, Context.MODE_PRIVATE);
     }
 
 }

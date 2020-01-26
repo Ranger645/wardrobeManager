@@ -22,8 +22,8 @@ public class ManualColorSelectorGraphic {
 
     private static Bitmap colorSelectorImage = null;
 
-    public static void initialize(Application application) {
-        colorSelectorImage = ImageIo.loadImageFromFile(COLOR_SELECTOR_IMAGE_FILENAME, application);
+    public static void initialize() {
+        colorSelectorImage = ImageIo.loadImageFromFile(COLOR_SELECTOR_IMAGE_FILENAME);
         if (colorSelectorImage == null) {
             colorSelectorImage = Bitmap.createBitmap(PIXEL_SIZE, PIXEL_SIZE, Bitmap.Config.ARGB_8888);
 
@@ -42,7 +42,7 @@ public class ManualColorSelectorGraphic {
                         colorSelectorImage.setPixel(x, y, transparentColor);
                 }
             }
-            ImageIo.saveBitMapToFile(colorSelectorImage, COLOR_SELECTOR_IMAGE_FILENAME, application);
+            ImageIo.saveBitMapToFile(colorSelectorImage, COLOR_SELECTOR_IMAGE_FILENAME);
         }
     }
 

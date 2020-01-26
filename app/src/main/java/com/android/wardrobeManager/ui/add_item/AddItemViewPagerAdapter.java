@@ -45,7 +45,4 @@ public class AddItemViewPagerAdapter extends FragmentPagerAdapter {
         return mainWindow;
     }
 
-    public PreviewFragment getPreviewFragment() {
-        return mainWindow.getPreviewFragment();
-    }
 }

@@ -8,10 +8,13 @@
     android:background="@color/white"
     tools:context=".ui.add_item.CameraFragment">
 
-
+    <TextureView
+        android:id="@+id/camera_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <ImageView
-        android:id="@+id/add_item_camera_button"
+        android:id="@+id/camera_take_picture_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/ic_menu_camera"

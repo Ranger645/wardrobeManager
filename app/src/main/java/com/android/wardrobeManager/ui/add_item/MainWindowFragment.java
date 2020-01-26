@@ -1,8 +1,10 @@
 package com.android.wardrobeManager.ui.add_item;
 
 
+import android.graphics.Camera;
 import android.os.Bundle;
 
+import androidx.camera.core.Preview;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -24,20 +26,48 @@ public class MainWindowFragment extends Fragment {
     private static final String PREVIEW_FRAGMENT_TAG = "PREVIEW";
     private static final String CAMERA_FRAGMENT_TAG = "CAMERA";
     private boolean previewDisplayed = true;
-    private PreviewFragment previewFragment;
-    private CameraFragment cameraFragment;
 
     private CameraStatusChangeListener cameraStatusChangeListener;
 
     public MainWindowFragment() {
-        previewFragment = new PreviewFragment();
+
+    }
+
+    private PreviewFragment createPreviewFragment() {
+        PreviewFragment previewFragment = new PreviewFragment();
+        final AddItemActivity activity = (AddItemActivity) getActivity();
+        final AddItemViewModel viewModel = ViewModelProviders.of(activity).get(AddItemViewModel.class);
+        previewFragment.setOnSaveListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.persistToDatabase();
+                activity.backToCloset();
+            }
+        });
+        previewFragment.setOnCloseListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                activity.backToCloset();
+            }
+        });
         previewFragment.setOnCameraClickedListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 switchColorEditFragments(CAMERA_FRAGMENT_TAG);
             }
         });
-        cameraFragment = new CameraFragment();
+        return previewFragment;
+    }
+
+    private CameraFragment createCameraFragment() {
+        CameraFragment cameraFragment = new CameraFragment();
+        cameraFragment.setPictureTakenCallback(new CameraFragment.CameraPictureTakenCallback() {
+            @Override
+            public void onPictureTaken() {
+                switchColorEditFragments(PREVIEW_FRAGMENT_TAG);
+            }
+        });
+        return cameraFragment;
     }
 
     @Override
@@ -47,7 +77,7 @@ public class MainWindowFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_main_window, container, false);
 
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.main_window_fragment_holder, previewFragment, PREVIEW_FRAGMENT_TAG);
+        ft.add(R.id.main_window_fragment_holder, createPreviewFragment(), PREVIEW_FRAGMENT_TAG);
         ft.commit();
 
         return view;
@@ -57,19 +87,12 @@ public class MainWindowFragment extends Fragment {
         this.cameraStatusChangeListener = cameraStatusChangeListener;
     }
 
-    public PreviewFragment getPreviewFragment() {
-
-        return previewFragment;
-    }
-
     private void switchColorEditFragments(String tagToSwitchTo) {
         FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
         if (!previewDisplayed && tagToSwitchTo.equals(PREVIEW_FRAGMENT_TAG) ) {
-            ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-            ft.replace(R.id.main_window_fragment_holder, previewFragment, tagToSwitchTo);
+            ft.replace(R.id.main_window_fragment_holder, createPreviewFragment(), tagToSwitchTo);
         } else if (previewDisplayed && tagToSwitchTo.equals(CAMERA_FRAGMENT_TAG)) {
-            ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-            ft.replace(R.id.main_window_fragment_holder, cameraFragment, tagToSwitchTo);
+            ft.replace(R.id.main_window_fragment_holder, createCameraFragment(), tagToSwitchTo);
         }
         ft.commit();
         previewDisplayed = !previewDisplayed;

@@ -43,11 +43,10 @@ public class StartActivity extends AppCompatActivity {
         }, getApplicationContext().getResources().getInteger(R.integer.splash_screen_min_time_millis));
 
         if (!quickStart)
-            ImageIo.deleteAllImages(this.getApplication());
+            ImageIo.deleteAllImages();
         ViewModelProviders.of(this).get(ClothingItemDatabaseViewModel.class);
 
-        // TODO: Make this run in an async task
-        ManualColorSelectorGraphic.initialize(getApplication());
+        ManualColorSelectorGraphic.initialize();
 
     }
 
