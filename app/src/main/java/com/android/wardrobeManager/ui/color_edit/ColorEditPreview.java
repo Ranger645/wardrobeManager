@@ -6,16 +6,23 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.android.wardrobeManager.R;
+
+import androidx.constraintlayout.widget.ConstraintSet;
 
 public class ColorEditPreview extends View {
 
     private static final int COLOR_INDICATOR_THICKNESS = 30;
     private static final int COLOR_INDICATOR_RADIUS = 75;
 
+    private static final int MAX_HOLD_DIRECTIONAL_MOVEMENT = 100;
+    private long selectedStartTime = -1;
+    private int selectedStartX = -100, selectedStartY = -100;
+    private boolean selected = false;
     private int touchX = -100, touchY = -100;
 
     private Bitmap imageBitmap;
@@ -65,18 +72,50 @@ public class ColorEditPreview extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (customImage) {
-            if (event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN) {
-                touchX = (int) event.getX();
-                touchY = (int) event.getY();
-            } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                if (colorSelectListener != null)
-                    colorSelectListener.onColorSelect(getColorAtViewPoint(touchX, touchY));
-                touchX = touchY = -100;
+            if (selected) {
+
+                if (event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN) {
+                    touchX = (int) event.getX();
+                    touchY = (int) event.getY();
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (colorSelectListener != null)
+                        colorSelectListener.onColorSelect(getColorAtViewPoint(touchX, touchY));
+                    touchX = touchY = -100;
+                    selected = false;
+                }
+                invalidate();
+                // Returning true to signal to parent that event has been handled
+                return true;
+
+            } else {
+
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    selectedStartTime = System.currentTimeMillis();
+                    selectedStartX = (int) event.getX();
+                    selectedStartY = (int) event.getY();
+                    return true;
+                }
+
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    if (System.currentTimeMillis() - selectedStartTime >= 1000 &&
+                            Math.abs((int) event.getX() - selectedStartX) < MAX_HOLD_DIRECTIONAL_MOVEMENT &&
+                            Math.abs((int) event.getY() - selectedStartY) < MAX_HOLD_DIRECTIONAL_MOVEMENT) {
+                        selected = true;
+                        touchX = (int) event.getX();
+                        touchY = (int) event.getY();
+                        invalidate();
+                    }
+                }
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    selected = false;
+                }
+
             }
-            invalidate();
         }
-        return true;
+        return false;
     }
+
 
     private int getColorAtViewPoint(float viewX, float viewY) {
         int scaledX = (int) ((viewX / this.getWidth()) * imageBitmap.getWidth());
