@@ -29,26 +29,27 @@ public class ClothingItemImageManager {
 
     final static String CLOTHING_ITEM_IMAGE_FOLDER = "clothing_item_images";
 
-    final static SparseArray<Bitmap> bitmapBuffer = new SparseArray<>();
+    final static SparseArray<Bitmap> customBitmapBuffer = new SparseArray<>();
+    final static SparseArray<Bitmap> generatedBitmapBuffer = new SparseArray<>();
 
     public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad) {
         return dynamicClothingItemLoad(toLoad, true);
     }
 
-    public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad, boolean useCustomImageBuffer) {
-        return dynamicClothingItemLoad(toLoad, useCustomImageBuffer, true);
+    public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad, boolean useImageBuffer) {
+        return dynamicClothingItemLoad(toLoad, useImageBuffer, true);
     }
 
-    public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad, boolean useCustomImageBuffer, boolean tryCustomImageLoad) {
-        if (tryCustomImageLoad && toLoad.isCustomImage()) {
-            Bitmap bufferVal = bitmapBuffer.get(toLoad.getId(), null);
+    public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad, boolean useCustomImageBuffer, boolean useImageBuffer) {
+        if (useImageBuffer && toLoad.isCustomImage()) {
+            Bitmap bufferVal = customBitmapBuffer.get(toLoad.getId(), null);
             if (useCustomImageBuffer && bufferVal != null) {
                 return bufferVal;
             }
             String path = getClothingItemImagePath(Integer.toString(toLoad.getId()));
             Bitmap bitmap = ImageIo.loadImageFromFile(path);
             if (bitmap != null) {
-                bitmapBuffer.put(toLoad.getId(), bitmap);
+                customBitmapBuffer.put(toLoad.getId(), bitmap);
             }
 
             if (bitmap == null) {
@@ -58,13 +59,22 @@ public class ClothingItemImageManager {
             return bitmap;
         } else {
             int hash = getImageHash(toLoad);
+            Bitmap bitmap = generatedBitmapBuffer.get(hash, null);
+            if (useImageBuffer && bitmap != null) {
+                Log.d("CACHE", "CACHE_HIT");
+                return bitmap;
+            }
+
             String imagePath = getClothingItemImagePath(Integer.toString(hash));
-            Bitmap bitmap = ImageIo.loadImageFromFile(imagePath);
+            bitmap = ImageIo.loadImageFromFile(imagePath);
 
             if (bitmap == null) {
                 bitmap = generateClothingItemImage(toLoad);
                 ImageIo.saveBitMapToFile(bitmap, imagePath);
             }
+
+            Log.d("CACHE", "CACHE_MISS");
+            generatedBitmapBuffer.put(hash, bitmap);
             return bitmap;
         }
     }
@@ -121,6 +131,6 @@ public class ClothingItemImageManager {
     }
 
     public static void removeBufferValue(int id) {
-        bitmapBuffer.remove(id);
+        customBitmapBuffer.remove(id);
     }
 }
