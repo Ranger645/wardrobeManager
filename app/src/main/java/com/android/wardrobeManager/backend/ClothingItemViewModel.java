@@ -2,6 +2,7 @@ package com.android.wardrobeManager.backend;
 
 import android.app.Application;
 import android.util.Log;
+import android.widget.ImageView;
 
 import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.database.ClothingItemDatabaseRepository;
@@ -71,5 +72,10 @@ public class ClothingItemViewModel extends AndroidViewModel {
                 return false;
         addClothingItemColor(color);
         return true;
+    }
+
+    public ImageView.ScaleType getClothingItemScaleType() {
+        return getClothingItem().getValue().isCustomImage() ?
+                ImageView.ScaleType.FIT_XY : ImageView.ScaleType.FIT_CENTER;
     }
 }
