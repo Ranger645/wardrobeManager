@@ -31,7 +31,10 @@ public class DesignFilterManager {
     }
 
     public Bitmap filter(String colorStyle, Bitmap bitmap, Bitmap ref, int[] colors) {
-        return this.filters.get(colorStyle).filter(bitmap, ref, colors);
+        DesignFilter designFilter = this.filters.get(colorStyle);
+        if (designFilter == null)
+            designFilter = this.filters.get("default");
+        return designFilter.filter(bitmap, ref, colors);
     }
 
     protected interface DesignFilter {
