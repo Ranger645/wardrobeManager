@@ -27,6 +27,8 @@ import java.util.Arrays;
 
 public class ClothingItemImageManager {
 
+    private static final int IMAGE_SIDE_LENGTH = 512;
+
     final static String CLOTHING_ITEM_IMAGE_FOLDER = "clothing_item_images";
 
     final static SparseArray<Bitmap> customBitmapBuffer = new SparseArray<>();
@@ -105,14 +107,13 @@ public class ClothingItemImageManager {
     private static Bitmap generateClothingItemImage(ClothingItem toLoad) {
         // Creates an image from the clothing item object and saves it to the app's storage
         Log.w("IMAGE_GEN", "Generating new image");
-        Bitmap bitmap = Bitmap.createBitmap(512, 512, Bitmap.Config.ARGB_8888);
         Application application = WardrobeManager.getInstance();
         int refRes = application.getResources().getIdentifier(toLoad.getSubType(), "drawable", application.getPackageName());
         Drawable d = application.getResources().getDrawable(refRes, application.getTheme());
-        Bitmap reference = Bitmap.createScaledBitmap(drawableToBitmap(d), bitmap.getWidth(), bitmap.getHeight(), false);
+        Bitmap reference = Bitmap.createScaledBitmap(drawableToBitmap(d), IMAGE_SIDE_LENGTH, IMAGE_SIDE_LENGTH, false);
 
         int[] colors = Utility.parseClothingItemColors(toLoad.getColors());
-        return DesignFilterManager.filterDesign(toLoad.getDesign(), bitmap, reference, colors);
+        return DesignFilterManager.filterDesign(toLoad.getDesign(), reference, colors);
     }
 
     private static Bitmap drawableToBitmap (Drawable drawable) {

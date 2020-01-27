@@ -11,9 +11,10 @@ public class DesignFilterManager {
 
     private static DesignFilterManager designFilterManager = null;
 
-    public static Bitmap filterDesign(String colorStyle, Bitmap bitmap, Bitmap ref, int[] colors) {
+    public static Bitmap filterDesign(String colorStyle, Bitmap ref, int[] colors) {
         if (designFilterManager == null)
             designFilterManager = new DesignFilterManager();
+        Bitmap bitmap = Bitmap.createBitmap(ref.getWidth(), ref.getHeight(), Bitmap.Config.ARGB_8888);
         return designFilterManager.filter(colorStyle, bitmap, ref, colors);
     }
 
