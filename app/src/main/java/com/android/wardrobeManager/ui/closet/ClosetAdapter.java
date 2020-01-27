@@ -26,15 +26,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ClosetItemHolder> {
 
-    private Context context;
-
     private ClosetClothingItemClickListener clothingClickListener;
 
     private List<ClothingItem> clothingItems = new ArrayList<>();
-    private SparseArray<Bitmap> clothingItemBitmaps = new SparseArray<>();
 
-    public ClosetAdapter(Context context, ClosetClothingItemClickListener listener) {
-        this.context = context;
+    public ClosetAdapter(ClosetClothingItemClickListener listener) {
         this.clothingClickListener = listener;
     }
 
@@ -62,9 +58,8 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ClosetItem
         return clothingItems.size();
     }
 
-    public void setItems(List<ClothingItem> items, SparseArray<Bitmap> clothingItemBitmaps) {
+    public void setItems(List<ClothingItem> items) {
         this.clothingItems = items;
-        this.clothingItemBitmaps = clothingItemBitmaps;
         notifyDataSetChanged();
     }
 

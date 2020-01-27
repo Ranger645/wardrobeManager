@@ -34,14 +34,14 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
         recyclerView.setLayoutManager(new GridLayoutManager(this,2 ));
         recyclerView.setHasFixedSize(true);
 
-        final ClosetAdapter adapter = new ClosetAdapter(this, this);
+        final ClosetAdapter adapter = new ClosetAdapter(this);
         recyclerView.setAdapter(adapter);
 
         clothingItemDatabaseViewModel = ViewModelProviders.of(this).get(ClothingItemDatabaseViewModel.class);
         clothingItemDatabaseViewModel.getClothingItems().observe(this, new Observer<List<ClothingItem>>() {
             @Override
             public void onChanged(List<ClothingItem> clothingItems) {
-                adapter.setItems(clothingItems, clothingItemDatabaseViewModel.getClothingItemBitmaps());
+                adapter.setItems(clothingItems);
             }
         });
 

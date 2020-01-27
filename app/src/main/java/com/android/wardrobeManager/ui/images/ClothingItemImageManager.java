@@ -61,7 +61,6 @@ public class ClothingItemImageManager {
             int hash = getImageHash(toLoad);
             Bitmap bitmap = generatedBitmapBuffer.get(hash, null);
             if (useImageBuffer && bitmap != null) {
-                Log.d("CACHE", "CACHE_HIT");
                 return bitmap;
             }
 
@@ -73,7 +72,6 @@ public class ClothingItemImageManager {
                 ImageIo.saveBitMapToFile(bitmap, imagePath);
             }
 
-            Log.d("CACHE", "CACHE_MISS");
             generatedBitmapBuffer.put(hash, bitmap);
             return bitmap;
         }
