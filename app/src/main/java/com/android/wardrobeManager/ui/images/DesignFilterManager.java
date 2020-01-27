@@ -9,13 +9,16 @@ public class DesignFilterManager {
 
     protected Map<String, DesignFilter> filters;
 
+    private static DesignFilterManager designFilterManager = null;
+
     public static Bitmap filterDesign(String colorStyle, Bitmap bitmap, Bitmap ref, int[] colors) {
-        return new DesignFilterManager().filter(colorStyle, bitmap, ref, colors);
+        if (designFilterManager == null)
+            designFilterManager = new DesignFilterManager();
+        return designFilterManager.filter(colorStyle, bitmap, ref, colors);
     }
 
     public DesignFilterManager() {
         filters = new HashMap<>();
-
 
         filters.put("primary_secondary", new PrimarySecondary());
         filters.put("thin_stripes", new HorizontalStripes(10));
