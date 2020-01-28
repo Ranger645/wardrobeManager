@@ -190,6 +190,9 @@ public class ColorEditActivity extends AppCompatActivity implements GestureDetec
         if (velocityY > minSpeed) {
             backToAddItemActivity();
             return true;
+        } else if (velocityY < -minSpeed) {
+            switchColorEditFragments(COLOR_EDIT_MANUAL_FRAG_TAG);
+            return true;
         }
         return false;
     }
