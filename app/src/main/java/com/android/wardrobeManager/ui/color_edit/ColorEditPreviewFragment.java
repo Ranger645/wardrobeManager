@@ -64,7 +64,6 @@ public class ColorEditPreviewFragment extends Fragment {
             @Override
             public void onChanged(ClothingItem item) {
                 previewView.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(clothingItem));
-                previewView.setScaleType(viewModel.getClothingItemScaleType());
             }
         });
 

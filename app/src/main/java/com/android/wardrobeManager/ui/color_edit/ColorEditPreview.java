@@ -27,24 +27,21 @@ public class ColorEditPreview extends View {
     private int touchX = -100, touchY = -100;
 
     private Bitmap imageBitmap;
-    private ImageView.ScaleType scaleType = ImageView.ScaleType.FIT_XY;
+    private boolean isCustomImage;
 
     private ColorSelectListener colorSelectListener;
 
     public ColorEditPreview(Context context, Bitmap imageBitmap, boolean customImage) {
         super(context);
         this.imageBitmap = imageBitmap;
+        this.isCustomImage = customImage;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         Rect fullCanvas;
-        if (scaleType == ImageView.ScaleType.FIT_XY)
-            fullCanvas = new Rect(0, 0, canvas.getWidth(), canvas.getHeight());
-        else {
-            fullCanvas = new Rect(0, canvas.getHeight() / 2 - canvas.getWidth() / 2, canvas.getWidth(), canvas.getHeight() / 2 + canvas.getWidth() / 2);
-        }
+        fullCanvas = new Rect(0, canvas.getHeight() / 2 - canvas.getWidth() / 2, canvas.getWidth(), canvas.getHeight() / 2 + canvas.getWidth() / 2);
 
         Paint defaultBrush = new Paint();
         canvas.drawBitmap(imageBitmap, null, fullCanvas, defaultBrush);
@@ -77,7 +74,7 @@ public class ColorEditPreview extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (scaleType == ImageView.ScaleType.FIT_XY) {
+        if (isCustomImage) {
             if (selected) {
 
                 if (event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -130,10 +127,6 @@ public class ColorEditPreview extends View {
         if ((color & 0xFF000000) == 0)
             return getResources().getColor(R.color.colorAccent, getContext().getTheme());
         return color;
-    }
-
-    public void setScaleType(ImageView.ScaleType scaleType) {
-        this.scaleType = scaleType;
     }
 
     public interface ColorSelectListener {

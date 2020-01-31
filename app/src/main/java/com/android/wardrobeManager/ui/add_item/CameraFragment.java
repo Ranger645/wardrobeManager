@@ -74,9 +74,9 @@ public class CameraFragment extends Fragment {
         Log.d("CAMERA", "Starting camera");
         CameraX.unbindAll();
 
-        Size screen = new Size(textureView.getWidth() / 4, textureView.getHeight() / 4); //size of the screen
+        Size screen = new Size(512, 512);
 
-        PreviewConfig pConfig = new PreviewConfig.Builder().setTargetResolution(screen).build();
+        PreviewConfig pConfig = new PreviewConfig.Builder().build();
         Preview preview = new Preview(pConfig);
 
         preview.setOnPreviewOutputUpdateListener(
@@ -93,8 +93,11 @@ public class CameraFragment extends Fragment {
                     }
                 });
 
-        ImageCaptureConfig imageCaptureConfig = new ImageCaptureConfig.Builder().setCaptureMode(ImageCapture.CaptureMode.MIN_LATENCY)
-                .setTargetRotation(getActivity().getWindowManager().getDefaultDisplay().getRotation()).setCaptureMode(ImageCapture.CaptureMode.MIN_LATENCY).build();
+        ImageCaptureConfig imageCaptureConfig = new ImageCaptureConfig.Builder()
+                .setCaptureMode(ImageCapture.CaptureMode.MIN_LATENCY)
+                .setTargetResolution(screen)
+                .setTargetRotation(getActivity().getWindowManager().getDefaultDisplay().getRotation())
+                .setCaptureMode(ImageCapture.CaptureMode.MIN_LATENCY).build();
         final ImageCapture imgCap = new ImageCapture(imageCaptureConfig);
 
         final AddItemViewModel addItemViewModel = ViewModelProviders.of(getActivity()).get(AddItemViewModel.class);

@@ -56,7 +56,6 @@ public class PreviewFragment extends Fragment {
             @Override
             public void onChanged(ClothingItem clothingItem) {
                 previewButton.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(clothingItem));
-                previewButton.setScaleType(addItemViewModel.getClothingItemScaleType());
             }
         });
 
