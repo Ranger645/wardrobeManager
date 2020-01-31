@@ -6,21 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.add_item.AddItemActivity"
-    android:background="@color/uiBackground">
+    android:background="@color/colorDarkBackground">
 
     <FrameLayout
         android:id="@+id/name_edit_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/rounded_panel_margin_size"
+        android:layout_marginVertical="@dimen/rounded_panel_margin_size"
+        android:layout_marginHorizontal="@dimen/rounded_panel_margin_size_double"
         android:layout_alignParentTop="true"
-        android:background="@drawable/round_rect_bg">
+        android:background="@drawable/light_background_round_rect_bg">
 
         <TextView
             android:id="@+id/name_edit_field"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginHorizontal="@dimen/rounded_panel_margin_size"
+            android:layout_marginHorizontal="30dp"
             android:gravity="center"
             android:textSize="22sp"
             android:text="NONE"
@@ -44,10 +45,9 @@
         android:layout_width="match_parent"
         android:layout_height="25dp"
         android:layout_marginTop="@dimen/rounded_panel_margin_size"
-        android:layout_marginRight="@dimen/rounded_panel_margin_size"
-        android:layout_marginLeft="@dimen/rounded_panel_margin_size"
+        android:layout_marginHorizontal="@dimen/rounded_panel_margin_size_double"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/round_top_bg"
+        android:background="@drawable/light_background_round_top_bg"
         android:clickable="true"
         android:focusable="true">
 
@@ -56,10 +56,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/rounded_panel_margin_size"
-            android:layout_marginRight="@dimen/rounded_panel_margin_size"
-            android:layout_marginLeft="@dimen/rounded_panel_margin_size"
+            android:layout_marginHorizontal="@dimen/rounded_panel_margin_size"
             android:orientation="horizontal" />
 
     </FrameLayout>
-
 </RelativeLayout>

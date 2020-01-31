@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 
 import com.android.wardrobeManager.R;
@@ -58,7 +59,7 @@ public class AddImageEditPreviewFragment extends Fragment {
             }
         });
 
-        ImageView saveButton = view.findViewById(R.id.add_save_button);
+        FrameLayout saveButton = view.findViewById(R.id.add_save_button);
         synchronized (onSaveListener) {
             saveButton.setOnClickListener(onSaveListener);
         }
@@ -68,17 +69,17 @@ public class AddImageEditPreviewFragment extends Fragment {
             closeButton.setOnClickListener(onCloseListener);
         }
 
-        ImageView trashButton = view.findViewById(R.id.add_trash_button);
+        FrameLayout trashButton = view.findViewById(R.id.add_trash_button);
         synchronized (onTrashListener) {
             trashButton.setOnClickListener(onTrashListener);
         }
 
-        ImageView cameraButton = view.findViewById(R.id.add_camera_button);
+        FrameLayout cameraButton = view.findViewById(R.id.add_camera_button);
         synchronized (onCameraClickedListener) {
             cameraButton.setOnClickListener(onCameraClickedListener);
         }
 
-        ImageView cropButton = view.findViewById(R.id.add_scissors_button);
+        FrameLayout cropButton = view.findViewById(R.id.add_scissors_button);
         synchronized (onCropListener) {
             cropButton.setOnClickListener(onCropListener);
         }

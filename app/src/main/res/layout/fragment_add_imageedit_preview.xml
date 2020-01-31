@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@drawable/round_rect_bg"
+        android:background="@drawable/light_background_round_rect_bg"
         android:layout_margin="@dimen/rounded_panel_margin_size">
 
         <ImageView
@@ -35,7 +35,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:src="@drawable/dialog_ic_close_normal_holo_light"
-        android:background="@drawable/round_rect_bg"
+        android:background="@drawable/primary_round_rect_bg"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:clickable="true"
@@ -45,14 +45,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@drawable/round_rect_bg"
+        android:background="@drawable/light_background_round_rect_bg"
         android:layout_margin="@dimen/rounded_panel_margin_size"
-        app:layout_constraintTop_toBottomOf="@id/add_item_preview_holder"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent">
 
-        <ImageView
+        <FrameLayout
             android:id="@+id/add_trash_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -61,22 +60,37 @@
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
-            android:background="?attr/selectableItemBackground"/>
+            android:background="@drawable/primary_round_rect_bg">
 
-        <ImageView
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/add_trash_icon"/>
+
+        </FrameLayout>
+
+        <FrameLayout
             android:id="@+id/add_scissors_button"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:rotation="45"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
             android:src="@drawable/add_scissors_icon"
             android:layout_margin="@dimen/rounded_panel_margin_size"
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
-            android:background="?attr/selectableItemBackground"
-            android:layout_gravity="center"/>
+            android:background="@drawable/primary_round_rect_bg"
+            android:layout_gravity="center">
 
-        <ImageView
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:rotation="45"
+                android:layout_gravity="center"
+                android:src="@drawable/add_scissors_icon"/>
+
+        </FrameLayout>
+
+        <FrameLayout
             android:id="@+id/add_camera_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
@@ -85,18 +99,31 @@
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
-            android:background="?attr/selectableItemBackground"/>
+            android:background="@drawable/primary_round_rect_bg">
 
-        <ImageView
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/add_camera_icon"/>
+
+        </FrameLayout>
+
+        <FrameLayout
             android:id="@+id/add_save_button"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/add_check_icon"
             android:layout_margin="@dimen/rounded_panel_margin_size"
             android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
-            android:background="?attr/selectableItemBackground"/>
+            android:background="@drawable/primary_round_rect_bg">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/add_check_icon"/>
+
+        </FrameLayout>
 
     </LinearLayout>
 
