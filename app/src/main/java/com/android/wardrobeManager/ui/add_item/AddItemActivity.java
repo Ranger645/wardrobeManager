@@ -2,10 +2,8 @@ package com.android.wardrobeManager.ui.add_item;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.GestureDetectorCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.viewpager.widget.ViewPager;
 
 import android.app.ActivityOptions;
 import android.content.Context;
@@ -19,8 +17,6 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -65,7 +61,7 @@ public class AddItemActivity extends AppCompatActivity implements GestureDetecto
                 getSupportFragmentManager(),
                 AddItemViewPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         addItemViewPager.setAdapter(addItemViewPagerAdapter);
-        addItemViewPagerAdapter.getMainWindow().setCameraStatusChangeListener(new MainWindowFragment.CameraStatusChangeListener() {
+        addItemViewPagerAdapter.getImageEditFragment().setCameraStatusChangeListener(new AddImageEditFragment.CameraStatusChangeListener() {
             @Override
             public void onCameraStatusChange(boolean cameraOpen) {
                 if (cameraOpen)
@@ -79,7 +75,7 @@ public class AddItemActivity extends AppCompatActivity implements GestureDetecto
             initColorToStringMap();
         }
 
-        ConstraintLayout colorEditButton = findViewById(R.id.color_edit_button);
+        FrameLayout colorEditButton = findViewById(R.id.add_color_edit_button);
         colorEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +103,7 @@ public class AddItemActivity extends AppCompatActivity implements GestureDetecto
         intent.putExtras(bundle);
 
         Pair<View, String> p1 = Pair.create((View) addItemViewPager, "preview_transition");
-        Pair<View, String> p2 = Pair.create(findViewById(R.id.color_edit_button), "color_transition");
+        Pair<View, String> p2 = Pair.create(findViewById(R.id.add_color_edit_button), "color_transition");
         ActivityOptions previewTransitionOptions = ActivityOptions.makeSceneTransitionAnimation(AddItemActivity.this, p1, p2);
         startActivity(intent, previewTransitionOptions.toBundle());
     }

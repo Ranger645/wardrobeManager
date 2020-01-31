@@ -39,7 +39,7 @@ import java.io.File;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class CameraFragment extends Fragment {
+public class AddImageEditCameraFragment extends Fragment {
 
     private int REQUEST_CODE_PERMISSIONS = 101;
     private final String[] REQUIRED_PERMISSIONS = new String[]{"android.permission.CAMERA"};
@@ -49,7 +49,7 @@ public class CameraFragment extends Fragment {
 
     private CameraPictureTakenCallback pictureTakenCallback;
 
-    public CameraFragment() {
+    public AddImageEditCameraFragment() {
         // Required empty public constructor
     }
 

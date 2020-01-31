@@ -1,7 +1,5 @@
 package com.android.wardrobeManager.ui.add_item;
 
-import android.util.Log;
-
 import com.android.wardrobeManager.database.ClothingItem;
 
 import androidx.annotation.NonNull;
@@ -13,13 +11,13 @@ public class AddItemViewPagerAdapter extends FragmentPagerAdapter {
 
     private ClothingItem clothingItem;
 
-    private MainWindowFragment mainWindow = null;
+    private AddImageEditFragment imageEditFragment = null;
     private AdvEditFragment paramEdit = null;
 
     public AddItemViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
 
-        mainWindow = new MainWindowFragment();
+        imageEditFragment = new AddImageEditFragment();
         paramEdit = new AdvEditFragment();
     }
 
@@ -28,7 +26,7 @@ public class AddItemViewPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         Fragment fragment;
         if (position == 0) {
-            fragment = mainWindow;
+            fragment = imageEditFragment;
         } else {
             fragment = paramEdit;
 
@@ -41,8 +39,8 @@ public class AddItemViewPagerAdapter extends FragmentPagerAdapter {
         return 2;
     }
 
-    public MainWindowFragment getMainWindow() {
-        return mainWindow;
+    public AddImageEditFragment getImageEditFragment() {
+        return imageEditFragment;
     }
 
 }

@@ -8,34 +8,25 @@
     tools:context=".ui.add_item.AddItemActivity"
     android:background="@color/uiBackground">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <FrameLayout
         android:id="@+id/name_edit_frame"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/rounded_panel_margin_size"
-        android:layout_marginLeft="@dimen/rounded_panel_margin_size"
+        android:layout_margin="@dimen/rounded_panel_margin_size"
         android:layout_alignParentTop="true"
-        android:background="@color/white">
+        android:background="@drawable/round_rect_bg">
 
         <TextView
             android:id="@+id/name_edit_field"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/rounded_panel_margin_size"
             android:gravity="center"
-            android:textSize="20sp"
-            android:text="None"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="22sp"
+            android:text="NONE"
+            android:textColor="@color/colorPrimaryDark" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:scaleType="fitEnd"
-            android:src="@drawable/rounded_outline_bottom"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
     <com.android.wardrobeManager.ui.add_item.AddItemViewPager
         android:id="@+id/add_item_view_pager"
@@ -43,18 +34,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name_edit_frame"
-        android:layout_above="@id/color_edit_button"
+        android:layout_above="@id/add_color_edit_button"
         android:layout_alignParentStart="true"
         android:layout_margin="@dimen/rounded_panel_margin_size"/>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/color_edit_button"
+    <FrameLayout
+        android:id="@+id/add_color_edit_button"
         android:transitionName="color_edit_button_transition"
         android:layout_width="match_parent"
         android:layout_height="25dp"
+        android:layout_marginTop="@dimen/rounded_panel_margin_size"
         android:layout_marginRight="@dimen/rounded_panel_margin_size"
         android:layout_marginLeft="@dimen/rounded_panel_margin_size"
         android:layout_alignParentBottom="true"
+        android:background="@drawable/round_top_bg"
         android:clickable="true"
         android:focusable="true">
 
@@ -62,15 +55,11 @@
             android:id="@+id/color_edit_button_display"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/rounded_panel_margin_size"
+            android:layout_marginRight="@dimen/rounded_panel_margin_size"
+            android:layout_marginLeft="@dimen/rounded_panel_margin_size"
             android:orientation="horizontal" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/rounded_white_outline_top"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
 
 </RelativeLayout>
