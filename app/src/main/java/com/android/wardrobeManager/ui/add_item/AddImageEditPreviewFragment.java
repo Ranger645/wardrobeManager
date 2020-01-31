@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -59,7 +60,7 @@ public class AddImageEditPreviewFragment extends Fragment {
             }
         });
 
-        FrameLayout saveButton = view.findViewById(R.id.add_save_button);
+        ImageView saveButton = view.findViewById(R.id.add_save_button);
         synchronized (onSaveListener) {
             saveButton.setOnClickListener(onSaveListener);
         }
@@ -69,17 +70,17 @@ public class AddImageEditPreviewFragment extends Fragment {
             closeButton.setOnClickListener(onCloseListener);
         }
 
-        FrameLayout trashButton = view.findViewById(R.id.add_trash_button);
+        ImageView trashButton = view.findViewById(R.id.add_trash_button);
         synchronized (onTrashListener) {
             trashButton.setOnClickListener(onTrashListener);
         }
 
-        FrameLayout cameraButton = view.findViewById(R.id.add_camera_button);
+        ImageView cameraButton = view.findViewById(R.id.add_camera_button);
         synchronized (onCameraClickedListener) {
             cameraButton.setOnClickListener(onCameraClickedListener);
         }
 
-        FrameLayout cropButton = view.findViewById(R.id.add_scissors_button);
+        ImageView cropButton = view.findViewById(R.id.add_scissors_button);
         synchronized (onCropListener) {
             cropButton.setOnClickListener(onCropListener);
         }

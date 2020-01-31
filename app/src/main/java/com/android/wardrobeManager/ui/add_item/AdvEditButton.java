@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.android.wardrobeManager.R;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class AdvEditButton extends FrameLayout {
 
@@ -41,4 +43,9 @@ public class AdvEditButton extends FrameLayout {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
+    @Override
+    public void setOnClickListener(@Nullable OnClickListener l) {
+        ConstraintLayout buttonView = findViewById(R.id.add_adveedit_button);
+        buttonView.setOnClickListener(l);
+    }
 }
