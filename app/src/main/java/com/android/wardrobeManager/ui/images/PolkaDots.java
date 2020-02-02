@@ -27,18 +27,14 @@ public class PolkaDots implements DesignFilterManager.DesignFilter {
                     bitmap.setPixel(x, y, colors[0]);
                 }
             }
-
-
         }
-
 
         for (int i = 0; i < bitmap.getHeight(); i += spacing / 2) {
             for (int j = 0; j < bitmap.getWidth(); j += spacing) {
 
-
                 int dotColor;
 
-                if (colors.length < 2) {
+                if (colors.length <= 1) {
                     dotColor = colors[0];
                 } else {
                     colorIndex++;
@@ -49,6 +45,7 @@ public class PolkaDots implements DesignFilterManager.DesignFilter {
                 }
 
                 int indent = i % spacing;
+
                 for (int x = j + indent - dotRadius; x < j + indent + dotRadius; x++) {
                     for (int y = i - dotRadius; y < i + dotRadius; y++) {
 
@@ -59,23 +56,11 @@ public class PolkaDots implements DesignFilterManager.DesignFilter {
                                     bitmap.setPixel(x, y, dotColor);
                                 }
                             }
-
-
-
-
                         }
-
-
                     }
                 }
-
             }
         }
-
-
-
-
-
         return bitmap;
     }
 }
