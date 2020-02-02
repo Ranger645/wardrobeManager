@@ -26,16 +26,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ClosetItemHolder> {
 
-    private Context context = null;
-
     private ClosetClothingItemClickListener clothingClickListener;
 
     private List<ClothingItem> clothingItems = new ArrayList<>();
-    private SparseArray<Bitmap> clothingItemBitmaps = new SparseArray<>();
 
-    public ClosetAdapter(Context context, ClosetClothingItemClickListener listner) {
-        this.context = context;
-        this.clothingClickListener = listner;
+    public ClosetAdapter(ClosetClothingItemClickListener listener) {
+        this.clothingClickListener = listener;
     }
 
     @NonNull
@@ -50,8 +46,7 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ClosetItem
     public void onBindViewHolder(@NonNull ClosetItemHolder holder, int position) {
         ClothingItem item = clothingItems.get(position);
         holder.setClothingItem(item);
-        int hash = ClothingItemImageManager.getImageHash(item);
-        Bitmap bitmap = clothingItemBitmaps.get(hash);
+        Bitmap bitmap = ClothingItemImageManager.dynamicClothingItemLoad(item);
         if (bitmap != null)
             holder.bnImage.setImageBitmap(bitmap);
         else
@@ -63,9 +58,8 @@ public class ClosetAdapter extends RecyclerView.Adapter<ClosetAdapter.ClosetItem
         return clothingItems.size();
     }
 
-    public void setItems(List<ClothingItem> items, SparseArray<Bitmap> clothingItemBitmaps) {
+    public void setItems(List<ClothingItem> items) {
         this.clothingItems = items;
-        this.clothingItemBitmaps = clothingItemBitmaps;
         notifyDataSetChanged();
     }
 

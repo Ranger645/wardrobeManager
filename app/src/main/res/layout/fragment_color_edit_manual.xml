@@ -17,6 +17,7 @@
         app:layout_constraintBottom_toTopOf="@+id/manual_color_wheel_frame">
 
         <ImageView
+            android:id="@+id/color_edit_manual_small_preview"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:scaleType="fitStart"

@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.text.Layout;
 import android.util.Log;
 import android.util.Pair;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -32,7 +34,9 @@ import com.android.wardrobeManager.ui.closet.ClosetActivity;
 import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
 import com.android.wardrobeManager.ui.util.Utility;
 
-public class ColorEditActivity extends AppCompatActivity {
+public class ColorEditActivity extends AppCompatActivity implements GestureDetector.OnGestureListener {
+
+    private GestureDetector gestureDetector;
 
     private boolean previewDisplayed = true;
 
@@ -47,6 +51,8 @@ public class ColorEditActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_color_edit);
+
+        gestureDetector = new GestureDetector(this, this);
 
         viewModel = ViewModelProviders.of(this).get(ColorEditViewModel.class);
         Bundle bundle = getIntent().getExtras();
@@ -99,6 +105,11 @@ public class ColorEditActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent e) {
+        return super.dispatchTouchEvent(e) || gestureDetector.onTouchEvent(e);
+    }
+
     protected void backToAddItemActivity() {
         Intent intent = new Intent(ColorEditActivity.this, AddItemActivity.class);
         Bundle bundle = new Bundle();
@@ -146,5 +157,43 @@ public class ColorEditActivity extends AppCompatActivity {
         }
         ft.commit();
         previewDisplayed = !previewDisplayed;
+    }
+
+    @Override
+    public boolean onDown(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onSingleTapUp(MotionEvent e) {
+        return false;
+    }
+
+    @Override
+    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+        return false;
+    }
+
+    @Override
+    public void onLongPress(MotionEvent e) {
+
+    }
+
+    @Override
+    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+        int minSpeed = getResources().getInteger(R.integer.FLING_MIN_GESTURE_SPEED);
+        if (velocityY > minSpeed) {
+            backToAddItemActivity();
+            return true;
+        } else if (velocityY < -minSpeed) {
+            switchColorEditFragments(COLOR_EDIT_MANUAL_FRAG_TAG);
+            return true;
+        }
+        return false;
     }
 }

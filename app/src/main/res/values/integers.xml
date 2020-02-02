@@ -2,4 +2,5 @@
 <resources>
     <integer name="splash_screen_min_time_millis">500</integer>
     <integer name="additem_advedit_button_wh_ratio">5</integer>
+    <integer name="FLING_MIN_GESTURE_SPEED">1000</integer>
 </resources>

@@ -68,10 +68,11 @@
 
     <string-array name="clothing_item_options_design">
         <item>primary_secondary</item>
-        <item>thin_stripes</item>
-        <item>wide_stripes</item>
+        <item>thin_vertical_stripes</item>
+        <item>wide_vertical_stripes</item>
+        <item>thin_horizontal_stripes</item>
+        <item>wide_horizontal_stripes</item>
         <item>polka_dots</item>
-        <item>pleated</item>
     </string-array>
     <string-array name="clothing_item_options_material">
         <item>other</item>

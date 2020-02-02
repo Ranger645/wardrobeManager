@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.view.LayoutInflater;
@@ -58,6 +59,14 @@ public class ColorEditPreviewFragment extends Fragment {
                 ConstraintLayout.LayoutParams.MATCH_PARENT);
         previewView.setLayoutParams(params);
         rootLayout.addView(previewView);
+
+        viewModel.getClothingItem().observe(this, new Observer<ClothingItem>() {
+            @Override
+            public void onChanged(ClothingItem item) {
+                previewView.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(clothingItem));
+                previewView.setScaleType(viewModel.getClothingItemScaleType());
+            }
+        });
 
         return rootLayout;
     }

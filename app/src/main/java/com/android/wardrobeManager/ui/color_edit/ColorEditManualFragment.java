@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.util.Log;
@@ -12,11 +13,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.backend.AddItemViewModel;
 import com.android.wardrobeManager.backend.ColorEditViewModel;
+import com.android.wardrobeManager.database.ClothingItem;
+import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
 import com.android.wardrobeManager.ui.util.Utility;
 
 public class ColorEditManualFragment extends Fragment {
@@ -58,12 +62,6 @@ public class ColorEditManualFragment extends Fragment {
                 greyscaleSlider.invalidate();
             }
         });
-        greyscaleSlider.setColorGrayscaleListener(new ManualColorGrayscaleView.ManualColorGrayscaleListener() {
-            @Override
-            public void onNewColorSelect(double colorPercentage) {
-                Log.d("COLOR_CHANGE", "New grayscale percent");
-            }
-        });
         colorWheel.setColorSelectListener(new ManualColorSelectorView.ManualColorSelectorUpdateListener() {
             @Override
             public void onNewColorSelect(int newColor) {
@@ -71,6 +69,16 @@ public class ColorEditManualFragment extends Fragment {
                 // TODO: Reconsider the use cases for added duplicate colors:
                 viewModel.addUniqueClothingItemColor(Utility.convertColorPercentageToColor(newColor, greyscaleSlider.getColorPercentage()));
                 getActivity().findViewById(R.id.color_edit_button_display).invalidate();
+            }
+        });
+
+        final ImageView previewImageView = rootLayout.findViewById(R.id.color_edit_manual_small_preview);
+
+        viewModel.getClothingItem().observe(this, new Observer<ClothingItem>() {
+            @Override
+            public void onChanged(ClothingItem item) {
+                previewImageView.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(
+                        viewModel.getClothingItem().getValue()));
             }
         });
 

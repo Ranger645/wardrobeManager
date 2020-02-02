@@ -6,35 +6,48 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.android.wardrobeManager.R;
+
+import androidx.constraintlayout.widget.ConstraintSet;
 
 public class ColorEditPreview extends View {
 
     private static final int COLOR_INDICATOR_THICKNESS = 30;
     private static final int COLOR_INDICATOR_RADIUS = 75;
 
+    private static final int MAX_HOLD_DIRECTIONAL_MOVEMENT = 100;
+    private long selectedStartTime = -1;
+    private int selectedStartX = -100, selectedStartY = -100;
+    private boolean selected = false;
     private int touchX = -100, touchY = -100;
 
     private Bitmap imageBitmap;
-    private boolean customImage;
+    private ImageView.ScaleType scaleType = ImageView.ScaleType.FIT_XY;
 
     private ColorSelectListener colorSelectListener;
 
     public ColorEditPreview(Context context, Bitmap imageBitmap, boolean customImage) {
         super(context);
         this.imageBitmap = imageBitmap;
-        this.customImage = customImage;
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Rect fullCanvas1 = new Rect(0, 0, canvas.getWidth(), canvas.getHeight());
+        Rect fullCanvas;
+        if (scaleType == ImageView.ScaleType.FIT_XY)
+            fullCanvas = new Rect(0, 0, canvas.getWidth(), canvas.getHeight());
+        else {
+            fullCanvas = new Rect(0, canvas.getHeight() / 2 - canvas.getWidth() / 2, canvas.getWidth(), canvas.getHeight() / 2 + canvas.getWidth() / 2);
+        }
+
         Paint defaultBrush = new Paint();
-        canvas.drawBitmap(imageBitmap, null, fullCanvas1, defaultBrush);
+        canvas.drawBitmap(imageBitmap, null, fullCanvas, defaultBrush);
 
         if (touchX >= 0 && touchY >= 0 && touchX < canvas.getWidth() && touchY < canvas.getHeight()) {
             Paint thickBrush = new Paint();
@@ -64,19 +77,51 @@ public class ColorEditPreview extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (customImage) {
-            if (event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN) {
-                touchX = (int) event.getX();
-                touchY = (int) event.getY();
-            } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                if (colorSelectListener != null)
-                    colorSelectListener.onColorSelect(getColorAtViewPoint(touchX, touchY));
-                touchX = touchY = -100;
+        if (scaleType == ImageView.ScaleType.FIT_XY) {
+            if (selected) {
+
+                if (event.getAction() == MotionEvent.ACTION_MOVE || event.getAction() == MotionEvent.ACTION_DOWN) {
+                    touchX = (int) event.getX();
+                    touchY = (int) event.getY();
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    if (colorSelectListener != null)
+                        colorSelectListener.onColorSelect(getColorAtViewPoint(touchX, touchY));
+                    touchX = touchY = -100;
+                    selected = false;
+                }
+                invalidate();
+                // Returning true to signal to parent that event has been handled
+                return true;
+
+            } else {
+
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    selectedStartTime = System.currentTimeMillis();
+                    selectedStartX = (int) event.getX();
+                    selectedStartY = (int) event.getY();
+                    return true;
+                }
+
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    if (System.currentTimeMillis() - selectedStartTime >= 1000 &&
+                            Math.abs((int) event.getX() - selectedStartX) < MAX_HOLD_DIRECTIONAL_MOVEMENT &&
+                            Math.abs((int) event.getY() - selectedStartY) < MAX_HOLD_DIRECTIONAL_MOVEMENT) {
+                        selected = true;
+                        touchX = (int) event.getX();
+                        touchY = (int) event.getY();
+                        invalidate();
+                    }
+                }
+
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    selected = false;
+                }
+
             }
-            invalidate();
         }
-        return true;
+        return false;
     }
+
 
     private int getColorAtViewPoint(float viewX, float viewY) {
         int scaledX = (int) ((viewX / this.getWidth()) * imageBitmap.getWidth());
@@ -85,6 +130,10 @@ public class ColorEditPreview extends View {
         if ((color & 0xFF000000) == 0)
             return getResources().getColor(R.color.colorAccent, getContext().getTheme());
         return color;
+    }
+
+    public void setScaleType(ImageView.ScaleType scaleType) {
+        this.scaleType = scaleType;
     }
 
     public interface ColorSelectListener {
