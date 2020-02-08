@@ -1,17 +1,19 @@
 package com.android.wardrobeManager.ui.closet;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.StartActivity;
@@ -51,6 +53,18 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
     public void onBackPressed() {
         super.onBackPressed();
         startActivity(new Intent(ClosetActivity.this, StartActivity.class));
+    }
+
+    public void openMenu(View view) {
+        if (view.getId() == findViewById(R.id.closet_menu_button).getId()) {
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            ClosetMenuFragment fragment = new ClosetMenuFragment();
+            fragmentTransaction.add(R.id.closet_constraint_layout, fragment);
+
+            fragmentTransaction.commit();
+        }
     }
 
     @Override
