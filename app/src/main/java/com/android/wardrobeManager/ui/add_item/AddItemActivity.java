@@ -87,7 +87,7 @@ public class AddItemActivity extends AppCompatActivity implements GestureDetecto
             @Override
             public void onChanged(ClothingItem clothingItem) {
                 TextView nameEditText = findViewById(R.id.name_edit_field);
-                nameEditText.setText(getClothingItemAutomaticName(clothingItem));
+                nameEditText.setText(clothingItem.getSubType());
 
                 updateColorDisplay(clothingItem);
             }
