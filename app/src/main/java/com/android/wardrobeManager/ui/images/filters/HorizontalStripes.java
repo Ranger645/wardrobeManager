@@ -17,11 +17,10 @@ public class HorizontalStripes implements DesignFilterManager.DesignFilter {
     }
 
     public HorizontalStripes() {
-        thickness = 10;
+        this(10);
     }
 
     public Bitmap filter(Bitmap bitmap, Bitmap ref, int[] colors) {
-
 
         for (int i = 0; i < bitmap.getWidth() * bitmap.getHeight(); i++) {
             int x = i % bitmap.getWidth();

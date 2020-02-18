@@ -32,7 +32,7 @@ public abstract class ClothingItemDatabase extends RoomDatabase {
 
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
         @Override
-        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+        public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
             new PopulateDbAsyncTask(instance).execute();
         }
@@ -53,9 +53,7 @@ public abstract class ClothingItemDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            dao.insert(new ClothingItem(false, "top", "short_sleeve_shirt",
-                    "FFFFFFFF,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "polka_dots", 0, "polyester",
-                    "nike", 50f, "big"));
+            //dao.insert(new ClothingItem(false, "top", "short_sleeve_shirt", "FFFFFFFF,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "polka_dots", 0, "polyester", "nike", 50f, "big"));
             return null;
         }
     }

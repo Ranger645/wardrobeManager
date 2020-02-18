@@ -15,19 +15,13 @@ public class Default implements DesignFilterManager.DesignFilter {
 
     public Bitmap filter(Bitmap bitmap, Bitmap ref, int[] colors) {
 
-        Bitmap output = ref.copy(ref.getConfig(), true);
-
-        Canvas canvas = new Canvas(output);
-
+        bitmap = ref.copy(ref.getConfig(), true);
+        Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-
         paint.setColor(colors[0]);
-
-        canvas.drawRect(0, 0, output.getWidth(), output.getHeight(), paint);
-
-        return output;
-
+        canvas.drawRect(0, 0, bitmap.getWidth(), bitmap.getHeight(), paint);
+        return bitmap;
     }
 
 
