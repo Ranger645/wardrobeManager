@@ -1,13 +1,23 @@
-package com.android.wardrobeManager.ui.images;
+package com.android.wardrobeManager.ui.images.filters;
 
 import android.graphics.Bitmap;
 
+import com.android.wardrobeManager.ui.images.DesignFilterManager;
+
 import java.util.Map;
 
-public class WideVerticalStripes implements DesignFilterManager.DesignFilter {
+public class VerticalStripes implements DesignFilterManager.DesignFilter {
 
     protected Map<String, DesignFilterManager.DesignFilter> filters;
-    private int thickness = 50;
+    private int thickness;
+
+    public VerticalStripes() {
+        thickness = 10;
+    }
+
+    public VerticalStripes(int thickness) {
+        this.thickness = thickness;
+    }
 
     public Bitmap filter(Bitmap bitmap, Bitmap ref, int[] colors) {
 

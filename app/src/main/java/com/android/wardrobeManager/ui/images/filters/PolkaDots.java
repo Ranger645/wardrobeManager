@@ -1,6 +1,9 @@
-package com.android.wardrobeManager.ui.images;
+package com.android.wardrobeManager.ui.images.filters;
 
 import android.graphics.Bitmap;
+
+import com.android.wardrobeManager.ui.images.DesignFilterManager;
+
 import java.util.Map;
 
 public class PolkaDots implements DesignFilterManager.DesignFilter {

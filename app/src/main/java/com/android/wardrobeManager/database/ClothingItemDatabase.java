@@ -54,7 +54,7 @@ public abstract class ClothingItemDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(Void... voids) {
             dao.insert(new ClothingItem(false, "top", "short_sleeve_shirt",
-                    "FFEEEEEE,FF0000FF", "polka_dots", 0, "polyester",
+                    "FF00FF00", "default", 0, "polyester",
                     "nike", 50f, "big"));
             return null;
         }
