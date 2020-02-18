@@ -1,6 +1,10 @@
 package com.android.wardrobeManager.ui.images.filters;
 
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 
 import com.android.wardrobeManager.ui.images.DesignFilterManager;
 
@@ -12,28 +16,31 @@ public class PolkaDots implements DesignFilterManager.DesignFilter {
     private int spacing = 80;
     private int dotRadius = 10;
     private int colorIndex = 0;
+    private int indent = 0;
 
     public Bitmap filter(Bitmap bitmap, Bitmap ref, int[] colors) {
 
 
-        for (int i = 0; i < bitmap.getWidth() * bitmap.getHeight(); i++) {
+        Bitmap output = ref.copy(ref.getConfig(), true);
 
-            int x = i % bitmap.getWidth();
-            int y = i / bitmap.getWidth();
+        Canvas canvas = new Canvas(output);
 
-            if (colors.length < 2) {
-                if (ref.getPixel(x, y) != 0xFFFFFFFF) {
-                    bitmap.setPixel(x, y, 0xFFEEEEEE);
-                }
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+
+
+        paint.setColor(colors[0]);
+        canvas.drawRect(0, 0, output.getWidth(), output.getHeight(), paint);
+
+        for (int i = 0; i < output.getHeight(); i += spacing / 2) {
+
+            if (indent == 0) {
+                indent += spacing / 2;
             } else {
-                if (ref.getPixel(x, y) != 0xFFFFFFFF) {
-                    bitmap.setPixel(x, y, colors[0]);
-                }
+                indent = 0;
             }
-        }
 
-        for (int i = 0; i < bitmap.getHeight(); i += spacing / 2) {
-            for (int j = 0; j < bitmap.getWidth(); j += spacing) {
+            for (int j = 0; j < output.getHeight(); j += spacing) {
 
                 int dotColor;
 
@@ -47,23 +54,13 @@ public class PolkaDots implements DesignFilterManager.DesignFilter {
                     dotColor = colors[colorIndex];
                 }
 
-                int indent = i % spacing;
+                paint.setColor(dotColor);
+                canvas.drawCircle(j + indent, i, dotRadius, paint);
 
-                for (int x = j + indent - dotRadius; x < j + indent + dotRadius; x++) {
-                    for (int y = i - dotRadius; y < i + dotRadius; y++) {
-
-                        if (x >= 0 && x < bitmap.getWidth() && y >= 0 && y < bitmap.getHeight()) {
-
-                            if (Math.pow(i - y, 2) + Math.pow(j + indent - x, 2) <= Math.pow(dotRadius, 2)) {
-                                if (ref.getPixel(x, y) != 0xFFFFFFFF) {
-                                    bitmap.setPixel(x, y, dotColor);
-                                }
-                            }
-                        }
-                    }
-                }
             }
         }
-        return bitmap;
+
+        return output;
+
     }
 }
