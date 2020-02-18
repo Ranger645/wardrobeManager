@@ -18,7 +18,7 @@
         android:background="@drawable/light_background_round_rect_bg">
 
         <TextView
-            android:id="@+id/name_edit_field"
+            android:id="@+id/add_name_edit_field"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginHorizontal="30dp"
@@ -30,35 +30,37 @@
 
     </FrameLayout>
 
-    <com.android.wardrobeManager.ui.add_item.AddItemViewPager
-        android:id="@+id/add_item_view_pager"
-        android:transitionName="add_item_viewpager_transition"
+    <FrameLayout
+        android:id="@+id/add_main_fragment_holder"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name_edit_frame"
-        android:layout_above="@id/add_color_edit_button"
+        android:layout_above="@+id/add_misc_action_fragment_holder"
         android:layout_alignParentStart="true"
-        android:layout_margin="@dimen/rounded_panel_margin_size"/>
-
-    <FrameLayout
-        android:id="@+id/add_color_edit_button"
-        android:transitionName="color_edit_button_transition"
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:layout_marginTop="@dimen/rounded_panel_margin_size"
-        android:layout_marginHorizontal="@dimen/rounded_panel_margin_size_double"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/light_background_round_top_bg"
-        android:clickable="true"
-        android:focusable="true">
-
-        <LinearLayout
-            android:id="@+id/color_edit_button_display"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/rounded_panel_margin_size"
-            android:layout_marginHorizontal="@dimen/rounded_panel_margin_size"
-            android:orientation="horizontal" />
+        android:layout_marginVertical="@dimen/rounded_panel_margin_size"
+        android:layout_marginHorizontal="@dimen/rounded_panel_margin_size_double">
 
     </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/add_misc_action_fragment_holder"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginVertical="@dimen/rounded_panel_margin_size"
+        android:layout_marginHorizontal="@dimen/rounded_panel_margin_size_double"
+        android:layout_above="@+id/add_control_fragment_holder">
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/add_control_fragment_holder"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:layout_marginVertical="@dimen/rounded_panel_margin_size"
+        android:layout_marginHorizontal="@dimen/rounded_panel_margin_size_double"
+        android:layout_alignParentBottom="true">
+
+    </FrameLayout>
+
+
 </RelativeLayout>
