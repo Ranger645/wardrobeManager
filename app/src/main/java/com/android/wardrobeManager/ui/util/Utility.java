@@ -6,6 +6,10 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+
+import com.android.wardrobeManager.WardrobeManager;
 
 public class Utility {
 
@@ -68,6 +72,29 @@ public class Utility {
         mpaint.setShader(new BitmapShader(mbitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
         canvas.drawRoundRect((new RectF(0, 0, mbitmap.getWidth(), mbitmap.getHeight())), xRadius, yRadius, mpaint);
         return imageRounded;
+    }
+
+    public static Bitmap drawableToBitmap(int id) {
+        Drawable d = WardrobeManager.getInstance().getApplicationContext().getResources().getDrawable(id,
+                WardrobeManager.getInstance().getTheme());
+        return Utility.drawableToBitmap(d);
+    }
+
+    public static Bitmap drawableToBitmap (Drawable drawable) {
+        return drawableToBitmap(drawable, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+    }
+
+    public static Bitmap drawableToBitmap (Drawable drawable, int width, int height) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable)drawable).getBitmap();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
     }
 
 }

@@ -37,6 +37,12 @@ public class MiscColorBarFragment extends Fragment {
                 colorBar.setColors(Utility.hexListStrToIntArray(item.getColors(), ","));
             }
         });
+        colorBar.setColorRemovalCallback(new ViewColorBar.ColorRemovalCallback() {
+            @Override
+            public void onColorRemoved(int[] newColors, int removedColor) {
+                viewModel.removeClothingItemColor(removedColor);
+            }
+        });
 
         return view;
     }

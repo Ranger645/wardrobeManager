@@ -10,6 +10,8 @@
         android:id="@+id/color_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="@dimen/rounded_panel_margin_size"/>
+        android:layout_margin="@dimen/rounded_panel_margin_size"
+        android:clickable="true"
+        android:focusable="true"/>
 
 </FrameLayout>
