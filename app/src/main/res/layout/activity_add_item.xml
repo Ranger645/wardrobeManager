@@ -35,7 +35,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name_edit_frame"
-        android:layout_above="@+id/add_misc_action_fragment_holder"
         android:layout_alignParentStart="true"
         android:layout_marginVertical="@dimen/rounded_panel_margin_size"
         android:layout_marginHorizontal="@dimen/rounded_panel_margin_size_double">
@@ -48,7 +47,7 @@
         android:layout_height="65dp"
         android:layout_marginVertical="@dimen/rounded_panel_margin_size"
         android:layout_marginHorizontal="@dimen/rounded_panel_margin_size_double"
-        android:layout_above="@+id/add_control_fragment_holder">
+        android:layout_below="@+id/add_main_fragment_holder">
 
     </FrameLayout>
 
@@ -58,7 +57,7 @@
         android:layout_height="65dp"
         android:layout_marginVertical="@dimen/rounded_panel_margin_size"
         android:layout_marginHorizontal="@dimen/rounded_panel_margin_size_double"
-        android:layout_alignParentBottom="true">
+        android:layout_below="@+id/add_misc_action_fragment_holder">
 
     </FrameLayout>
 

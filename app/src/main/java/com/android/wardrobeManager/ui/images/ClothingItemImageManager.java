@@ -45,12 +45,8 @@ public class ClothingItemImageManager {
 
     public static Bitmap dynamicClothingItemLoadRounded(ClothingItem toLoad) {
         Bitmap mbitmap = ClothingItemImageManager.dynamicClothingItemLoad(toLoad);
-        if (rounded_corner_radius_px < 0) {
-            // Getting the radius from the pixel equivalent of the dp measurement
-            Resources resources = WardrobeManager.getContext().getResources();
-            rounded_corner_radius_px = (resources.getDimensionPixelSize(R.dimen.rounded_corner_radius)) / 2;
-        }
-        return Utility.roundBitmap(mbitmap, rounded_corner_radius_px, rounded_corner_radius_px);
+        int radius = getRoundedCornerRadius();
+        return Utility.roundBitmap(mbitmap, radius, radius);
     }
 
     public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad) {
@@ -96,6 +92,15 @@ public class ClothingItemImageManager {
             generatedBitmapBuffer.put(hash, bitmap);
             return bitmap;
         }
+    }
+
+    public static int getRoundedCornerRadius() {
+        if (rounded_corner_radius_px < 0) {
+            // Getting the radius from the pixel equivalent of the dp measurement
+            Resources resources = WardrobeManager.getContext().getResources();
+            rounded_corner_radius_px = (resources.getDimensionPixelSize(R.dimen.rounded_corner_radius)) / 2;
+        }
+        return rounded_corner_radius_px;
     }
 
     public static int getImageHash(ClothingItem toHash) {
