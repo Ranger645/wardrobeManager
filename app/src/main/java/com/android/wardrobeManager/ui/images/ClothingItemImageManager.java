@@ -6,11 +6,16 @@ import android.content.ContextWrapper;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.util.SparseArray;
+import android.util.TypedValue;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.WardrobeManager;
@@ -25,7 +30,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 
+import androidx.annotation.Dimension;
+
 public class ClothingItemImageManager {
+
+    private static int rounded_corner_radius_px = -1;
 
     private static final int IMAGE_SIDE_LENGTH = 512;
 
@@ -33,6 +42,16 @@ public class ClothingItemImageManager {
 
     final static SparseArray<Bitmap> customBitmapBuffer = new SparseArray<>();
     final static SparseArray<Bitmap> generatedBitmapBuffer = new SparseArray<>();
+
+    public static Bitmap dynamicClothingItemLoadRounded(ClothingItem toLoad) {
+        Bitmap mbitmap = ClothingItemImageManager.dynamicClothingItemLoad(toLoad);
+        if (rounded_corner_radius_px < 0) {
+            // Getting the radius from the pixel equivalent of the dp measurement
+            Resources resources = WardrobeManager.getContext().getResources();
+            rounded_corner_radius_px = (resources.getDimensionPixelSize(R.dimen.rounded_corner_radius)) / 2;
+        }
+        return Utility.roundBitmap(mbitmap, rounded_corner_radius_px, rounded_corner_radius_px);
+    }
 
     public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad) {
         return dynamicClothingItemLoad(toLoad, true);
@@ -117,11 +136,15 @@ public class ClothingItemImageManager {
     }
 
     private static Bitmap drawableToBitmap (Drawable drawable) {
+        return drawableToBitmap(drawable, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+    }
+
+    private static Bitmap drawableToBitmap (Drawable drawable, int width, int height) {
         if (drawable instanceof BitmapDrawable) {
             return ((BitmapDrawable)drawable).getBitmap();
         }
 
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
         drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
         drawable.draw(canvas);

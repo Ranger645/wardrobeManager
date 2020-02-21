@@ -1,5 +1,12 @@
 package com.android.wardrobeManager.ui.util;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
+
 public class Utility {
 
     public static long[] hexListStrToLongArray(String hexNumbers, String delim) {
@@ -51,6 +58,16 @@ public class Utility {
             b += db;
         }
         return 0xFF000000 | (r << 16) | (g << 8) | b;
+    }
+
+    public static Bitmap roundBitmap(Bitmap mbitmap, int xRadius, int yRadius) {
+        Bitmap imageRounded = Bitmap.createBitmap(mbitmap.getWidth(), mbitmap.getHeight(), mbitmap.getConfig());
+        Canvas canvas = new Canvas(imageRounded);
+        Paint mpaint = new Paint();
+        mpaint.setAntiAlias(true);
+        mpaint.setShader(new BitmapShader(mbitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
+        canvas.drawRoundRect((new RectF(0, 0, mbitmap.getWidth(), mbitmap.getHeight())), xRadius, yRadius, mpaint);
+        return imageRounded;
     }
 
 }

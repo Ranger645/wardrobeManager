@@ -1,9 +1,7 @@
 package com.android.wardrobeManager.ui.add_item;
 
-
 import android.os.Bundle;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -38,7 +36,8 @@ public class MainPreviewFragment extends Fragment {
         addItemViewModel.getClothingItem().observe(getActivity(), new Observer<ClothingItem>() {
             @Override
             public void onChanged(ClothingItem item) {
-                previewImageView.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoad(item));
+                previewImageView.setImageBitmap(
+                        ClothingItemImageManager.dynamicClothingItemLoadRounded(item));
             }
         });
 

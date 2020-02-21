@@ -20,7 +20,6 @@ public class PolkaDots implements DesignFilterManager.DesignFilter {
 
     public Bitmap filter(Bitmap bitmap, Bitmap ref, int[] colors) {
 
-        bitmap = ref.copy(ref.getConfig(), true);
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));

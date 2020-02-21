@@ -13,8 +13,7 @@
         android:layout_height="match_parent"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
-        android:src="@drawable/short_sleeve_shirt"
-        android:background="@android:color/transparent" />
+        android:src="@drawable/short_sleeve_shirt" />
 
     <FrameLayout
         android:layout_width="50dp"

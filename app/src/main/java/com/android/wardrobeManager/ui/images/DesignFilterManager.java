@@ -1,7 +1,13 @@
 package com.android.wardrobeManager.ui.images;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
 
+import com.android.wardrobeManager.R;
+import com.android.wardrobeManager.WardrobeManager;
 import com.android.wardrobeManager.ui.images.filters.Default;
 import com.android.wardrobeManager.ui.images.filters.HorizontalStripes;
 import com.android.wardrobeManager.ui.images.filters.PolkaDots;
@@ -22,7 +28,7 @@ public class DesignFilterManager {
     public static Bitmap filterDesign(String colorStyle, Bitmap ref, int[] colors) {
         if (designFilterManager == null)
             designFilterManager = new DesignFilterManager();
-        Bitmap bitmap = Bitmap.createBitmap(ref.getWidth(), ref.getHeight(), Bitmap.Config.ARGB_8888);
+        Bitmap bitmap = ref.copy(ref.getConfig(), true);
         return designFilterManager.filter(colorStyle, bitmap, ref, colors);
     }
 
