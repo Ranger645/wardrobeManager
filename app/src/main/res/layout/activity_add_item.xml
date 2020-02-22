@@ -8,10 +8,10 @@
     tools:context=".ui.add_item.AddItemActivity"
     android:background="@color/colorDarkBackground">
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/name_edit_frame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="65dp"
         android:layout_marginVertical="@dimen/rounded_panel_margin_size"
         android:layout_marginHorizontal="@dimen/rounded_panel_margin_size_double"
         android:layout_alignParentTop="true"
@@ -19,16 +19,37 @@
 
         <TextView
             android:id="@+id/add_name_edit_field"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginVertical="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:gravity="center"
-            android:textSize="22sp"
             android:text="NONE"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    </FrameLayout>
+        <com.android.wardrobeManager.ui.add_item.SquareFrameLayout
+            android:layout_width="65dp"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <ImageView
+                android:id="@+id/add_small_preview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/rounded_panel_margin_size"
+                android:src="@drawable/short_sleeve_shirt"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:focusable="true"/>
+
+        </com.android.wardrobeManager.ui.add_item.SquareFrameLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <FrameLayout
         android:id="@+id/add_main_fragment_holder"

@@ -17,6 +17,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.backend.AddItemViewModel;
 import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.ui.closet.ClosetActivity;
+import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
 import com.android.wardrobeManager.ui.util.Utility;
 import com.android.wardrobeManager.ui.util.WardrobeAlerts;
 import com.android.wardrobeManager.ui.util.WardrobeAlerts.*;
@@ -76,39 +78,69 @@ public class AddItemActivity extends AppCompatActivity implements GestureDetecto
         miscActionFragmentHolder = findViewById(R.id.add_misc_action_fragment_holder);
         controlFragmentHolder = findViewById(R.id.add_control_fragment_holder);
 
+        ImageView smallPreview = findViewById(R.id.add_small_preview);
+        smallPreview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showPreviewScreen();
+            }
+        });
+
         showPreviewScreen();
-
-//        addItemViewPager = findViewById(R.id.add_item_view_pager);
-//        addItemViewPagerAdapter = new AddItemViewPagerAdapter(
-//                getSupportFragmentManager(),
-//                AddItemViewPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-//        addItemViewPager.setAdapter(addItemViewPagerAdapter);
-//        addItemViewPagerAdapter.getImageEditFragment().setCameraStatusChangeListener(new AddImageEditFragment.CameraStatusChangeListener() {
-//            @Override
-//            public void onCameraStatusChange(boolean cameraOpen) {
-//                if (cameraOpen)
-//                    addItemViewPager.setSwipingEnabled(false);
-//                else
-//                    addItemViewPager.setSwipingEnabled(true);
-//            }
-//        });
-
-//        FrameLayout colorEditButton = findViewById(R.id.add_color_edit_button);
-//        colorEditButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                goToColorEdit();
-//            }
-//        });
 
         addItemViewModel.getClothingItem().observe(this, new Observer<ClothingItem>() {
             @Override
             public void onChanged(ClothingItem clothingItem) {
                 TextView nameEditText = findViewById(R.id.add_name_edit_field);
                 nameEditText.setText(clothingItem.getSubType());
+
+                ImageView smallPreview = findViewById(R.id.add_small_preview);
+                smallPreview.setImageBitmap(ClothingItemImageManager.dynamicClothingItemLoadRounded(clothingItem));
             }
         });
 
+    }
+
+    private FragmentTransaction getMainPreviewFragmentTransaction(FragmentManager manager) {
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(mainFragmentHolder.getId(), new MainPreviewFragment());
+        mainFragmentHolderFragmentId = FragmentId.MAIN_PREVIEW;
+        return transaction;
+    }
+
+    private FragmentTransaction getMiscColorBarFragmentTransaction(FragmentManager manager) {
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(miscActionFragmentHolder.getId(), new MiscColorBarFragment());
+        miscActionFragmentHolderFragmentId = FragmentId.MISC_COLOR_BAR;
+        return transaction;
+    }
+
+    private FragmentTransaction getControlFragmentTransaction(FragmentManager manager) {
+        FragmentTransaction transaction = null;
+        if (controlFragmentHolderFragmentId != FragmentId.CONTROL_AUTO &&
+                controlFragmentHolderFragmentId != FragmentId.CONTROL_MANUAL_1 &&
+                controlFragmentHolderFragmentId != FragmentId.CONTROL_MANUAL_2) {
+            if (addItemViewModel.getClothingItem().getValue().isCustomImage()) {
+
+            } else {
+                transaction = manager.beginTransaction();
+                transaction.replace(controlFragmentHolder.getId(), new ControlAutoFragment());
+            }
+        }
+        return transaction;
+    }
+
+    private FragmentTransaction getMainEditFragmentTransaction(FragmentManager manager) {
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(mainFragmentHolder.getId(), new MainEditFragment());
+        mainFragmentHolderFragmentId = FragmentId.MAIN_EDIT;
+        return transaction;
+    }
+
+    private static void executeFragmentTransactions(List<FragmentTransaction> transactions) {
+        for (FragmentTransaction transaction : transactions)
+            if (transaction != null)
+                transaction.commit();
     }
 
     public void showPreviewScreen() {
@@ -116,39 +148,36 @@ public class AddItemActivity extends AppCompatActivity implements GestureDetecto
         List<FragmentTransaction> transactions = new LinkedList<>();
 
         if (mainFragmentHolderFragmentId != FragmentId.MAIN_PREVIEW) {
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(mainFragmentHolder.getId(), new MainPreviewFragment());
-            transactions.add(transaction);
-            mainFragmentHolderFragmentId = FragmentId.MAIN_PREVIEW;
+            transactions.add(getMainPreviewFragmentTransaction(manager));
         }
 
         if (miscActionFragmentHolderFragmentId != FragmentId.MISC_COLOR_BAR) {
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.replace(miscActionFragmentHolder.getId(), new MiscColorBarFragment());
-            transactions.add(transaction);
-            miscActionFragmentHolderFragmentId = FragmentId.MISC_COLOR_BAR;
+            transactions.add(getMiscColorBarFragmentTransaction(manager));
         }
 
-        if (controlFragmentHolderFragmentId != FragmentId.CONTROL_AUTO &&
-                controlFragmentHolderFragmentId != FragmentId.CONTROL_MANUAL_1 &&
-                controlFragmentHolderFragmentId != FragmentId.CONTROL_MANUAL_2) {
+        transactions.add(getControlFragmentTransaction(manager));
 
-            if (addItemViewModel.getClothingItem().getValue().isCustomImage()) {
-
-            } else {
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.replace(controlFragmentHolder.getId(), new ControlAutoFragment());
-                transactions.add(transaction);
-            }
-        }
-
-        for (FragmentTransaction transaction : transactions)
-            transaction.commit();
+        executeFragmentTransactions(transactions);
     }
 
     public void showCameraScreen() {}
 
-    public void showEditScreen() {}
+    public void showEditScreen() {
+        FragmentManager manager = getSupportFragmentManager();
+        List<FragmentTransaction> transactions = new LinkedList<>();
+
+        if (mainFragmentHolderFragmentId != FragmentId.MAIN_EDIT) {
+            transactions.add(getMainEditFragmentTransaction(manager));
+        }
+
+        if (miscActionFragmentHolderFragmentId != FragmentId.MISC_COLOR_BAR) {
+            transactions.add(getMiscColorBarFragmentTransaction(manager));
+        }
+
+        transactions.add(getControlFragmentTransaction(manager));
+
+        executeFragmentTransactions(transactions);
+    }
 
     public void showCustomColorScreen() {}
 
