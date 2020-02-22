@@ -115,16 +115,30 @@ public class AddItemActivity extends AppCompatActivity implements GestureDetecto
         return transaction;
     }
 
+    private FragmentTransaction getControlAutoFragmentTransaction(FragmentManager manager) {
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(controlFragmentHolder.getId(), new ControlAutoFragment());
+        controlFragmentHolderFragmentId = FragmentId.CONTROL_AUTO;
+        return transaction;
+    }
+
+    private FragmentTransaction getControlManualFragmentTransaction(FragmentManager manager) {
+        FragmentTransaction transaction = manager.beginTransaction();
+        // TODO:
+        // transaction.replace(controlFragmentHolder.getId(), new ControlAutoFragment());
+        // controlFragmentHolderFragmentId = FragmentId.CONTROL_MANUAL_1;
+        return transaction;
+    }
+
     private FragmentTransaction getControlFragmentTransaction(FragmentManager manager) {
         FragmentTransaction transaction = null;
         if (controlFragmentHolderFragmentId != FragmentId.CONTROL_AUTO &&
                 controlFragmentHolderFragmentId != FragmentId.CONTROL_MANUAL_1 &&
                 controlFragmentHolderFragmentId != FragmentId.CONTROL_MANUAL_2) {
             if (addItemViewModel.getClothingItem().getValue().isCustomImage()) {
-
+                transaction = getControlManualFragmentTransaction(manager);
             } else {
-                transaction = manager.beginTransaction();
-                transaction.replace(controlFragmentHolder.getId(), new ControlAutoFragment());
+                transaction = getControlAutoFragmentTransaction(manager);
             }
         }
         return transaction;
