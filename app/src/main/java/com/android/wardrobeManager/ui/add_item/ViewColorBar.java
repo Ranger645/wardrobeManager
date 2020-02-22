@@ -22,6 +22,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -115,7 +116,6 @@ public class ViewColorBar extends View {
 
             int xX = (colorWidth / 2 - xBitmapSideLength / 2) + colorWidth * selectedColorIndex;
             int xY = (canvas.getHeight() / 2 - xBitmapSideLength / 2);
-            Log.d("X_IMAGE", xX + ", " + xY + ", " + selectedColorIndex + ", " + colorWidth);
             canvas.drawBitmap(X_BITMAP, xX, xY, paint);
         }
     }

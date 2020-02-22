@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.SparseArray;
@@ -40,7 +41,7 @@ public class AddItemActivity extends AppCompatActivity implements GestureDetecto
         NONE
     }
     private FragmentId mainFragmentHolderFragmentId = FragmentId.NONE,
-            misctActionFragmentHolderFragmentId = FragmentId.NONE,
+            miscActionFragmentHolderFragmentId = FragmentId.NONE,
             controlFragmentHolderFragmentId = FragmentId.NONE;
 
     private AddItemViewModel addItemViewModel;
@@ -118,12 +119,14 @@ public class AddItemActivity extends AppCompatActivity implements GestureDetecto
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(mainFragmentHolder.getId(), new MainPreviewFragment());
             transactions.add(transaction);
+            mainFragmentHolderFragmentId = FragmentId.MAIN_PREVIEW;
         }
 
-        if (misctActionFragmentHolderFragmentId != FragmentId.MISC_COLOR_BAR) {
+        if (miscActionFragmentHolderFragmentId != FragmentId.MISC_COLOR_BAR) {
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(miscActionFragmentHolder.getId(), new MiscColorBarFragment());
             transactions.add(transaction);
+            miscActionFragmentHolderFragmentId = FragmentId.MISC_COLOR_BAR;
         }
 
         if (controlFragmentHolderFragmentId != FragmentId.CONTROL_AUTO &&
@@ -182,6 +185,14 @@ public class AddItemActivity extends AppCompatActivity implements GestureDetecto
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent e) {
+        if (miscActionFragmentHolderFragmentId == FragmentId.MISC_COLOR_BAR) {
+            ViewColorBar colorBar = miscActionFragmentHolder.findViewById(R.id.color_bar);
+            Rect hitRect = new Rect();
+            colorBar.getHitRect(hitRect);
+            if (!hitRect.contains((int) (e.getX() - miscActionFragmentHolder.getX()), (int) (e.getY() - miscActionFragmentHolder.getY()))) {
+                colorBar.unselectAllColors();
+            }
+        }
         super.dispatchTouchEvent(e);
         return gestureDetector.onTouchEvent(e);
     }
