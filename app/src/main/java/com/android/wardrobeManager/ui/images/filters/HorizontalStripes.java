@@ -14,7 +14,6 @@ public class HorizontalStripes implements DesignFilterManager.DesignFilter {
 
     protected Map<String, DesignFilterManager.DesignFilter> filters;
     private int thickness;
-    private int colorIndex;
 
     public HorizontalStripes(int thickness) {
         this.thickness = thickness;
@@ -25,11 +24,10 @@ public class HorizontalStripes implements DesignFilterManager.DesignFilter {
     }
 
     public Bitmap filter(Bitmap bitmap, Bitmap ref, int[] colors) {
-        bitmap = ref.copy(ref.getConfig(), true);
+        int colorIndex = 0;
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        colorIndex = 0;
 
         for (int i = 0; i < bitmap.getHeight(); i += thickness) {
             paint.setColor(colors[colorIndex]);
