@@ -13,6 +13,7 @@ import com.android.wardrobeManager.ui.images.filters.HorizontalGradient;
 import com.android.wardrobeManager.ui.images.filters.HorizontalStripes;
 import com.android.wardrobeManager.ui.images.filters.PolkaDots;
 import com.android.wardrobeManager.ui.images.filters.PrimarySecondary;
+import com.android.wardrobeManager.ui.images.filters.VerticalGradient;
 import com.android.wardrobeManager.ui.images.filters.VerticalStripes;
 
 import java.util.HashMap;
@@ -35,6 +36,7 @@ public class DesignFilterManager {
 
     public DesignFilterManager() {
         filters = new HashMap<>();
+        filters.put("vertical_gradient", new VerticalGradient());
         filters.put("horizontal_gradient", new HorizontalGradient());
         filters.put("polka_dots", new PolkaDots());
         filters.put("primary_secondary", new PrimarySecondary());

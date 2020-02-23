@@ -7,10 +7,9 @@ import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import com.android.wardrobeManager.ui.images.DesignFilterManager;
-
 import java.util.Map;
 
-public class HorizontalGradient implements DesignFilterManager.DesignFilter {
+public class VerticalGradient implements DesignFilterManager.DesignFilter {
 
     protected Map<String, DesignFilterManager.DesignFilter> filters;
     boolean defaultColoring;
@@ -43,17 +42,17 @@ public class HorizontalGradient implements DesignFilterManager.DesignFilter {
                 gradientEnd = colors[i + 1];
             }
 
-            int sectionWidth = bitmap.getWidth() / sections;
+            int sectionHeight = bitmap.getHeight() / sections;
 
-            for (int j = 0; j < sectionWidth; j++) {
-                int red = Color.red(gradientStart) + (int)((Color.red(gradientEnd) - Color.red(gradientStart)) * ((float)j / sectionWidth));
-                int green = Color.green(gradientStart) + (int)((Color.green(gradientEnd) - Color.green(gradientStart)) * ((float)j / sectionWidth));
-                int blue = Color.blue(gradientStart) + (int)((Color.blue(gradientEnd) - Color.blue(gradientStart)) * ((float)j / sectionWidth));
-                int alpha = Color.alpha(gradientStart) + (int)((Color.alpha(gradientEnd) - Color.alpha(gradientStart)) * ((float)j / sectionWidth));
+            for (int j = 0; j < sectionHeight; j++) {
+                int red = Color.red(gradientStart) + (int)((Color.red(gradientEnd) - Color.red(gradientStart)) * ((float)j / sectionHeight));
+                int green = Color.green(gradientStart) + (int)((Color.green(gradientEnd) - Color.green(gradientStart)) * ((float)j / sectionHeight));
+                int blue = Color.blue(gradientStart) + (int)((Color.blue(gradientEnd) - Color.blue(gradientStart)) * ((float)j / sectionHeight));
+                int alpha = Color.alpha(gradientStart) + (int)((Color.alpha(gradientEnd) - Color.alpha(gradientStart)) * ((float)j / sectionHeight));
                 int gradientColumn = Color.argb(alpha, red, green, blue);
-                int columnXPosition = bitmap.getWidth() / sections * i + j;
+                int rowYPosition = bitmap.getWidth() / sections * i + j;
                 paint.setColor(gradientColumn);
-                canvas.drawRect(columnXPosition, 0, columnXPosition + 1, bitmap.getHeight(), paint);
+                canvas.drawRect(0, rowYPosition,  bitmap.getWidth(), rowYPosition + 1, paint);
             }
         }
         return bitmap;
