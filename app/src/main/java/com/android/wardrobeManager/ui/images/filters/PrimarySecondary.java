@@ -1,9 +1,11 @@
 package com.android.wardrobeManager.ui.images.filters;
 
 import android.graphics.Bitmap;
-
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 import com.android.wardrobeManager.ui.images.DesignFilterManager;
-
 import java.util.Map;
 
 public class PrimarySecondary implements DesignFilterManager.DesignFilter {
@@ -11,21 +13,20 @@ public class PrimarySecondary implements DesignFilterManager.DesignFilter {
     protected Map<String, DesignFilterManager.DesignFilter> filters;
 
     public Bitmap filter(Bitmap bitmap, Bitmap ref, int[] colors) {
-        for(int n = 0; n < bitmap.getHeight(); n++) {
-            int color = 0;
-            int ymin = 0, ymax = bitmap.getHeight();
-            int div = bitmap.getHeight() / 3;
-            while (color + 1 < colors.length && ymin + div < n && n < ymax - div) {
-                ymin += div;
-                ymax -= div;
-                div /= 3;
-                color++;
-            }
-            for (int i = 0; i < bitmap.getWidth(); i++) {
-                if (ref.getPixel(i, n) != 0xFFFFFFFF) {
-                    bitmap.setPixel(i, n, colors[color]);
-                }
-            }
+        bitmap = ref.copy(ref.getConfig(), true);
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+        paint.setColor(colors[0]);
+        int top = 0;
+        int bottom = bitmap.getHeight();
+
+        for (int i = 0; i < colors.length; i++) {
+            paint.setColor(colors[i]);
+            canvas.drawRect(0, top, bitmap.getWidth(), bottom, paint);
+            int third = (bottom - top) / 3;
+            top += third;
+            bottom -= third;
         }
         return bitmap;
     }
