@@ -8,6 +8,7 @@ import android.graphics.Paint;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.WardrobeManager;
+import com.android.wardrobeManager.ui.images.filters.BirdsEye;
 import com.android.wardrobeManager.ui.images.filters.Default;
 import com.android.wardrobeManager.ui.images.filters.HorizontalStripes;
 import com.android.wardrobeManager.ui.images.filters.PolkaDots;
@@ -34,7 +35,7 @@ public class DesignFilterManager {
 
     public DesignFilterManager() {
         filters = new HashMap<>();
-
+        filters.put("birds_eye", new BirdsEye());
         filters.put("polka_dots", new PolkaDots());
         filters.put("primary_secondary", new PrimarySecondary());
         filters.put("thin_stripes", new HorizontalStripes(10));
