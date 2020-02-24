@@ -1,7 +1,10 @@
 package com.android.wardrobeManager.ui.images.filters;
 
 import android.graphics.Bitmap;
-import android.graphics.Color;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
 
 import com.android.wardrobeManager.ui.images.DesignFilterManager;
 
@@ -21,17 +24,15 @@ public class HorizontalStripes implements DesignFilterManager.DesignFilter {
     }
 
     public Bitmap filter(Bitmap bitmap, Bitmap ref, int[] colors) {
+        int colorIndex = 0;
+        Canvas canvas = new Canvas(bitmap);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
 
-        for (int i = 0; i < bitmap.getWidth() * bitmap.getHeight(); i++) {
-            int x = i % bitmap.getWidth();
-            int y = i / bitmap.getWidth();
-
-            if (Color.alpha(ref.getPixel(x, y)) != 0) {
-                int stripeColor = colors[(y / thickness) % (colors.length)];
-
-                bitmap.setPixel(i % bitmap.getWidth(), i / bitmap.getWidth(), stripeColor);
-
-            }
+        for (int i = 0; i < bitmap.getHeight(); i += thickness) {
+            paint.setColor(colors[colorIndex]);
+            canvas.drawRect(0, i, bitmap.getWidth(), i + thickness, paint);
+            colorIndex = (colorIndex + 1) % colors.length;
         }
         return bitmap;
     }
