@@ -9,6 +9,8 @@ import android.graphics.Paint;
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.WardrobeManager;
 import com.android.wardrobeManager.ui.images.filters.Default;
+import com.android.wardrobeManager.ui.images.filters.DiagonalDownRight;
+import com.android.wardrobeManager.ui.images.filters.DiagonalUpRight;
 import com.android.wardrobeManager.ui.images.filters.HorizontalGradient;
 import com.android.wardrobeManager.ui.images.filters.HorizontalStripes;
 import com.android.wardrobeManager.ui.images.filters.PolkaDots;
@@ -36,6 +38,8 @@ public class DesignFilterManager {
 
     public DesignFilterManager() {
         filters = new HashMap<>();
+        filters.put("diagonal_down_right", new DiagonalDownRight());
+        filters.put("diagonal_up_right", new DiagonalUpRight());
         filters.put("vertical_gradient", new VerticalGradient());
         filters.put("horizontal_gradient", new HorizontalGradient());
         filters.put("polka_dots", new PolkaDots());

@@ -75,6 +75,8 @@
         <item>polka_dots</item>
         <item>vertical_gradient</item>
         <item>horizontal_gradient</item>
+        <item>diagonal_up_right</item>
+        <item>diagonal_down_right</item>
     </string-array>
     <string-array name="clothing_item_options_material">
         <item>other</item>
