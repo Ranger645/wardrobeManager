@@ -73,6 +73,7 @@
         <item>thin_horizontal_stripes</item>
         <item>wide_horizontal_stripes</item>
         <item>polka_dots</item>
+        <item>checker</item>
     </string-array>
     <string-array name="clothing_item_options_material">
         <item>other</item>

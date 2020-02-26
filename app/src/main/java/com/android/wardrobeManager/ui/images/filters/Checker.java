@@ -10,11 +10,12 @@ import android.graphics.PorterDuffXfermode;
 import com.android.wardrobeManager.ui.images.DesignFilterManager;
 
 public class Checker implements DesignFilterManager.DesignFilter {
-    int checkerSize = 40;
+    int checkerSize;
     int colorIndex = 0;
 
+    public Checker(int checkerSize) { this.checkerSize = checkerSize; }
+
     public Bitmap filter(Bitmap bitmap, Bitmap ref, int[] colors) {
-        bitmap = ref.copy(ref.getConfig(), true);
         Canvas canvas = new Canvas(bitmap);
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
@@ -23,12 +24,14 @@ public class Checker implements DesignFilterManager.DesignFilter {
 
         for (int i = 0; i < bitmap.getHeight(); i += checkerSize) {
             for (int j = 0; j < bitmap.getWidth(); j += checkerSize) {
-                if ((i / checkerSize) % 2 == (j / checkerSize) % 2) {
+                if ((i + j) / checkerSize % 2 == 0) {
                     if (colors.length == 1) {
                         paint.setColor(Color.WHITE);
                     } else {
-                        colorIndex = colorIndex % (colors.length - 1) + 1;
-                        paint.setColor(colors[colorIndex]);
+                        // The first color index is displayed in half of the squares
+                        // while the rest of the colors are cycled through
+                        colorIndex = (colorIndex + 1) % (colors.length - 1);
+                        paint.setColor(colors[colorIndex + 1]);
                     }
                     canvas.drawRect(i, j, i + checkerSize, j + checkerSize, paint);
                 }

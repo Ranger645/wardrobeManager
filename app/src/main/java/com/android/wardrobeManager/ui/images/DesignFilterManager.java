@@ -35,7 +35,7 @@ public class DesignFilterManager {
 
     public DesignFilterManager() {
         filters = new HashMap<>();
-        filters.put("checker", new Checker());
+        filters.put("checker", new Checker(40));
         filters.put("polka_dots", new PolkaDots());
         filters.put("primary_secondary", new PrimarySecondary());
         filters.put("thin_stripes", new HorizontalStripes(10));
