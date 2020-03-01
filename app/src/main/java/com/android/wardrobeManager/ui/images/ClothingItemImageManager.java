@@ -29,6 +29,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 import androidx.annotation.Dimension;
 
@@ -54,11 +55,11 @@ public class ClothingItemImageManager {
     }
 
     public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad, boolean useImageBuffer) {
-        return dynamicClothingItemLoad(toLoad, useImageBuffer, true);
+        return dynamicClothingItemLoad(toLoad, useImageBuffer, true, true);
     }
 
-    public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad, boolean useCustomImageBuffer, boolean useImageBuffer) {
-        if (useImageBuffer && toLoad.isCustomImage()) {
+    public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad, boolean useCustomImageBuffer, boolean useImageBuffer, boolean tryToUseCustomImage) {
+        if (tryToUseCustomImage && toLoad.isCustomImage()) {
             Bitmap bufferVal = customBitmapBuffer.get(toLoad.getId(), null);
             if (useCustomImageBuffer && bufferVal != null) {
                 return bufferVal;
@@ -71,7 +72,7 @@ public class ClothingItemImageManager {
 
             if (bitmap == null) {
                 Log.e("IMAGE_LOAD", "Failed to find custom image. Falling back to auto-generate.");
-                bitmap = dynamicClothingItemLoad(toLoad, useCustomImageBuffer, false);
+                bitmap = dynamicClothingItemLoad(toLoad, useCustomImageBuffer, true, false);
             }
             return bitmap;
         } else {

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Window;
 
 import com.android.wardrobeManager.backend.ClothingItemDatabaseViewModel;
+import com.android.wardrobeManager.database.ClothingItem;
 import com.android.wardrobeManager.ui.closet.ClosetActivity;
 import com.android.wardrobeManager.ui.color_edit.ManualColorSelectorGraphic;
 import com.android.wardrobeManager.ui.images.ClothingItemImageManager;
@@ -42,9 +43,10 @@ public class StartActivity extends AppCompatActivity {
             }
         }, getApplicationContext().getResources().getInteger(R.integer.splash_screen_min_time_millis));
 
-        if (!quickStart)
+        if (!quickStart) {
             ImageIo.deleteAllImages();
-        ViewModelProviders.of(this).get(ClothingItemDatabaseViewModel.class);
+        }
+        ClothingItemDatabaseViewModel viewModel = ViewModelProviders.of(this).get(ClothingItemDatabaseViewModel.class);
 
         ManualColorSelectorGraphic.initialize();
 
