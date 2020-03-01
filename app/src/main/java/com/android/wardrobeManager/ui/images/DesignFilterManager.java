@@ -1,7 +1,6 @@
 package com.android.wardrobeManager.ui.images;
 
 import android.graphics.Bitmap;
-
 import com.android.wardrobeManager.ui.images.filters.Checker;
 import com.android.wardrobeManager.ui.images.filters.Default;
 import com.android.wardrobeManager.ui.images.filters.HorizontalGradient;
