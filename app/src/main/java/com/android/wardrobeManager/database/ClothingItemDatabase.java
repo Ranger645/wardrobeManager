@@ -73,7 +73,6 @@ public abstract class ClothingItemDatabase extends RoomDatabase {
             dao.insert(new ClothingItem(false, "top", "short_sleeve_shirt", "FFFF0000,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "primary_secondary", 0, "polyester", "nike", 50f, "big"));
             dao.insert(new ClothingItem(false, "top", "short_sleeve_shirt", "FFFF0000,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "horizontal_stripes", 0, "polyester", "nike", 50f, "big"));
             dao.insert(new ClothingItem(false, "top", "short_sleeve_shirt", "FFFF0000,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "vertical_stripes", 0, "polyester", "nike", 50f, "big"));
-
             return null;
         }
     }
