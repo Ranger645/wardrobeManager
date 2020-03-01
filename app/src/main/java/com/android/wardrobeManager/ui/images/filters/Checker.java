@@ -15,8 +15,11 @@ import com.android.wardrobeManager.ui.images.DesignFilterManager;
 public class Checker implements DesignFilterManager.DesignFilter {
     int checkerSize;
     int colorIndex = 0;
+    boolean useBirdsEye;
 
     public Checker(int checkerSize) { this.checkerSize = checkerSize; }
+
+    public Checker(int checkerSize, boolean useBirdsEye) { this.checkerSize = checkerSize; this.useBirdsEye = useBirdsEye; }
 
     public Bitmap filter(Bitmap bitmap, Bitmap ref, int[] colors) {
         Canvas canvas = new Canvas(bitmap);
@@ -29,7 +32,11 @@ public class Checker implements DesignFilterManager.DesignFilter {
             for (int j = 0; j < bitmap.getWidth(); j += checkerSize) {
                 if ((i + j) / checkerSize % 2 == 0) {
                     if (colors.length == 1) {
-                        paint.setColor(ContextCompat.getColor(WardrobeManager.getContext(), R.color.clothingItemAutoImageDefaultColor2));
+                        if (useBirdsEye) {
+                            paint.setColor(ContextCompat.getColor(WardrobeManager.getContext(), R.color.clothingItemAutoImageDefaultColor1));
+                        } else {
+                            paint.setColor(ContextCompat.getColor(WardrobeManager.getContext(), R.color.clothingItemAutoImageDefaultColor2));
+                        }
                     } else {
                         // The first color index is displayed in half of the squares
                         // while the rest of the colors are cycled through

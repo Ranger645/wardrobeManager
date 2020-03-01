@@ -1,8 +1,8 @@
 package com.android.wardrobeManager.ui.images;
 
 import android.graphics.Bitmap;
+
 import com.android.wardrobeManager.ui.images.filters.Checker;
-import com.android.wardrobeManager.ui.images.filters.BirdsEye;
 import com.android.wardrobeManager.ui.images.filters.Default;
 import com.android.wardrobeManager.ui.images.filters.HorizontalGradient;
 import com.android.wardrobeManager.ui.images.filters.HorizontalStripes;
@@ -33,7 +33,7 @@ public class DesignFilterManager {
         filters.put("checker", new Checker(40));
         filters.put("vertical_gradient", new VerticalGradient());
         filters.put("horizontal_gradient", new HorizontalGradient());
-        filters.put("birds_eye", new BirdsEye());
+        filters.put("birds_eye", new Checker(4, true));
         filters.put("polka_dots", new PolkaDots());
         filters.put("primary_secondary", new PrimarySecondary());
         filters.put("thin_stripes", new HorizontalStripes(10));
