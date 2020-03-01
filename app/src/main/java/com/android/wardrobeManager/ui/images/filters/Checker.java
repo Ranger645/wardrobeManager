@@ -2,11 +2,14 @@ package com.android.wardrobeManager.ui.images.filters;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 
+import androidx.core.content.ContextCompat;
+
+import com.android.wardrobeManager.R;
+import com.android.wardrobeManager.WardrobeManager;
 import com.android.wardrobeManager.ui.images.DesignFilterManager;
 
 public class Checker implements DesignFilterManager.DesignFilter {
@@ -26,7 +29,7 @@ public class Checker implements DesignFilterManager.DesignFilter {
             for (int j = 0; j < bitmap.getWidth(); j += checkerSize) {
                 if ((i + j) / checkerSize % 2 == 0) {
                     if (colors.length == 1) {
-                        paint.setColor(Color.WHITE);
+                        paint.setColor(ContextCompat.getColor(WardrobeManager.getContext(), R.color.clothingItemAutoImageDefaultColor2));
                     } else {
                         // The first color index is displayed in half of the squares
                         // while the rest of the colors are cycled through
