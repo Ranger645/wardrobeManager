@@ -74,6 +74,8 @@
         <item>wide_horizontal_stripes</item>
         <item>polka_dots</item>
         <item>checker</item>
+        <item>vertical_gradient</item>
+        <item>horizontal_gradient</item>
     </string-array>
     <string-array name="clothing_item_options_material">
         <item>other</item>
