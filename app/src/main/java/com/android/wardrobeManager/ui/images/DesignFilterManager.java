@@ -1,13 +1,7 @@
 package com.android.wardrobeManager.ui.images;
 
-import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-
-import com.android.wardrobeManager.R;
-import com.android.wardrobeManager.WardrobeManager;
+import com.android.wardrobeManager.ui.images.filters.Checker;
 import com.android.wardrobeManager.ui.images.filters.Default;
 import com.android.wardrobeManager.ui.images.filters.HorizontalGradient;
 import com.android.wardrobeManager.ui.images.filters.HorizontalStripes;
@@ -15,7 +9,6 @@ import com.android.wardrobeManager.ui.images.filters.PolkaDots;
 import com.android.wardrobeManager.ui.images.filters.PrimarySecondary;
 import com.android.wardrobeManager.ui.images.filters.VerticalGradient;
 import com.android.wardrobeManager.ui.images.filters.VerticalStripes;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +29,7 @@ public class DesignFilterManager {
 
     public DesignFilterManager() {
         filters = new HashMap<>();
+        filters.put("checker", new Checker(40));
         filters.put("vertical_gradient", new VerticalGradient());
         filters.put("horizontal_gradient", new HorizontalGradient());
         filters.put("polka_dots", new PolkaDots());

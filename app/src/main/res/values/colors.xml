@@ -6,4 +6,6 @@
     <color name="colorLightBackground">#DFDFDF</color>
     <color name="colorDarkBackground">#000000</color>
     <color name="white">#FFFFFF</color>
+    <color name="clothingItemAutoImageDefaultColor1">#FF000000</color>
+    <color name="clothingItemAutoImageDefaultColor2">#FFFFFFFF</color>
 </resources>
