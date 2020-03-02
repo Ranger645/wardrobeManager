@@ -3,6 +3,7 @@ package com.android.wardrobeManager.database;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.room.Database;
@@ -13,7 +14,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 @Database(entities = {ClothingItem.class}, version = ClothingItemDatabase.VERSION)
 public abstract class ClothingItemDatabase extends RoomDatabase {
 
-    public static final int VERSION = 13;
+    public static final int VERSION = 19;
 
     private static ClothingItemDatabase instance;
 
@@ -31,16 +32,23 @@ public abstract class ClothingItemDatabase extends RoomDatabase {
     }
 
     private static RoomDatabase.Callback roomCallback = new RoomDatabase.Callback() {
+//        @Override
+//        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+//            super.onOpen(db);
+//            new PopulateDbAsyncTask(instance).execute();
+//        }
+
         @Override
-        public void onOpen(@NonNull SupportSQLiteDatabase db) {
-            super.onOpen(db);
+        public void onDestructiveMigration(@NonNull SupportSQLiteDatabase db) {
+            super.onDestructiveMigration(db);
             new PopulateDbAsyncTask(instance).execute();
         }
 
-//        public void onCreate(@NonNull SupportSQLiteDatabase db) {
-//            super.onCreate(db);
-//            new PopulateDbAsyncTask(instance).execute();
-//        }
+        @Override
+        public void onCreate(@NonNull SupportSQLiteDatabase db) {
+            super.onCreate(db);
+            new PopulateDbAsyncTask(instance).execute();
+        }
     };
 
     private static class PopulateDbAsyncTask extends AsyncTask<Void, Void, Void> {
