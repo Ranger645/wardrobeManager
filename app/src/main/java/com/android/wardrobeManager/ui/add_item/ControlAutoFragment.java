@@ -32,6 +32,15 @@ public class ControlAutoFragment extends Fragment {
             }
         });
 
+        ImageView goToCustomColorButton = view.findViewById(R.id.add_manual_color_button);
+        goToCustomColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddItemActivity activity = (AddItemActivity) getActivity();
+                activity.showCustomColorScreen();
+            }
+        });
+
         return view;
     }
 

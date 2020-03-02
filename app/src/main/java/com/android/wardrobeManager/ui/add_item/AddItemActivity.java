@@ -151,6 +151,13 @@ public class AddItemActivity extends AppCompatActivity implements GestureDetecto
         return transaction;
     }
 
+    private FragmentTransaction getMainCustomColorTransaction(FragmentManager manager) {
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(mainFragmentHolder.getId(), new MainManualColor());
+        mainFragmentHolderFragmentId = FragmentId.MAIN_MANUAL_COLOR;
+        return transaction;
+    }
+
     private static void executeFragmentTransactions(List<FragmentTransaction> transactions) {
         for (FragmentTransaction transaction : transactions)
             if (transaction != null)
@@ -193,7 +200,22 @@ public class AddItemActivity extends AppCompatActivity implements GestureDetecto
         executeFragmentTransactions(transactions);
     }
 
-    public void showCustomColorScreen() {}
+    public void showCustomColorScreen() {
+        FragmentManager manager = getSupportFragmentManager();
+        List<FragmentTransaction> transactions = new LinkedList<>();
+
+        if (mainFragmentHolderFragmentId != FragmentId.MAIN_MANUAL_COLOR) {
+            transactions.add(getMainCustomColorTransaction(manager));
+        }
+
+        if (miscActionFragmentHolderFragmentId != FragmentId.MISC_COLOR_BAR) {
+            transactions.add(getMiscColorBarFragmentTransaction(manager));
+        }
+
+        transactions.add(getControlFragmentTransaction(manager));
+
+        executeFragmentTransactions(transactions);
+    }
 
 //    protected void goToColorEdit() {
 //        AddItemViewModel addItemViewModel = ViewModelProviders.of(this).get(AddItemViewModel.class);
