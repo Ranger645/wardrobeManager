@@ -76,6 +76,7 @@
         <item>checker</item>
         <item>vertical_gradient</item>
         <item>horizontal_gradient</item>
+        <item>birds_eye</item>
     </string-array>
     <string-array name="clothing_item_options_material">
         <item>other</item>

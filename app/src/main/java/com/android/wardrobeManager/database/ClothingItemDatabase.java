@@ -61,18 +61,7 @@ public abstract class ClothingItemDatabase extends RoomDatabase {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            dao.insert(new ClothingItem(false, "bottom", "shorts", "FF0000FF,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "vertical_gradient", 0, "polyester", "nike", 50f, "big"));
-            dao.insert(new ClothingItem(false, "bottom", "shorts", "FF0000FF,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "polka_dots", 0, "polyester", "nike", 50f, "big"));
-            dao.insert(new ClothingItem(false, "bottom", "shorts", "FF0000FF,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "default", 0, "polyester", "nike", 50f, "big"));
-            dao.insert(new ClothingItem(false, "bottom", "shorts", "FF0000FF,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "primary_secondary", 0, "polyester", "nike", 50f, "big"));
-            dao.insert(new ClothingItem(false, "bottom", "shorts", "FF0000FF,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "horizontal_stripes", 0, "polyester", "nike", 50f, "big"));
-            dao.insert(new ClothingItem(false, "bottom", "shorts", "FF0000FF,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "vertical_stripes", 0, "polyester", "nike", 50f, "big"));
-            dao.insert(new ClothingItem(false, "top", "short_sleeve_shirt", "FFFF0000,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "vertical_gradient", 0, "polyester", "nike", 50f, "big"));
-            dao.insert(new ClothingItem(false, "top", "short_sleeve_shirt", "FFFF0000,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "polka_dots", 0, "polyester", "nike", 50f, "big"));
-            dao.insert(new ClothingItem(false, "top", "short_sleeve_shirt", "FFFF0000,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "default", 0, "polyester", "nike", 50f, "big"));
-            dao.insert(new ClothingItem(false, "top", "short_sleeve_shirt", "FFFF0000,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "primary_secondary", 0, "polyester", "nike", 50f, "big"));
-            dao.insert(new ClothingItem(false, "top", "short_sleeve_shirt", "FFFF0000,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "horizontal_stripes", 0, "polyester", "nike", 50f, "big"));
-            dao.insert(new ClothingItem(false, "top", "short_sleeve_shirt", "FFFF0000,FFFF0000,FFFFFF00,FF00FF00,FF00FFFF,FF0000FF,FFFF00FF", "vertical_stripes", 0, "polyester", "nike", 50f, "big"));
+            //dao.insert(new ClothingItem(false, "top", "short_sleeve_shirt", "FFFFFFFF,FF000000,FF0000FF", "checker", 0, "polyester", "nike", 50f, "big"));
             return null;
         }
     }
