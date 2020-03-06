@@ -35,6 +35,8 @@ public class ViewManualColor extends View {
     private float rotation = 0;
     private float oldX = -1, oldY = -1, newX = -1, newY = -1;
 
+    private Bitmap wheelImage = null;
+
     private ManualColorSelectorView.ManualColorSelectorUpdateListener colorChangeListener = new ManualColorSelectorView.ManualColorSelectorUpdateListener() {
         @Override
         public void onNewColorSelect(int newColor) {}
@@ -46,32 +48,16 @@ public class ViewManualColor extends View {
 
     public ViewManualColor(Context context) {
         super(context);
+        wheelImage = Utility.drawableToBitmap(R.drawable.color_selector_wheel);
     }
-
-    public ViewManualColor(Context context, @Nullable AttributeSet attrs, boolean hasMoved) {
-        super(context, attrs);
-        this.hasMoved = hasMoved;
-    }
-
-    public ViewManualColor(Context context, @Nullable AttributeSet attrs, int defStyleAttr, boolean hasMoved) {
-        super(context, attrs, defStyleAttr);
-        this.hasMoved = hasMoved;
-    }
-//    @Override
-//    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec){
-//        int parentWidth = MeasureSpec.getSize(widthMeasureSpec);
-//        int parentHeight = MeasureSpec.getSize(heightMeasureSpec);
-//        this.setMeasuredDimension(parentWidth/2, parentHeight);
-//        this.setLayoutParams(new FrameLayout.LayoutParams(parentWidth, parentWidth));
-//        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-//    }
 
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         Paint defaultBrush = new Paint();
         defaultBrush.setColor(Color.GRAY);
-        Bitmap imageBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.color_selector_wheel);
+        if (wheelImage == null)
+            wheelImage = Utility.drawableToBitmap(R.drawable.color_selector_wheel);
 
         float colorSelectorWidth = getColorWheelWidth();
         float colorSelectorHeight = colorSelectorWidth;
@@ -91,8 +77,8 @@ public class ViewManualColor extends View {
 
         Matrix matrix = new Matrix();
         matrix.reset();
-        matrix.postTranslate(-imageBitmap.getWidth() / 2, -imageBitmap.getHeight() / 2);
-        matrix.postScale(colorSelectorWidth / ((float) imageBitmap.getWidth()), colorSelectorHeight / ((float) imageBitmap.getHeight()));
+        matrix.postTranslate(-wheelImage.getWidth() / 2, -wheelImage.getHeight() / 2);
+        matrix.postScale(colorSelectorWidth / ((float) wheelImage.getWidth()), colorSelectorHeight / ((float) wheelImage.getHeight()));
         matrix.postRotate(rotation);
         matrix.postTranslate(colorSelectorCenterX, colorSelectorCenterY);
 
@@ -104,7 +90,7 @@ public class ViewManualColor extends View {
             rotation += 360;
         selectedColor.setColor(ManualColorSelectorGraphic.getColorAtAngle(rotation));
         canvas.drawCircle(colorSelectorCenterX, colorSelectorCenterY, getColorSelectButtonRadius(), selectedColor);
-        canvas.drawBitmap(imageBitmap, matrix, defaultBrush);
+        canvas.drawBitmap(wheelImage, matrix, defaultBrush);
 
     }
 
