@@ -2,48 +2,48 @@ package com.android.wardrobeManager.ui.add_item;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.ComposeShader;
-import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.RadialGradient;
-import android.graphics.Shader;
 import android.graphics.SweepGradient;
-import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.FrameLayout;
 
-import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.ui.color_edit.ManualColorSelectorGraphic;
 import com.android.wardrobeManager.ui.color_edit.ManualColorSelectorView;
 import com.android.wardrobeManager.ui.util.Utility;
-
-import androidx.annotation.Nullable;
 
 public class ViewManualColor extends View {
 
     // Relative to width and height of canvas:
     private static final double COLOR_WHEEL_RING_PERCENT = 0.3;
     private static final double COLOR_WHEEL_RADIUS_PERCENT = 0.9;
-    private static final double COLOR_WHEEL_BORDER_PERCENT = 0.85;
+    private static final float SEPARATOR_PERCENT = 0.02f;
 
     private static final int SELECT_BUTTON_TOUCH_DISTANCE_THRESHOLD = 20;
 
-    private boolean hasMoved = false;
     // 0 for none, 1 for color wheel, 2 for gradient wheel
     private int movingWheel = 0;
     private float colorWheelRotation = 0;
     private float gradientWheelRotation = 0;
     private float oldX = -1, oldY = -1, newX = -1, newY = -1;
 
-    private Bitmap wheelImage = null;
+    private static final int[] COLOR_WHEEL_COLORS = new int[] {
+            0xFFFF0000, 0xFFFFFF00, 0xFF00FF00, 0xFF00FFFF, 0xFF0000FF, 0xFFFF00FF, 0xFFFF0000
+    };
+    private static int DEFAULT_SELECTED_COLOR = COLOR_WHEEL_COLORS[0];
+    private int selectedColor = DEFAULT_SELECTED_COLOR;
+    private int rawSelectedColor = DEFAULT_SELECTED_COLOR;
+    private int [] gradientColors = new int[] {
+        rawSelectedColor, Color.BLACK, Color.WHITE, rawSelectedColor
+    };
+    private static final int SEPARATOR_COLOR = Color.WHITE;
+
+    private Bitmap canvasBuffer = null;
+    private Canvas canvas = null;
     private Paint defaultBrush = new Paint();
     private Paint singleColorBrush = new Paint();
+    private Paint colorWheelBrush = null;
     private Paint gradientWheelBrush = null;
 
     private ManualColorSelectorView.ManualColorSelectorUpdateListener colorChangeListener = new ManualColorSelectorView.ManualColorSelectorUpdateListener() {
@@ -57,20 +57,20 @@ public class ViewManualColor extends View {
 
     public ViewManualColor(Context context) {
         super(context);
-        wheelImage = Utility.drawableToBitmap(R.drawable.color_selector_wheel);
     }
 
     @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        defaultBrush.setColor(Color.GRAY);
-        if (wheelImage == null)
-            wheelImage = Utility.drawableToBitmap(R.drawable.color_selector_wheel);
+    protected void onDraw(Canvas finalCanvas) {
+        super.onDraw(finalCanvas);
+        if (canvasBuffer == null) {
+            canvasBuffer = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
+            canvas = new Canvas(canvasBuffer);
+        }
 
-        float colorSelectorWidth = getColorWheelWidth();
-        float colorSelectorHeight = colorSelectorWidth;
-        float colorSelectorCenterX = canvas.getWidth() / 2;
-        float colorSelectorCenterY = canvas.getHeight() / 2;
+        defaultBrush.setColor(Color.GRAY);
+
+        float colorSelectorCenterX = getWidth() / 2;
+        float colorSelectorCenterY = getHeight() / 2;
 
         // Calculating new angle:
         if (newX != oldX || newY != oldY) {
@@ -86,35 +86,61 @@ public class ViewManualColor extends View {
             oldY = newY;
         }
 
-        int selectedColor = ManualColorSelectorGraphic.getColorAtAngle(colorWheelRotation);
+        // Drawing the color wheel
+        if (colorWheelBrush == null) {
+            colorWheelBrush = new Paint();
+            colorWheelBrush.setAntiAlias(true);
+        }
+        SweepGradient colorWheelSweep = new SweepGradient(colorSelectorCenterX, colorSelectorCenterY, COLOR_WHEEL_COLORS, null);
+        colorWheelBrush.setShader(colorWheelSweep);
+        canvas.save();
+        canvas.rotate((270 + colorWheelRotation) % 360, colorSelectorCenterX, colorSelectorCenterY);
+        canvas.drawCircle(colorSelectorCenterX, colorSelectorCenterY, getColorWheelRadius(), colorWheelBrush);
+        canvas.restore();
 
-        Matrix matrix = new Matrix();
-        matrix.reset();
-        matrix.postTranslate(-wheelImage.getWidth() / 2, -wheelImage.getHeight() / 2);
-        matrix.postScale(colorSelectorWidth / ((float) wheelImage.getWidth()), colorSelectorHeight / ((float) wheelImage.getHeight()));
-        matrix.postRotate(colorWheelRotation);
-        matrix.postTranslate(colorSelectorCenterX, colorSelectorCenterY);
+        // Getting a new raw selected color if the color wheel moved
+        if (movingWheel == 1)
+            rawSelectedColor = canvasBuffer.getPixel((int) colorSelectorCenterX, (int) (colorSelectorCenterY - getColorWheelRadius() + 5));
 
+        // Drawing the gradient wheel
         if (gradientWheelBrush == null) {
             gradientWheelBrush = new Paint();
             gradientWheelBrush.setAntiAlias(true);
         }
-        SweepGradient sweepGradient = new SweepGradient(colorSelectorCenterX, colorSelectorCenterY,
-                new int[] {selectedColor, 0xFF000000, 0xFFFFFFFF, selectedColor}, null);
-        gradientWheelBrush.setShader(sweepGradient);
-
-        canvas.drawBitmap(wheelImage, matrix, defaultBrush);
-
+        gradientColors[0] = rawSelectedColor;
+        gradientColors[gradientColors.length - 1] = rawSelectedColor;
+        SweepGradient gradientWheelSweep = new SweepGradient(colorSelectorCenterX, colorSelectorCenterY, gradientColors, null);
+        gradientWheelBrush.setShader(gradientWheelSweep);
         canvas.save();
         canvas.rotate((270 + gradientWheelRotation) % 360, colorSelectorCenterX, colorSelectorCenterY);
-        canvas.drawCircle(colorSelectorCenterX, colorSelectorCenterY, getColorGradientWheelRadius(), gradientWheelBrush);
+        canvas.drawCircle(colorSelectorCenterX, colorSelectorCenterY, getGradientWheelRadius(), gradientWheelBrush);
         canvas.restore();
 
-        if (colorWheelRotation < 0)
-            colorWheelRotation += 360;
-        singleColorBrush.setColor(selectedColor);
+        // If either of the wheels have changed, set the selected color accordingly.
+        if (movingWheel != 0) {
+            selectedColor = canvasBuffer.getPixel((int) colorSelectorCenterX, (int) (colorSelectorCenterY - getGradientWheelRadius() + 5));
+            DEFAULT_SELECTED_COLOR = selectedColor;
+        }
+
+        // Drawing the key outline
+        singleColorBrush.setColor(SEPARATOR_COLOR);
+        float halfKeyWidth = getKeyWidth() / 2;
+        float halfSepWidth = getSeparatorSize();
+        canvas.drawRoundRect(colorSelectorCenterX - halfKeyWidth - halfSepWidth,
+                colorSelectorCenterY - getColorWheelRadius() - halfSepWidth,
+                colorSelectorCenterX + halfKeyWidth + halfSepWidth, colorSelectorCenterY,
+                40, 40, singleColorBrush);
         canvas.drawCircle(colorSelectorCenterX, colorSelectorCenterY, getColorSelectButtonRadius(), singleColorBrush);
 
+        // Drawing the colored key
+        singleColorBrush.setColor(selectedColor);
+        canvas.drawRoundRect(colorSelectorCenterX - halfKeyWidth,
+                colorSelectorCenterY - getColorWheelRadius(),
+                colorSelectorCenterX + halfKeyWidth, colorSelectorCenterY,
+                40, 40, singleColorBrush);
+        canvas.drawCircle(colorSelectorCenterX, colorSelectorCenterY, getColorSelectButtonRadius() - getSeparatorSize(), singleColorBrush);
+
+        finalCanvas.drawBitmap(canvasBuffer, 0, 0, defaultBrush);
     }
 
     private double translateRelativeAngleToAbsolute(double relativeAngle, float x, float y) {
@@ -134,19 +160,20 @@ public class ViewManualColor extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
-            hasMoved = true;
             newX = event.getX();
             newY = event.getY();
-            this.colorChangeListener.onNewColorSelect(ManualColorSelectorGraphic.getColorAtAngle(colorWheelRotation));
+            // TODO: Right now, this calls the color change listener on one of the past selected colors.
+            //  Maybe you can use a mutable live data to track when the selected color changes. Same
+            //  with below as well when the other listener is called.
+            this.colorChangeListener.onNewColorSelect(selectedColor);
         } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
-            hasMoved = false;
             oldX = event.getX();
             oldY = event.getY();
             newX = event.getX();
             newY = event.getY();
             int centerX = this.getWidth() / 2;
             int centerY = this.getHeight() / 2;
-            float gradientRadius = getColorGradientWheelRadius();
+            float gradientRadius = getGradientWheelRadius();
             if (Utility.distanceSquared(oldX, oldY, centerX, centerY) < gradientRadius * gradientRadius)
                 movingWheel = 2;
             else
@@ -155,7 +182,7 @@ public class ViewManualColor extends View {
             double colorSelectButtonRadiusSquared = Math.pow(getColorSelectButtonRadius(), 2);
             if (Utility.distanceSquared(oldX, oldY, newX, newY) < SELECT_BUTTON_TOUCH_DISTANCE_THRESHOLD * SELECT_BUTTON_TOUCH_DISTANCE_THRESHOLD
                     && Utility.distanceSquared(getWidth() / 2, getHeight() / 2, newX, newY) < colorSelectButtonRadiusSquared) {
-                this.colorSelectListener.onNewColorSelect(ManualColorSelectorGraphic.getColorAtAngle(colorWheelRotation));
+                this.colorSelectListener.onNewColorSelect(selectedColor);
             }
             newX = oldX;
             newY = oldY;
@@ -170,33 +197,45 @@ public class ViewManualColor extends View {
         void onNewColorSelect(int newColor);
     }
 
-    protected float getColorWheelWidth() {
-        return (float) COLOR_WHEEL_RADIUS_PERCENT * this.getWidth();
+    protected float getColorWheelRadius() {
+        return (float) (COLOR_WHEEL_RADIUS_PERCENT * this.getWidth()) / 2;
     }
 
-    protected float getColorGradientWheelRadius() {
-        float colorWheelRadius = getColorWheelWidth() / 2;
+    protected float getGradientWheelRadius() {
+        float colorWheelRadius = getColorWheelRadius();
         return (float) (colorWheelRadius - colorWheelRadius * COLOR_WHEEL_RING_PERCENT);
     }
 
     protected float getColorSelectButtonRadius() {
-        float colorWheelRadius = getColorWheelWidth() / 2;
+        float colorWheelRadius = getColorWheelRadius();
         return (float) (colorWheelRadius - 2 * colorWheelRadius * COLOR_WHEEL_RING_PERCENT);
     }
 
-    protected float getColorWheelBorderRadius() {
-        return (float) COLOR_WHEEL_BORDER_PERCENT * this.getWidth() / 2;
+    protected float getSeparatorSize() {
+        return SEPARATOR_PERCENT * this.getWidth();
     }
 
-    public void setColorChangeListener(ManualColorSelectorView.ManualColorSelectorUpdateListener colorChangeListener) {
-        this.colorChangeListener = colorChangeListener;
-    }
-
-    public void setColorSelectListener(ManualColorSelectorView.ManualColorSelectorUpdateListener colorSelectListener) {
-        this.colorSelectListener = colorSelectListener;
+    protected float getKeyWidth() {
+        return getColorWheelRadius() - getGradientWheelRadius();
     }
 
     public int getColor() {
         return ManualColorSelectorGraphic.getColorAtAngle(colorWheelRotation);
+    }
+
+    public float getColorWheelRotation() {
+        return colorWheelRotation;
+    }
+
+    public void setColorWheelRotation(float colorWheelRotation) {
+        this.colorWheelRotation = colorWheelRotation;
+    }
+
+    public float getGradientWheelRotation() {
+        return gradientWheelRotation;
+    }
+
+    public void setGradientWheelRotation(float gradientWheelRotation) {
+        this.gradientWheelRotation = gradientWheelRotation;
     }
 }
