@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.backend.AddItemViewModel;
@@ -28,7 +29,7 @@ public class MainManualColor extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_manual_color, container, false);
 
-        AddItemViewModel viewModel = ViewModelProviders.of(getActivity()).get(AddItemViewModel.class);
+        final AddItemViewModel viewModel = ViewModelProviders.of(getActivity()).get(AddItemViewModel.class);
 
         viewManualColor = new ViewManualColor(getContext());
         viewManualColor.setColorWheelRotation(viewModel.getManualColorViewColorRotation());
@@ -36,6 +37,14 @@ public class MainManualColor extends Fragment {
 
         SquareFrameLayout holder = view.findViewById(R.id.main_manual_color_holder);
         holder.addView(viewManualColor);
+
+        ImageView addColorButton = view.findViewById(R.id.add_color_button);
+        addColorButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewModel.addClothingItemColor(viewManualColor.getSelectedColor());
+            }
+        });
 
         return view;
     }

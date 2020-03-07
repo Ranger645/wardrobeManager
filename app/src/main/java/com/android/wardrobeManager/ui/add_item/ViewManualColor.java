@@ -46,15 +46,6 @@ public class ViewManualColor extends View {
     private Paint colorWheelBrush = null;
     private Paint gradientWheelBrush = null;
 
-    private ManualColorSelectorView.ManualColorSelectorUpdateListener colorChangeListener = new ManualColorSelectorView.ManualColorSelectorUpdateListener() {
-        @Override
-        public void onNewColorSelect(int newColor) {}
-    };
-    private ManualColorSelectorView.ManualColorSelectorUpdateListener colorSelectListener = new ManualColorSelectorView.ManualColorSelectorUpdateListener() {
-        @Override
-        public void onNewColorSelect(int newColor) {}
-    };
-
     public ViewManualColor(Context context) {
         super(context);
     }
@@ -162,10 +153,6 @@ public class ViewManualColor extends View {
         if (event.getAction() == MotionEvent.ACTION_MOVE) {
             newX = event.getX();
             newY = event.getY();
-            // TODO: Right now, this calls the color change listener on one of the past selected colors.
-            //  Maybe you can use a mutable live data to track when the selected color changes. Same
-            //  with below as well when the other listener is called.
-            this.colorChangeListener.onNewColorSelect(selectedColor);
         } else if (event.getAction() == MotionEvent.ACTION_DOWN) {
             oldX = event.getX();
             oldY = event.getY();
@@ -182,7 +169,6 @@ public class ViewManualColor extends View {
             double colorSelectButtonRadiusSquared = Math.pow(getColorSelectButtonRadius(), 2);
             if (Utility.distanceSquared(oldX, oldY, newX, newY) < SELECT_BUTTON_TOUCH_DISTANCE_THRESHOLD * SELECT_BUTTON_TOUCH_DISTANCE_THRESHOLD
                     && Utility.distanceSquared(getWidth() / 2, getHeight() / 2, newX, newY) < colorSelectButtonRadiusSquared) {
-                this.colorSelectListener.onNewColorSelect(selectedColor);
             }
             newX = oldX;
             newY = oldY;
@@ -191,10 +177,6 @@ public class ViewManualColor extends View {
 
         invalidate();
         return true;
-    }
-
-    public interface ManualColorSelectorUpdateListener {
-        void onNewColorSelect(int newColor);
     }
 
     protected float getColorWheelRadius() {
@@ -219,8 +201,8 @@ public class ViewManualColor extends View {
         return getColorWheelRadius() - getGradientWheelRadius();
     }
 
-    public int getColor() {
-        return ManualColorSelectorGraphic.getColorAtAngle(colorWheelRotation);
+    public int getSelectedColor() {
+        return selectedColor;
     }
 
     public float getColorWheelRotation() {
