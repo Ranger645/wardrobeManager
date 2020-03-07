@@ -48,8 +48,6 @@ public class StartActivity extends AppCompatActivity {
         }
         ClothingItemDatabaseViewModel viewModel = ViewModelProviders.of(this).get(ClothingItemDatabaseViewModel.class);
 
-        ManualColorSelectorGraphic.initialize();
-
     }
 
 }

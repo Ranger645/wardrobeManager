@@ -70,7 +70,7 @@ public class ViewColorBar extends View {
     }
 
     private void init() {
-        X_BITMAP = Utility.drawableToBitmap(R.drawable.dialog_ic_close_normal_holo_light);
+        X_BITMAP = Utility.drawableToBitmap(R.drawable.add_x_icon);
     }
 
     public void setColors(int[] colors) {
@@ -122,29 +122,32 @@ public class ViewColorBar extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        long currentTime = System.currentTimeMillis();
-        if (System.currentTimeMillis() - lastTapTime <= MIN_TIME_FOR_SECOND_TAP) {
-            return false;
-        }
-        lastTapTime = currentTime;
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            long currentTime = System.currentTimeMillis();
+            if (System.currentTimeMillis() - lastTapTime <= MIN_TIME_FOR_SECOND_TAP) {
+                return false;
+            }
+            lastTapTime = currentTime;
 
-        int newSelected = (int) (event.getX() / colorWidth);
-        if (selectedColorIndex == newSelected) {
-            // Color must be removed
-            int[] newColors = new int[colors.length - 1];
-            int iter = 0;
-            int selectedColor = colors[selectedColorIndex];
-            for (int color : colors)
-                if (color != selectedColor)
-                    newColors[iter++] = color;
-            colorRemovalCallback.onColorRemoved(newColors, selectedColor);
-            selectedColorIndex = -1;
-        } else {
-            selectedColorIndex = newSelected;
-        }
+            int newSelected = (int) (event.getX() / colorWidth);
+            if (selectedColorIndex == newSelected) {
+                // Color must be removed
+                int[] newColors = new int[colors.length - 1];
+                int iter = 0;
+                int selectedColor = colors[selectedColorIndex];
+                for (int color : colors)
+                    if (color != selectedColor)
+                        newColors[iter++] = color;
+                colorRemovalCallback.onColorRemoved(newColors, selectedColor);
+                selectedColorIndex = -1;
+            } else {
+                selectedColorIndex = newSelected;
+            }
 
-        invalidate();
-        return true;
+            invalidate();
+            return true;
+        }
+        return false;
     }
 
     public interface ColorRemovalCallback {

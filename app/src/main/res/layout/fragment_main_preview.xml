@@ -26,10 +26,10 @@
             android:id="@+id/close_button"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="8dp"
+            android:layout_margin="4dp"
             android:clickable="true"
             android:focusable="true"
-            android:src="@drawable/dialog_ic_close_normal_holo_light"
+            android:src="@drawable/add_x_icon"
             android:background="?attr/selectableItemBackgroundBorderless"/>
 
     </FrameLayout>

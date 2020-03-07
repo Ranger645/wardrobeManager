@@ -95,7 +95,6 @@ public class MainEditFragment extends Fragment {
         btnEditBrand.setInputAlertCallback(new WardrobeAlerts.InputAlertCallback() {
             @Override
             public void onEnterPressed(Context context, String value) {
-                Log.e("DEBUG", "HELLO WORLD");
                 ClothingItem item = addItemViewModel.getClothingItem().getValue();
                 item.setBrand(value);
                 addItemViewModel.setClothingItem(item);
