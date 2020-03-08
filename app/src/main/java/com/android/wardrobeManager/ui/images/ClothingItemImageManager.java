@@ -6,11 +6,16 @@ import android.content.ContextWrapper;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.util.SparseArray;
+import android.util.TypedValue;
 
 import com.android.wardrobeManager.R;
 import com.android.wardrobeManager.WardrobeManager;
@@ -24,8 +29,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
+
+import androidx.annotation.Dimension;
 
 public class ClothingItemImageManager {
+
+    private static int rounded_corner_radius_px = -1;
 
     private static final int IMAGE_SIDE_LENGTH = 512;
 
@@ -34,16 +44,22 @@ public class ClothingItemImageManager {
     final static SparseArray<Bitmap> customBitmapBuffer = new SparseArray<>();
     final static SparseArray<Bitmap> generatedBitmapBuffer = new SparseArray<>();
 
+    public static Bitmap dynamicClothingItemLoadRounded(ClothingItem toLoad) {
+        Bitmap mbitmap = ClothingItemImageManager.dynamicClothingItemLoad(toLoad);
+        int radius = getRoundedCornerRadius();
+        return Utility.roundBitmap(mbitmap, radius, radius);
+    }
+
     public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad) {
         return dynamicClothingItemLoad(toLoad, true);
     }
 
     public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad, boolean useImageBuffer) {
-        return dynamicClothingItemLoad(toLoad, useImageBuffer, true);
+        return dynamicClothingItemLoad(toLoad, useImageBuffer, true, true);
     }
 
-    public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad, boolean useCustomImageBuffer, boolean useImageBuffer) {
-        if (useImageBuffer && toLoad.isCustomImage()) {
+    public static Bitmap dynamicClothingItemLoad(ClothingItem toLoad, boolean useCustomImageBuffer, boolean useImageBuffer, boolean tryToUseCustomImage) {
+        if (tryToUseCustomImage && toLoad.isCustomImage()) {
             Bitmap bufferVal = customBitmapBuffer.get(toLoad.getId(), null);
             if (useCustomImageBuffer && bufferVal != null) {
                 return bufferVal;
@@ -56,7 +72,7 @@ public class ClothingItemImageManager {
 
             if (bitmap == null) {
                 Log.e("IMAGE_LOAD", "Failed to find custom image. Falling back to auto-generate.");
-                bitmap = dynamicClothingItemLoad(toLoad, useCustomImageBuffer, false);
+                bitmap = dynamicClothingItemLoad(toLoad, useCustomImageBuffer, true, false);
             }
             return bitmap;
         } else {
@@ -77,6 +93,15 @@ public class ClothingItemImageManager {
             generatedBitmapBuffer.put(hash, bitmap);
             return bitmap;
         }
+    }
+
+    public static int getRoundedCornerRadius() {
+        if (rounded_corner_radius_px < 0) {
+            // Getting the radius from the pixel equivalent of the dp measurement
+            Resources resources = WardrobeManager.getContext().getResources();
+            rounded_corner_radius_px = (resources.getDimensionPixelSize(R.dimen.rounded_corner_radius)) / 2;
+        }
+        return rounded_corner_radius_px;
     }
 
     public static int getImageHash(ClothingItem toHash) {
@@ -110,23 +135,10 @@ public class ClothingItemImageManager {
         Application application = WardrobeManager.getInstance();
         int refRes = application.getResources().getIdentifier(toLoad.getSubType(), "drawable", application.getPackageName());
         Drawable d = application.getResources().getDrawable(refRes, application.getTheme());
-        Bitmap reference = Bitmap.createScaledBitmap(drawableToBitmap(d), IMAGE_SIDE_LENGTH, IMAGE_SIDE_LENGTH, false);
+        Bitmap reference = Bitmap.createScaledBitmap(Utility.drawableToBitmap(d), IMAGE_SIDE_LENGTH, IMAGE_SIDE_LENGTH, false);
 
         int[] colors = Utility.parseClothingItemColors(toLoad.getColors());
         return DesignFilterManager.filterDesign(toLoad.getDesign(), reference, colors);
-    }
-
-    private static Bitmap drawableToBitmap (Drawable drawable) {
-        if (drawable instanceof BitmapDrawable) {
-            return ((BitmapDrawable)drawable).getBitmap();
-        }
-
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-
-        return bitmap;
     }
 
     public static void removeBufferValue(int id) {

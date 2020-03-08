@@ -1,5 +1,20 @@
 package com.android.wardrobeManager.ui.util;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.graphics.Bitmap;
+import android.graphics.BitmapShader;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.view.View;
+
+import com.android.wardrobeManager.WardrobeManager;
+
 public class Utility {
 
     public static long[] hexListStrToLongArray(String hexNumbers, String delim) {
@@ -51,6 +66,50 @@ public class Utility {
             b += db;
         }
         return 0xFF000000 | (r << 16) | (g << 8) | b;
+    }
+
+    public static Bitmap roundBitmap(Bitmap mbitmap, int xRadius, int yRadius) {
+        Bitmap imageRounded = Bitmap.createBitmap(mbitmap.getWidth(), mbitmap.getHeight(), mbitmap.getConfig());
+        Canvas canvas = new Canvas(imageRounded);
+        Paint mpaint = new Paint();
+        mpaint.setAntiAlias(true);
+        mpaint.setShader(new BitmapShader(mbitmap, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
+        canvas.drawRoundRect((new RectF(0, 0, mbitmap.getWidth(), mbitmap.getHeight())), xRadius, yRadius, mpaint);
+        return imageRounded;
+    }
+
+    public static Bitmap drawableToBitmap(int id) {
+        Drawable d = WardrobeManager.getInstance().getApplicationContext().getResources().getDrawable(id,
+                WardrobeManager.getInstance().getTheme());
+        return Utility.drawableToBitmap(d);
+    }
+
+    public static Bitmap drawableToBitmap (Drawable drawable) {
+        return drawableToBitmap(drawable, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
+    }
+
+    public static Bitmap drawableToBitmap (Drawable drawable, int width, int height) {
+        if (drawable instanceof BitmapDrawable) {
+            return ((BitmapDrawable)drawable).getBitmap();
+        }
+
+        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
+
+        return bitmap;
+    }
+
+    public static Activity getActivity(View view) {
+        Context context = view.getContext();
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity)context;
+            }
+            context = ((ContextWrapper)context).getBaseContext();
+        }
+        return null;
     }
 
 }
