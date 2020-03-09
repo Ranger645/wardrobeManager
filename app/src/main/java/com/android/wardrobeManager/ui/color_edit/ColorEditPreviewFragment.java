@@ -41,7 +41,7 @@ public class ColorEditPreviewFragment extends Fragment {
                              Bundle savedInstanceState) {
         ConstraintLayout rootLayout = (ConstraintLayout) inflater.inflate(R.layout.fragment_color_edit_preview, container, false);
 
-        ClothingItem clothingItem = getArguments().getParcelable("clothingItem");
+        final ClothingItem clothingItem = getArguments().getParcelable("clothingItem");
         final ColorEditViewModel viewModel = ViewModelProviders.of(getActivity()).get(ColorEditViewModel.class);
 
         previewView = new ColorEditPreview(this.getActivity(),
