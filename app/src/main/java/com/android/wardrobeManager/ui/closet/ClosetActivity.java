@@ -1,5 +1,6 @@
 package com.android.wardrobeManager.ui.closet;
 
+import android.animation.ObjectAnimator;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
@@ -21,6 +22,8 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
@@ -40,10 +43,12 @@ import java.util.jar.Attributes;
 public class ClosetActivity extends AppCompatActivity implements ClosetClothingItemClickListener {
 
     private ClothingItemDatabaseViewModel clothingItemDatabaseViewModel;
-    private ClosetShadeFragment shade;
+    private ClosetShadeFragment clickableShade;
+    private ClosetShadeFragment nonClickableShade;
     private ClosetMenuFragment closetMenu;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
+    private boolean menuIsOpen = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +60,8 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
         recyclerView.setHasFixedSize(true);
 
         fragmentManager = getSupportFragmentManager();
-        shade = new ClosetShadeFragment();
+        clickableShade = new ClosetShadeFragment();
+        nonClickableShade = new ClosetShadeFragment();
         closetMenu = new ClosetMenuFragment();
 
         final ClosetAdapter adapter = new ClosetAdapter(this);
@@ -79,36 +85,57 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
 
     public void openMenu(View view) {
         if (view.getId() == findViewById(R.id.closet_menu_button).getId()) {
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-            fragmentTransaction.add(R.id.shade_layout_holder, shade).commit();
+            if (!closetMenu.fragmentIsOpen() && !nonClickableShade.fragmentIsOpen() && !clickableShade.fragmentIsOpen()) {
+                menuIsOpen = true;
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                fragmentTransaction.add(R.id.shade_layout_holder, clickableShade).commit();
 
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.fade_out);
-            fragmentTransaction.add(R.id.menu_layout_holder, closetMenu).commit();
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+                fragmentTransaction.add(R.id.shade_layout_holder, nonClickableShade).commit();
 
-            findViewById(R.id.closet_menu_button).setVisibility(View.INVISIBLE);
+                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.fade_out);
+                fragmentTransaction.add(R.id.menu_layout_holder, closetMenu);
+                fragmentTransaction.commit();
+
+                findViewById(R.id.closet_menu_button).setVisibility(View.INVISIBLE);
+            }
         }
     }
 
     @Override
     public void onClothingItemClick(ClothingItem item, ImageButton clothingImageView) {
-        Intent intent = new Intent(ClosetActivity.this, AddItemActivity.class);
-        Bundle bundle = new Bundle();
-        bundle.putParcelable("clothingItem", item);
-        intent.putExtras(bundle);
-        ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ClosetActivity.this, clothingImageView, "add_item_viewpager_transition");
-        startActivity(intent, options.toBundle());
+        if (!menuIsOpen)  {
+            Intent intent = new Intent(ClosetActivity.this, AddItemActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("clothingItem", item);
+            intent.putExtras(bundle);
+            ActivityOptions options = ActivityOptions.makeSceneTransitionAnimation(ClosetActivity.this, clothingImageView, "add_item_viewpager_transition");
+            startActivity(intent, options.toBundle());
+        }
     }
 
     public void shadeClicked(View view) {
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-        fragmentTransaction.remove(shade);
-        fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_away_right);
-        fragmentTransaction.remove(closetMenu);fragmentTransaction.commit();
+        if (menuIsOpen) {
+            menuIsOpen = false;
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            fragmentTransaction.remove(clickableShade).commit();
 
-        findViewById(R.id.closet_menu_button).setVisibility(View.VISIBLE);
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            fragmentTransaction.remove(nonClickableShade).commit();
+
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_away_right);
+            fragmentTransaction.remove(closetMenu);fragmentTransaction.commit();
+
+            Animation slideMenuButton = AnimationUtils.loadAnimation(this, R.anim.wait_then_slide_from_right);
+            findViewById(R.id.closet_menu_button).startAnimation(slideMenuButton);
+            findViewById(R.id.closet_menu_button).setVisibility(View.VISIBLE);
+        }
     }
 
 }
