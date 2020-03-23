@@ -7,4 +7,5 @@
     <dimen name="rounded_panel_margin_size_double">16dp</dimen>
     <dimen name="rounded_corner_radius">50dp</dimen>
     <dimen name="CLOSET_MENU_WIDTH">250dp</dimen>
+    <dimen name="CLOSET_SORT_BY_MARGIN">80dp</dimen>
 </resources>

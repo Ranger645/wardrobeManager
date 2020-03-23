@@ -22,7 +22,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/shade_layout_holder"
@@ -50,6 +52,69 @@
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sort_by_shade_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <FrameLayout
+            android:id="@+id/sort_by_top_clickable_shade"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/CLOSET_SORT_BY_MARGIN"
+            android:onClick="shadeClicked"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/sort_by_left_clickable_shade"
+            android:layout_width="@dimen/CLOSET_SORT_BY_MARGIN"
+            android:layout_height="0dp"
+            android:onClick="shadeClicked"
+            app:layout_constraintBottom_toTopOf="@+id/sort_by_bottom_clickable_shade"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sort_by_top_clickable_shade">
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/sort_by_right_clickable_shade"
+            android:layout_width="@dimen/CLOSET_SORT_BY_MARGIN"
+            android:layout_height="0dp"
+            android:onClick="shadeClicked"
+            app:layout_constraintBottom_toTopOf="@+id/sort_by_bottom_clickable_shade"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sort_by_top_clickable_shade">
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/sort_by_bottom_clickable_shade"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/CLOSET_SORT_BY_MARGIN"
+            android:onClick="shadeClicked"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/sort_by_middle_unclickable_shade"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/sort_by_bottom_clickable_shade"
+            app:layout_constraintEnd_toStartOf="@+id/sort_by_right_clickable_shade"
+            app:layout_constraintStart_toEndOf="@+id/sort_by_left_clickable_shade"
+            app:layout_constraintTop_toBottomOf="@+id/sort_by_top_clickable_shade">
+
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <FrameLayout
         android:id="@+id/menu_layout_holder"
         android:layout_width="@dimen/CLOSET_MENU_WIDTH"
@@ -60,6 +125,15 @@
 
     </FrameLayout>
 
+    <FrameLayout
+        android:id="@+id/sort_by_holder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
