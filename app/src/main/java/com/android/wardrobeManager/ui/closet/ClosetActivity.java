@@ -65,7 +65,7 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
 
     public void openMenu(View view) {
         if (view.getId() == findViewById(R.id.closet_menu_button).getId()) {
-            if (!closetMenu.fragmentIsOpen() && !nonClickableShade.fragmentIsOpen() && !clickableShade.fragmentIsOpen()) {
+            if (!closetMenu.isFragmentOpen() && !nonClickableShade.isFragmentOpen() && !clickableShade.isFragmentOpen()) {
                 menuIsOpen = true;
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
@@ -82,6 +82,7 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
 
                 Animation slideMenuButton = AnimationUtils.loadAnimation(this, R.anim.slide_away_extended_right);
                 closetMenuButton.startAnimation(slideMenuButton);
+                closetMenuButton.setVisibility(View.GONE);
             }
         }
     }

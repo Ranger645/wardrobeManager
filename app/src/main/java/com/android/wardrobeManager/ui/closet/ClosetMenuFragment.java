@@ -1,7 +1,6 @@
 package com.android.wardrobeManager.ui.closet;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +25,6 @@ public class ClosetMenuFragment extends Fragment {
         super.onDetach();
     }
 
-    public boolean fragmentIsOpen() { return fragmentIsOpen; }
+    public boolean isFragmentOpen() { return fragmentIsOpen; }
 
 }
