@@ -29,6 +29,7 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
     private FragmentTransaction fragmentTransaction;
     private View closetMenuButton;
     private boolean menuIsOpen = false;
+    private View clickableShadeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
         nonClickableShade = new ClosetShadeFragment();
         closetMenu = new ClosetMenuFragment();
         closetMenuButton = findViewById(R.id.closet_menu_button);
+        clickableShadeView = findViewById(R.id.clickable_shade);
+        clickableShadeView.setClickable(false);
 
         final ClosetAdapter adapter = new ClosetAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -67,6 +70,7 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
         if (view.getId() == findViewById(R.id.closet_menu_button).getId()) {
             if (!closetMenu.isFragmentOpen() && !nonClickableShade.isFragmentOpen() && !clickableShade.isFragmentOpen()) {
                 menuIsOpen = true;
+                clickableShadeView.setClickable(true);
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
                 fragmentTransaction.add(R.id.shade_layout_holder, clickableShade).commit();
@@ -102,6 +106,7 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
     public void shadeClicked(View view) {
         if (menuIsOpen) {
             menuIsOpen = false;
+            clickableShadeView.setClickable(false);
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
             fragmentTransaction.remove(clickableShade).commit();
