@@ -3,13 +3,13 @@ package com.android.wardrobeManager.ui.closet;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -27,9 +27,7 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
     private ClosetShadeFragment clickableShade;
     private ClosetShadeFragment nonClickableShade;
     private ClosetMenuFragment closetMenu;
-    
     private ClosetSortByFragment sortBy;
-    private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
 
     private boolean menuIsOpen = false;
@@ -42,6 +40,8 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
     private ClosetShadeFragment sortByBottomShade;
     private ClosetShadeFragment sortByRightShade;
     private ClosetShadeFragment sortByMiddleShade;
+    private View closetMenuButton;
+    private View clickableShadeView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,6 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
         recyclerView.setLayoutManager(new GridLayoutManager(this,2 ));
         recyclerView.setHasFixedSize(true);
 
-        fragmentManager = getSupportFragmentManager();
         clickableShade = new ClosetShadeFragment(true);
         nonClickableShade = new ClosetShadeFragment(false);
         sortBy = new ClosetSortByFragment();
@@ -63,6 +62,11 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
         sortByBottomShade = new ClosetShadeFragment(true);
         sortByRightShade = new ClosetShadeFragment(true);
         sortByMiddleShade = new ClosetShadeFragment(false);
+
+        closetMenu = new ClosetMenuFragment();
+        closetMenuButton = findViewById(R.id.closet_menu_button);
+        clickableShadeView = findViewById(R.id.clickable_shade);
+        clickableShadeView.setClickable(false);
 
         final ClosetAdapter adapter = new ClosetAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -85,39 +89,43 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
 
     public void openMenu(View view) {
         if (view.getId() == findViewById(R.id.closet_menu_button).getId()) {
-            if (!closetMenu.fragmentIsOpen() && !nonClickableShade.fragmentIsOpen() && !clickableShade.fragmentIsOpen()) {
+            if (!closetMenu.isFragmentOpen() && !nonClickableShade.isFragmentOpen() && !clickableShade.isFragmentOpen()) {
                 menuIsOpen = true;
-                fragmentTransaction = fragmentManager.beginTransaction();
+                clickableShadeView.setClickable(true);
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
                 fragmentTransaction.add(R.id.shade_layout_holder, clickableShade).commit();
 
-                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
                 fragmentTransaction.add(R.id.shade_layout_holder, nonClickableShade).commit();
 
-                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.fade_out);
                 fragmentTransaction.add(R.id.menu_layout_holder, closetMenu);
                 fragmentTransaction.commit();
 
                 findViewById(R.id.closet_menu_button).setVisibility(View.INVISIBLE);
+                Animation slideMenuButton = AnimationUtils.loadAnimation(this, R.anim.slide_away_extended_right);
+                closetMenuButton.startAnimation(slideMenuButton);
+                closetMenuButton.setVisibility(View.GONE);
             }
         }
     }
 
     public void onSortByClicked(View view) {
-        if (view.getId() == findViewById(R.id.sort_by_button).getId()) {
-            if (closetMenu.fragmentIsOpen() && nonClickableShade.fragmentIsOpen() && clickableShade.fragmentIsOpen()) {
+        if (view.getId() == findViewById(R.id.closet_menu_sort_by_button).getId()) {
+            if (closetMenu.isFragmentOpen() && nonClickableShade.isFragmentOpen() && clickableShade.isFragmentOpen()) {
                 closeMenu();
                 menuIsOpen = false;
                 sortByIsOpen = true;
 
-                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.slide_extended_towards_right, R.anim.fade_out);
                 fragmentTransaction.add(R.id.sort_by_holder, sortBy);
                 fragmentTransaction.commit();
 
-                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
                 fragmentTransaction.add(R.id.sort_by_top_clickable_shade, sortByTopShade);
                 fragmentTransaction.add(R.id.sort_by_left_clickable_shade, sortByLeftShade);
@@ -125,7 +133,6 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
                 fragmentTransaction.add(R.id.sort_by_right_clickable_shade, sortByRightShade);
                 fragmentTransaction.add(R.id.sort_by_middle_unclickable_shade, sortByMiddleShade);
                 fragmentTransaction.commit();
-
                 findViewById(R.id.closet_menu_button).setVisibility(View.INVISIBLE);
             }
         }
@@ -134,6 +141,7 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
     @Override
     public void onClothingItemClick(ClothingItem item, ImageButton clothingImageView) {
         if (!menuIsOpen && !sortByIsOpen)  {
+
             Intent intent = new Intent(ClosetActivity.this, AddItemActivity.class);
             Bundle bundle = new Bundle();
             bundle.putParcelable("clothingItem", item);
@@ -147,32 +155,29 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
         if (true/*finish statemeant here*/) {
             if (menuIsOpen) {
                 closeMenu();
-                Animation slideMenuButton = AnimationUtils.loadAnimation(this, R.anim.wait_then_slide_from_right);
-                findViewById(R.id.closet_menu_button).startAnimation(slideMenuButton);
-                findViewById(R.id.closet_menu_button).setVisibility(View.VISIBLE);
             } else if (sortByIsOpen) {
-                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.slide_extended_away_left, R.anim.slide_extended_away_left);
                 fragmentTransaction.remove(sortBy);
                 fragmentTransaction.commit();
 
-                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
                 fragmentTransaction.remove(sortByTopShade).commit();
 
-                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
                 fragmentTransaction.remove(sortByLeftShade).commit();
 
-                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
                 fragmentTransaction.remove(sortByBottomShade).commit();
 
-                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
                 fragmentTransaction.remove(sortByRightShade).commit();
 
-                fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
                 fragmentTransaction.remove(sortByMiddleShade).commit();
 
@@ -185,19 +190,25 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
 
     public void closeMenu() {
         if (menuIsOpen) {
-            menuIsOpen = false;
-            fragmentTransaction = fragmentManager.beginTransaction();
+            menuIsOpen = true;
+            clickableShadeView.setClickable(true);
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-            fragmentTransaction.remove(clickableShade).commit();
+            fragmentTransaction.add(R.id.shade_layout_holder, clickableShade).commit();
 
-            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-            fragmentTransaction.remove(nonClickableShade).commit();
+            fragmentTransaction.add(R.id.shade_layout_holder, nonClickableShade).commit();
 
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.slide_away_right);
-            fragmentTransaction.remove(closetMenu);
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.fade_out);
+            fragmentTransaction.add(R.id.menu_layout_holder, closetMenu);
             fragmentTransaction.commit();
+
+            findViewById(R.id.closet_menu_button).setVisibility(View.INVISIBLE);
+            Animation slideMenuButton = AnimationUtils.loadAnimation(this, R.anim.slide_away_extended_right);
+            closetMenuButton.startAnimation(slideMenuButton);
+            closetMenuButton.setVisibility(View.GONE);
         }
     }
 
@@ -222,5 +233,4 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
             sortingType = 4;
         }
     }
-
 }

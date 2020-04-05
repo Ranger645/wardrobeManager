@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/closet_constraint_layout"
+    android:id="@+id/closet_main_constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="right">
@@ -14,7 +13,6 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:background="@drawable/hamburger_button"
-        android:gravity="center_vertical|center_horizontal"
         android:onClick="openMenu"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -29,22 +27,27 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/shade_layout_holder"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <FrameLayout
             android:id="@+id/clickable_shade"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:clickable="false"
             android:onClick="shadeClicked"
             app:layout_constraintEnd_toStartOf="@+id/non_clickable_shade"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-
         </FrameLayout>
 
         <FrameLayout
             android:id="@+id/non_clickable_shade"
-            android:layout_width="@dimen/CLOSET_MENU_WIDTH"
+            android:layout_width="@dimen/closet_menu_width"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -64,7 +67,7 @@
         <FrameLayout
             android:id="@+id/sort_by_top_clickable_shade"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/CLOSET_SORT_BY_MARGIN"
+            android:layout_height="@dimen/closet_sort_by_margin"
             android:onClick="shadeClicked"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +77,7 @@
 
         <FrameLayout
             android:id="@+id/sort_by_left_clickable_shade"
-            android:layout_width="@dimen/CLOSET_SORT_BY_MARGIN"
+            android:layout_width="@dimen/closet_sort_by_margin"
             android:layout_height="0dp"
             android:onClick="shadeClicked"
             app:layout_constraintBottom_toTopOf="@+id/sort_by_bottom_clickable_shade"
@@ -85,7 +88,7 @@
 
         <FrameLayout
             android:id="@+id/sort_by_right_clickable_shade"
-            android:layout_width="@dimen/CLOSET_SORT_BY_MARGIN"
+            android:layout_width="@dimen/closet_sort_by_margin"
             android:layout_height="0dp"
             android:onClick="shadeClicked"
             app:layout_constraintBottom_toTopOf="@+id/sort_by_bottom_clickable_shade"
@@ -97,7 +100,7 @@
         <FrameLayout
             android:id="@+id/sort_by_bottom_clickable_shade"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/CLOSET_SORT_BY_MARGIN"
+            android:layout_height="@dimen/closet_sort_by_margin"
             android:onClick="shadeClicked"
             app:layout_constraintBottom_toBottomOf="parent">
 
@@ -113,17 +116,6 @@
             app:layout_constraintTop_toBottomOf="@+id/sort_by_top_clickable_shade">
 
         </FrameLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <FrameLayout
-        android:id="@+id/menu_layout_holder"
-        android:layout_width="@dimen/CLOSET_MENU_WIDTH"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/recycler_view"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </FrameLayout>
 
     <FrameLayout
         android:id="@+id/sort_by_holder"
@@ -132,8 +124,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <FrameLayout
+        android:id="@+id/menu_layout_holder"
+        android:layout_width="@dimen/closet_menu_width"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="@+id/recycler_view"
         app:layout_constraintTop_toTopOf="parent">
-
     </FrameLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

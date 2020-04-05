@@ -10,4 +10,6 @@
     <color name="transparent">#00000000</color>
     <color name="clothingItemAutoImageDefaultColor1">#FF000000</color>
     <color name="clothingItemAutoImageDefaultColor2">#FFFFFFFF</color>
+    <color name="darkGray">#FF222222</color>
+    <color name="lightGray">#FFEEEEEE</color>
 </resources>

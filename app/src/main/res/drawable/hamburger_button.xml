@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true" android:drawable="@drawable/hamburger_button_pressed" />
-    <item android:state_pressed="false" android:drawable="@drawable/hamburger_button_unpressed" />
-</selector>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android" android:color="@color/colorPrimary">
+    <item android:drawable="@drawable/hamburger_button_image"/>
+</ripple>
+

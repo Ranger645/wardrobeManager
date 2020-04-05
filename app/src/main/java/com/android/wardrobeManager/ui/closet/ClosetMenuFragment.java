@@ -25,6 +25,6 @@ public class ClosetMenuFragment extends Fragment {
         super.onDetach();
     }
 
-    public boolean fragmentIsOpen() { return fragmentIsOpen; }
+    public boolean isFragmentOpen() { return fragmentIsOpen; }
 
 }
