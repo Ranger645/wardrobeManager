@@ -27,6 +27,7 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
     private ClosetShadeFragment clickableShade;
     private ClosetShadeFragment nonClickableShade;
     private ClosetMenuFragment closetMenu;
+    
     private ClosetSortByFragment sortBy;
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
