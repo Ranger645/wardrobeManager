@@ -40,8 +40,17 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
     private ClosetShadeFragment sortByBottomShade;
     private ClosetShadeFragment sortByRightShade;
     private ClosetShadeFragment sortByMiddleShade;
+
     private View closetMenuButton;
     private View clickableShadeView;
+    private View sortByTopShadeView;
+    private View sortByLeftShadeView;
+    private View sortByBottomShadeView;
+    private View sortByRightShadeView;
+    private View sortByLaundryToggle;
+    private View sortByAlphabeticalToggle;
+    private View sortByColorToggle;
+    private View sortBySizeToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,21 +61,32 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
         recyclerView.setLayoutManager(new GridLayoutManager(this,2 ));
         recyclerView.setHasFixedSize(true);
 
-        clickableShade = new ClosetShadeFragment(true);
-        nonClickableShade = new ClosetShadeFragment(false);
+        clickableShade = new ClosetShadeFragment();
+        nonClickableShade = new ClosetShadeFragment();
         sortBy = new ClosetSortByFragment();
         closetMenu = new ClosetMenuFragment();
 
-        sortByTopShade = new ClosetShadeFragment(true);
-        sortByLeftShade = new ClosetShadeFragment(true);
-        sortByBottomShade = new ClosetShadeFragment(true);
-        sortByRightShade = new ClosetShadeFragment(true);
-        sortByMiddleShade = new ClosetShadeFragment(false);
 
-        closetMenu = new ClosetMenuFragment();
+        sortByLaundryToggle = findViewById(R.id.laundryStatusButton);
+        sortByAlphabeticalToggle = findViewById(R.id.alphabeticalButton);
+        sortByColorToggle = findViewById(R.id.colorButton);
+        sortBySizeToggle = findViewById(R.id.sizeButton);
+
+        sortByTopShade = new ClosetShadeFragment();
+        sortByLeftShade = new ClosetShadeFragment();
+        sortByBottomShade = new ClosetShadeFragment();
+        sortByRightShade = new ClosetShadeFragment();
+        sortByMiddleShade = new ClosetShadeFragment();
+
         closetMenuButton = findViewById(R.id.closet_menu_button);
+        initializeSortByToggleButtons();
+
         clickableShadeView = findViewById(R.id.clickable_shade);
-        clickableShadeView.setClickable(false);
+        sortByTopShadeView = findViewById(R.id.sort_by_top_clickable_shade);
+        sortByLeftShadeView = findViewById(R.id.sort_by_left_clickable_shade);
+        sortByBottomShadeView = findViewById(R.id.sort_by_bottom_clickable_shade);
+        sortByRightShadeView = findViewById(R.id.sort_by_right_clickable_shade);
+        updateShadeViewClickable();
 
         final ClosetAdapter adapter = new ClosetAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -91,7 +111,8 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
         if (view.getId() == findViewById(R.id.closet_menu_button).getId()) {
             if (!closetMenu.isFragmentOpen() && !nonClickableShade.isFragmentOpen() && !clickableShade.isFragmentOpen()) {
                 menuIsOpen = true;
-                clickableShadeView.setClickable(true);
+                updateShadeViewClickable();
+
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
                 fragmentTransaction.add(R.id.shade_layout_holder, clickableShade).commit();
@@ -105,7 +126,6 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
                 fragmentTransaction.add(R.id.menu_layout_holder, closetMenu);
                 fragmentTransaction.commit();
 
-                findViewById(R.id.closet_menu_button).setVisibility(View.INVISIBLE);
                 Animation slideMenuButton = AnimationUtils.loadAnimation(this, R.anim.slide_away_extended_right);
                 closetMenuButton.startAnimation(slideMenuButton);
                 closetMenuButton.setVisibility(View.GONE);
@@ -119,6 +139,7 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
                 closeMenu();
                 menuIsOpen = false;
                 sortByIsOpen = true;
+                updateShadeViewClickable();
 
                 fragmentTransaction = getSupportFragmentManager().beginTransaction();
                 fragmentTransaction.setCustomAnimations(R.anim.slide_extended_towards_right, R.anim.fade_out);
@@ -134,6 +155,32 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
                 fragmentTransaction.add(R.id.sort_by_middle_unclickable_shade, sortByMiddleShade);
                 fragmentTransaction.commit();
                 findViewById(R.id.closet_menu_button).setVisibility(View.INVISIBLE);
+
+//                if (sortByLaundryToggle == null) {
+//                    initializeSortByToggleButtons();
+//                    Log.d("qqq", "B");
+//                }
+//
+//                    sortByLaundryToggle.setBackground(getDrawable(R.drawable.binary_button_deselected));
+//                    sortByAlphabeticalToggle.setBackground(getDrawable(R.drawable.binary_button_deselected));
+//                    sortByColorToggle.setBackground(getDrawable(R.drawable.binary_button_deselected));
+//                    sortBySizeToggle.setBackground(getDrawable(R.drawable.binary_button_deselected));
+//
+//                    switch (sortingType) {
+//                        case 1:
+//                            sortByLaundryToggle.setBackground(getDrawable(R.drawable.binary_button_selected));
+//                            break;
+//                        case 2:
+//                            sortByAlphabeticalToggle.setBackground(getDrawable(R.drawable.binary_button_selected));
+//                            break;
+//                        case 3:
+//                            sortByColorToggle.setBackground(getDrawable(R.drawable.binary_button_selected));
+//                            break;
+//                        case 4:
+//                            sortBySizeToggle.setBackground(getDrawable(R.drawable.binary_button_selected));
+//                            break;
+//                    }
+
             }
         }
     }
@@ -152,85 +199,136 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
     }
 
     public void shadeClicked(View view) {
-        if (true/*finish statemeant here*/) {
-            if (menuIsOpen) {
-                closeMenu();
-            } else if (sortByIsOpen) {
-                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.slide_extended_away_left, R.anim.slide_extended_away_left);
-                fragmentTransaction.remove(sortBy);
-                fragmentTransaction.commit();
+        if (menuIsOpen) {
+            closeMenu();
+            updateShadeViewClickable();
+            findViewById(R.id.closet_menu_button).setVisibility(View.VISIBLE);
+            Animation slideMenuButton = AnimationUtils.loadAnimation(this, R.anim.wait_then_slide_from_right);
+            closetMenuButton.startAnimation(slideMenuButton);
+        } else if (sortByIsOpen) {
+            sortByIsOpen = false;
+            updateShadeViewClickable();
 
-                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-                fragmentTransaction.remove(sortByTopShade).commit();
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.slide_extended_away_left, R.anim.slide_extended_away_left);
+            fragmentTransaction.remove(sortBy);
+            fragmentTransaction.commit();
 
-                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-                fragmentTransaction.remove(sortByLeftShade).commit();
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            fragmentTransaction.remove(sortByTopShade).commit();
 
-                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-                fragmentTransaction.remove(sortByBottomShade).commit();
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            fragmentTransaction.remove(sortByLeftShade).commit();
 
-                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-                fragmentTransaction.remove(sortByRightShade).commit();
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            fragmentTransaction.remove(sortByBottomShade).commit();
 
-                fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-                fragmentTransaction.remove(sortByMiddleShade).commit();
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            fragmentTransaction.remove(sortByRightShade).commit();
 
-                Animation slideMenuButton = AnimationUtils.loadAnimation(this, R.anim.wait_then_slide_from_right);
-                findViewById(R.id.closet_menu_button).startAnimation(slideMenuButton);
-                findViewById(R.id.closet_menu_button).setVisibility(View.VISIBLE);
-            }
+            fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+            fragmentTransaction.remove(sortByMiddleShade).commit();
+
+            Animation slideMenuButton = AnimationUtils.loadAnimation(this, R.anim.wait_then_slide_from_right);
+            findViewById(R.id.closet_menu_button).startAnimation(slideMenuButton);
+            findViewById(R.id.closet_menu_button).setVisibility(View.VISIBLE);
         }
     }
 
     public void closeMenu() {
         if (menuIsOpen) {
-            menuIsOpen = true;
-            clickableShadeView.setClickable(true);
+            menuIsOpen = false;
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-            fragmentTransaction.add(R.id.shade_layout_holder, clickableShade).commit();
+            fragmentTransaction.remove(clickableShade).commit();
 
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-            fragmentTransaction.add(R.id.shade_layout_holder, nonClickableShade).commit();
+            fragmentTransaction.remove(nonClickableShade).commit();
 
             fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.setCustomAnimations(R.anim.slide_from_right, R.anim.fade_out);
-            fragmentTransaction.add(R.id.menu_layout_holder, closetMenu);
-            fragmentTransaction.commit();
-
-            findViewById(R.id.closet_menu_button).setVisibility(View.INVISIBLE);
-            Animation slideMenuButton = AnimationUtils.loadAnimation(this, R.anim.slide_away_extended_right);
-            closetMenuButton.startAnimation(slideMenuButton);
-            closetMenuButton.setVisibility(View.GONE);
+            fragmentTransaction.setCustomAnimations(R.anim.fade_in, R.anim.slide_away_right);
+            fragmentTransaction.remove(closetMenu).commit();
         }
     }
 
     public void sortByToggleClicked(View view) {
 
-        findViewById(R.id.laundryStatusButton).setBackground(getDrawable(R.drawable.binary_button_deselected));
-        findViewById(R.id.alphabeticalButton).setBackground(getDrawable(R.drawable.binary_button_deselected));
-        findViewById(R.id.colorButton).setBackground(getDrawable(R.drawable.binary_button_deselected));
-        findViewById(R.id.sizeButton).setBackground(getDrawable(R.drawable.binary_button_deselected));
+        if (sortByLaundryToggle == null) {
+            initializeSortByToggleButtons();
+        } else {
+            setSortByToggleBackgrounds();
+        }
 
-        if (findViewById(R.id.laundryStatusButton) == view) {
-            findViewById(R.id.laundryStatusButton).setBackground(getDrawable(R.drawable.binary_button_selected));
-            sortingType = 1;
-        } else if (findViewById(R.id.alphabeticalButton) == view) {
-            findViewById(R.id.alphabeticalButton).setBackground(getDrawable(R.drawable.binary_button_selected));
-            sortingType = 2;
-        } else if (findViewById(R.id.colorButton) == view) {
-            findViewById(R.id.colorButton).setBackground(getDrawable(R.drawable.binary_button_selected));
-            sortingType = 3;
-        } else if (findViewById(R.id.sizeButton) == view) {
-            findViewById(R.id.sizeButton).setBackground(getDrawable(R.drawable.binary_button_selected));
-            sortingType = 4;
+            sortByLaundryToggle.setBackground(getDrawable(R.drawable.binary_button_deselected));
+            sortByAlphabeticalToggle.setBackground(getDrawable(R.drawable.binary_button_deselected));
+            sortByColorToggle.setBackground(getDrawable(R.drawable.binary_button_deselected));
+            sortBySizeToggle.setBackground(getDrawable(R.drawable.binary_button_deselected));
+
+            if (sortByLaundryToggle == view) {
+                sortByLaundryToggle.setBackground(getDrawable(R.drawable.binary_button_selected));
+                sortingType = 1;
+            } else if (sortByAlphabeticalToggle == view) {
+                sortByAlphabeticalToggle.setBackground(getDrawable(R.drawable.binary_button_selected));
+                sortingType = 2;
+            } else if (sortByColorToggle == view) {
+                sortByColorToggle.setBackground(getDrawable(R.drawable.binary_button_selected));
+                sortingType = 3;
+            } else if (sortBySizeToggle == view) {
+                sortBySizeToggle.setBackground(getDrawable(R.drawable.binary_button_selected));
+                sortingType = 4;
+            }
+
+    }
+
+    public void updateShadeViewClickable() {
+        clickableShadeView.setClickable(menuIsOpen);
+        sortByTopShadeView.setClickable(sortByIsOpen);
+        sortByLeftShadeView.setClickable(sortByIsOpen);
+        sortByBottomShadeView.setClickable(sortByIsOpen);
+        sortByRightShadeView.setClickable(sortByIsOpen);
+    }
+
+    private void initializeSortByToggleButtons() {
+        sortByLaundryToggle = findViewById(R.id.laundryStatusButton);
+        sortByAlphabeticalToggle = findViewById(R.id.alphabeticalButton);
+        sortByColorToggle = findViewById(R.id.colorButton);
+        sortBySizeToggle = findViewById(R.id.sizeButton);
+
+
+
+        if (sortingType == 1) {
+            sortByLaundryToggle.setBackground(getDrawable(R.drawable.binary_button_deselected));
+            sortByAlphabeticalToggle.setBackground(getDrawable(R.drawable.binary_button_deselected));
+            sortByColorToggle.setBackground(getDrawable(R.drawable.binary_button_deselected));
+            sortBySizeToggle.setBackground(getDrawable(R.drawable.binary_button_deselected));
+
+            setSortByToggleBackgrounds();
+        }
+
+    }
+
+    private void setSortByToggleBackgrounds() {
+        switch (sortingType) {
+            case 1:
+                sortByLaundryToggle.setBackground(getDrawable(R.drawable.binary_button_selected));
+                break;
+            case 2:
+                sortByAlphabeticalToggle.setBackground(getDrawable(R.drawable.binary_button_selected));
+                break;
+            case 3:
+                sortByColorToggle.setBackground(getDrawable(R.drawable.binary_button_selected));
+                break;
+            case 4:
+                sortBySizeToggle.setBackground(getDrawable(R.drawable.binary_button_selected));
+                break;
         }
     }
+
+
 }

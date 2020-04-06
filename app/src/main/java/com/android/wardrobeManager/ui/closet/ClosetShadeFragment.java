@@ -11,11 +11,6 @@ import com.android.wardrobeManager.R;
 public class ClosetShadeFragment extends Fragment {
 
     private boolean fragmentIsOpen;
-    private boolean shadeIsClickable;
-
-    public ClosetShadeFragment(boolean shadeIsClickable) {
-        this.shadeIsClickable = shadeIsClickable;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,8 +23,6 @@ public class ClosetShadeFragment extends Fragment {
         fragmentIsOpen = false;
         super.onDetach();
     }
-
-    public boolean shadeIsClickable() { return shadeIsClickable; }
 
     public boolean isFragmentOpen() { return fragmentIsOpen; }
 

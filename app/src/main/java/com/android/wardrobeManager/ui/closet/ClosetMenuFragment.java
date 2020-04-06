@@ -1,6 +1,7 @@
 package com.android.wardrobeManager.ui.closet;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ public class ClosetMenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentIsOpen = true;
+        Log.d("qqq", "B");
         return inflater.inflate(R.layout.fragment_closet_menu, container, false);
     }
 
