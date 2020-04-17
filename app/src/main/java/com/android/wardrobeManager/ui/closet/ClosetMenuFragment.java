@@ -17,7 +17,6 @@ public class ClosetMenuFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         fragmentIsOpen = true;
-        Log.d("qqq", "B");
         return inflater.inflate(R.layout.fragment_closet_menu, container, false);
     }
 
