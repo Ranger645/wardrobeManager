@@ -51,12 +51,14 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
     private View sortByColorToggle;
     private View sortBySizeToggle;
 
+    private RecyclerView recyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_closet);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new GridLayoutManager(this,2 ));
         recyclerView.setHasFixedSize(true);
 
@@ -81,6 +83,7 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
         updateShadeViewClickable();
 
         final ClosetAdapter adapter = new ClosetAdapter(this);
+        adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
 
         clothingItemDatabaseViewModel = ViewModelProviders.of(this).get(ClothingItemDatabaseViewModel.class);
@@ -233,17 +236,22 @@ public class ClosetActivity extends AppCompatActivity implements ClosetClothingI
 
             if (sortByLaundryToggle == view) {
                 sortByLaundryToggle.setBackground(getDrawable(R.drawable.binary_button_selected));
+                /*I didn't see a laundry status variable in clothingItem, so should I add the variable or not include the option to sort this way */
                 sortingType = 1;
             } else if (sortByAlphabeticalToggle == view) {
                 sortByAlphabeticalToggle.setBackground(getDrawable(R.drawable.binary_button_selected));
+                ((ClosetAdapter)recyclerView.getAdapter()).sortItemsAlphabetical();
                 sortingType = 2;
             } else if (sortByColorToggle == view) {
                 sortByColorToggle.setBackground(getDrawable(R.drawable.binary_button_selected));
+                ((ClosetAdapter)recyclerView.getAdapter()).sortItemsColor();
                 sortingType = 3;
             } else if (sortBySizeToggle == view) {
                 sortBySizeToggle.setBackground(getDrawable(R.drawable.binary_button_selected));
+                ((ClosetAdapter)recyclerView.getAdapter()).sortItemsSize();
                 sortingType = 4;
             }
+            recyclerView.getAdapter().notifyDataSetChanged();
     }
 
     public void updateShadeViewClickable() {
