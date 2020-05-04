@@ -10,5 +10,4 @@
     <dimen name="closet_menu_width">250dp</dimen>
     <dimen name="closet_menu_min_width">250dp</dimen>
     <dimen name="closet_menu_text_size">25sp</dimen>
->>>>>>> dev
 </resources>
