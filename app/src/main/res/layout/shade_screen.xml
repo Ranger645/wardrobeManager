@@ -6,5 +6,4 @@
     android:background="#75000000"
     android:focusable="false"
     android:orientation="vertical">
-
 </FrameLayout>
